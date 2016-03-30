@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YUP.App"
+        xmlns:views="clr-namespace:YUP.App.Views"
         mc:Ignorable="d"
         Title="YUP - Youtube Universal Player"
         Width="1020"
@@ -15,17 +16,26 @@
         >
     <Grid x:Name="GridMain">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="10*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        
+        <DockPanel Grid.Column="2">
+            <Button Content="Members Info" 
+                          HorizontalContentAlignment="Stretch"
+                          VerticalContentAlignment="Stretch">
+                <Button.LayoutTransform>
+                    <RotateTransform Angle="-90" />
+                </Button.LayoutTransform>
+            </Button>
+            
+        </DockPanel>
+        
         
         <Grid x:Name="GridDetails"
               Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="3*"></RowDefinition>
-            </Grid.RowDefinitions>
-
+            <views:VideosView></views:VideosView>
         </Grid>
 
         <Grid x:Name="GridPlayer"
