@@ -1,4 +1,4 @@
-﻿<Window x:Class="YUP.App.MainWindow"
+﻿<Controls:MetroWindow x:Class="YUP.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,6 +8,10 @@
         Title="YUP - Youtube Universal Player"
         Width="1020"
         Height="720"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        ResizeMode="CanResize"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        WindowStartupLocation="CenterScreen"
         >
     <Grid x:Name="GridMain">
         <Grid.ColumnDefinitions>
@@ -21,15 +25,12 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="3*"></RowDefinition>
             </Grid.RowDefinitions>
+
         </Grid>
 
         <Grid x:Name="GridPlayer"
               Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="6*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
         </Grid>
 
     </Grid>
-</Window>
+</Controls:MetroWindow>
