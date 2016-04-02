@@ -63,15 +63,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\Player.xaml.cs">
-      <DependentUpon>Player.xaml</DependentUpon>
+    <Compile Include="Player\PlayerView.xaml.cs">
+      <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SideControlsView.xaml.cs">
+    <Compile Include="Player\PlayerViewModel.cs" />
+    <Compile Include="SideControls\SideControlsView.xaml.cs">
       <DependentUpon>SideControlsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\VideosView.xaml.cs">
+    <Compile Include="SideControls\SideControlsViewModel.cs" />
+    <Compile Include="Videos\VideosView.xaml.cs">
       <DependentUpon>VideosView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Videos\VideosViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,15 +87,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Player.xaml">
+    <Page Include="Player\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SideControlsView.xaml">
+    <Page Include="SideControls\SideControlsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\VideosView.xaml">
+    <Page Include="Videos\VideosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +128,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace YUP.App.Views
+namespace YUP.App.Player
 {
     /// <summary>
     /// Interaction logic for Player.xaml
