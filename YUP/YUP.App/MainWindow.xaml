@@ -20,19 +20,38 @@
             <ColumnDefinition Width="5*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StatusBar Grid.Row="1"
+                   Grid.ColumnSpan="3"
+                   >
+            <StatusBarItem>YUP Connectivity mode</StatusBarItem>
+            <Separator Style="{StaticResource MetroStatusBarSeparator}" />
+            <StatusBarItem>Mode :</StatusBarItem>
+            <StatusBarItem Content="Offline" />
+            <!--<StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />-->
+        </StatusBar>
 
-        <Grid x:Name="GridControls" Grid.Column="2">
+
+        <Grid x:Name="GridControls" 
+              Grid.Column="2"
+              Grid.Row="0">
             <views:SideControlsView></views:SideControlsView>
         </Grid>
                
               
         <Grid x:Name="GridDetails"
-              Grid.Column="1">
+              Grid.Column="1"
+              Grid.Row="0">
             <views:VideosView></views:VideosView>
         </Grid>
 
         <Grid x:Name="GridPlayer"
-              Grid.Column="0">
+              Grid.Column="0"
+              Grid.Row="0">
             <views:Player></views:Player>
         </Grid>
 
