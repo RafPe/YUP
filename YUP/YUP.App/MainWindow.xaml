@@ -20,19 +20,12 @@
             <ColumnDefinition Width="5*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-        <DockPanel Grid.Column="2">
-            <Button Content="Members Info" 
-                          HorizontalContentAlignment="Stretch"
-                          VerticalContentAlignment="Stretch">
-                <Button.LayoutTransform>
-                    <RotateTransform Angle="-90" />
-                </Button.LayoutTransform>
-            </Button>
-            
-        </DockPanel>
-        
-        
+
+        <Grid x:Name="GridControls" Grid.Column="2">
+            <views:SideControlsView></views:SideControlsView>
+        </Grid>
+               
+              
         <Grid x:Name="GridDetails"
               Grid.Column="1">
             <views:VideosView></views:VideosView>
@@ -40,6 +33,7 @@
 
         <Grid x:Name="GridPlayer"
               Grid.Column="0">
+            <views:Player></views:Player>
         </Grid>
 
     </Grid>

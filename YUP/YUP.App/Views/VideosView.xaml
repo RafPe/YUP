@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <!--Nasza wyszukiwarka filmikow-->
-        <GroupBox Header="Filter" Grid.Row="0" Name="GroupBoxWyszukiwanie">
+        <GroupBox Header="Filter" Grid.Row="0" x:Name="Filter">
             <StackPanel Orientation="Vertical">
                 <TextBox Name="tbxFilterPoradnikiOnline" 
                                  Margin="10"                                 
@@ -22,6 +22,14 @@
                                  controls:TextBoxHelper.IsWaitingForData="True"
                                  ToolTip="{DynamicResource TextBox_ToolTip_Tutorial}"/>
             </StackPanel>
+        </GroupBox>
+        
+        <GroupBox x:Name="Videos" 
+                  Grid.Row="1"
+                  Header="Videos"
+                  Margin="5"
+                  >
+            
         </GroupBox>
     </Grid>
 </UserControl>
