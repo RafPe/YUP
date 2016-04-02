@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YUP.App.Player
 {
-    class PlayerViewModel
+    public class PlayerViewModel: BindableBase
     {
     }
 }

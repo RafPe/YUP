@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YUP.App.Videos
+namespace YUP.App.Yupis
 {
-    public class VideosViewModel : BindableBase
+    public class YupisViewModel : BindableBase
     {
+
     }
 }

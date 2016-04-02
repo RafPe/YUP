@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YUP.App.SideControls
 {
-    class SideControlsViewModel
+    public class SideControlsViewModel : BindableBase
     {
     }
 }
