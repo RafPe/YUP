@@ -8,6 +8,12 @@ namespace YUP.App.Yupis
 {
     public class YupisViewModel : BindableBase
     {
+        public string testmessage { get; set; }
 
+
+        public YupisViewModel()
+        {
+            testmessage = String.Format("{0:O}", DateTime.Now);
+        }
     }
 }

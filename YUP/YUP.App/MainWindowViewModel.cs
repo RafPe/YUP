@@ -16,11 +16,13 @@ namespace YUP.App
 
         private BindableBase _CurrentViewModel;
 
+        private VideosViewModel _videosViewModel;
+
 
         public MainWindowViewModel()
         {
             NavCommand = new RelayCommand<string>(OnNav);
-            _CurrentViewModel = new YupisViewModel();
+            _CurrentViewModel = ContainerHelper.GetService<YupisViewModel>();
         }
 
         public BindableBase CurrentViewModel
@@ -39,10 +41,11 @@ namespace YUP.App
             switch (destination)
             {
                 case "yupis":
-                    CurrentViewModel = new YupisViewModel();
+                    //CurrentViewModel = new YupisViewModel();
+                    CurrentViewModel = ContainerHelper.GetService<YupisViewModel>();
                     break;
                 case "videos":
-                    CurrentViewModel = new VideosViewModel();
+                    CurrentViewModel = ContainerHelper.GetService<VideosViewModel>();
                     break;
                 default:
                     break;
