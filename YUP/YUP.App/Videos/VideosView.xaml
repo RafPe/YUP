@@ -3,35 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             local:CustomBehaviors.LoadedMethodName="LoadData"
-             xmlns:local="clr-namespace:YUP.App"
+             app:CustomBehaviors.LoadedMethodName="LoadData"
+             xmlns:videos="clr-namespace:YUP.App.Videos"
+             xmlns:app="clr-namespace:YUP.App"
              >
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
-        </Grid.RowDefinitions>
 
-        <!--Nasza wyszukiwarka filmikow-->
-        <GroupBox Header="Filter" Grid.Row="0" x:Name="Filter">
-            <StackPanel Orientation="Vertical">
-                <TextBox Name="tbxFilterPoradnikiOnline" 
-                                 Margin="10"                                 
-                                 controls:TextBoxHelper.Watermark="{DynamicResource TextBox_WaterMark_SearchTutorial}"
-                                 controls:TextBoxHelper.IsWaitingForData="True"
-                                 ToolTip="{DynamicResource TextBox_ToolTip_Tutorial}"/>
-            </StackPanel>
-        </GroupBox>
-        
-        <GroupBox x:Name="Videos" 
-                  Grid.Row="1"
-                  Header="Videos"
-                  Margin="5"
-                  >
-            
-        </GroupBox>
+        <ListView Name="lvPoradnikiOnline" 
+                  ItemsSource="{Binding YtVideos}"
+                          >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="80" />
+                            <ColumnDefinition MinWidth="250" />
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="5" BorderBrush="Black" BorderThickness="1" Grid.Column="0">
+                            <Image Source="{Binding ThumbnailsURLs}" Stretch="Fill" Width="80" Height="50" />
+                        </Border>
+                        <StackPanel Grid.Column="1"
+                                            Margin="5,5,5,5"
+                                            Orientation="Vertical">
+                            <TextBlock Text="{Binding title}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
+                            <TextBlock Text="{Binding publishDate}" TextWrapping="WrapWithOverflow" />
+                            <TextBlock Text="{Binding duration}" TextWrapping="WrapWithOverflow"
+                                               Foreground="DeepSkyBlue" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
+
+
 </UserControl>

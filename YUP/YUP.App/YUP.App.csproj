@@ -74,6 +74,9 @@
     <Compile Include="CustomBehaviors.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Models\YTChannel.cs" />
+    <Compile Include="Models\YTThumbnail.cs" />
+    <Compile Include="Models\YTVideo.cs" />
     <Compile Include="Player\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
@@ -82,6 +85,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\IYtManager.cs" />
     <Compile Include="Services\IYupiManager.cs" />
+    <Compile Include="Services\IYupViewModel.cs" />
     <Compile Include="Videos\VideosView.xaml.cs">
       <DependentUpon>VideosView.xaml</DependentUpon>
     </Compile>
@@ -105,6 +109,10 @@
     <Page Include="Player\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Videos\VideosView.xaml">
       <SubType>Designer</SubType>
@@ -139,11 +147,17 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

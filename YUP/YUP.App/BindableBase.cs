@@ -6,10 +6,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using YUP.App.Annotations;
+using YUP.App.Services;
 
 namespace YUP.App
 {
-    public class BindableBase : INotifyPropertyChanged
+    public class BindableBase : INotifyPropertyChanged,IYupViewModel
     {
         protected virtual void SetProperty<T>(ref T member, T val,
             [CallerMemberName] string propertyName = null)

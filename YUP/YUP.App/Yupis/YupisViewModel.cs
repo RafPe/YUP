@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,11 @@ namespace YUP.App.Yupis
             _yupiManager = yupiManager;
 
             testmessage = String.Format("{0:O}", DateTime.Now);
+        }
+
+        public async void LoadData()
+        {
+            if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
         }
     }
 }
