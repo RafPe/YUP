@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YUP.App.SideControls
+namespace YUP.App.Services
 {
-    public class SideControlsViewModel : BindableBase
+    public interface IYtManager
     {
+        string test();
     }
 }

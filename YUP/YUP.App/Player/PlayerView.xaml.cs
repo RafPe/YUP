@@ -18,9 +18,9 @@ namespace YUP.App.Player
     /// <summary>
     /// Interaction logic for Player.xaml
     /// </summary>
-    public partial class Player : UserControl
+    public partial class PlayerView : UserControl
     {
-        public Player()
+        public PlayerView()
         {
             InitializeComponent();
         }

@@ -6,7 +6,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YUP.App"
         xmlns:videos="clr-namespace:YUP.App.Videos"
-        xmlns:sidecontrols="clr-namespace:YUP.App.SideControls"
         xmlns:player="clr-namespace:YUP.App.Player"
         xmlns:yupis="clr-namespace:YUP.App.Yupis"
         mc:Ignorable="d"
@@ -106,7 +105,7 @@
         <Grid x:Name="GridPlayer"
               Grid.Column="0"
               Grid.Row="0">
-            <player:Player></player:Player>
+            <player:PlayerView></player:PlayerView>
         </Grid>
 
     </Grid>

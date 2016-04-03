@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Autofac;
+using YUP.App.Contracts;
+using YUP.App.Services;
 using YUP.App.Videos;
 using YUP.App.Yupis;
 
@@ -27,9 +29,12 @@ namespace YUP.App
             // Create our DI container and build it 
             ContainerHelper.InitializeBuilder();
 
+            ContainerHelper.Builder.RegisterType<YupManger>().As<IYupiManager>();
+            ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
+
             //TODO: Think if we want to register ViewModel classes as singleton instances ?!
-            ContainerHelper.Builder.Register<VideosViewModel>(ctx => new VideosViewModel()).SingleInstance();
-            ContainerHelper.Builder.Register<YupisViewModel>(ctx => new YupisViewModel()).SingleInstance();
+            ContainerHelper.Builder.RegisterType<VideosViewModel>().SingleInstance();
+            ContainerHelper.Builder.RegisterType<YupisViewModel>().SingleInstance();
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 
