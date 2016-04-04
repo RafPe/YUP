@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="320"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:videos="clr-namespace:YUP.App.Videos"
              xmlns:helpers="clr-namespace:YUP.App.Contracts"
@@ -13,33 +13,38 @@
              xmlns:helpers1="clr-namespace:YUP.App.Helpers">
 
     <Grid>
-
-        <ListView ItemsSource="{Binding Testos}"></ListView>
-        <!--<ListView Name="lvPoradnikiOnline" 
+        <ListView Name="lvPoradnikiOnline" 
                   ItemsSource="{Binding YtVideos}"
                           >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="80" />
-                            <ColumnDefinition MinWidth="250" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="250" />
                         </Grid.ColumnDefinitions>
-                        <Border Margin="5" BorderBrush="Black" BorderThickness="1" Grid.Column="0">
-                            <Image Source="{Binding ThumbnailsURLs}" Stretch="Fill" Width="80" Height="50" />
+                        <Border Margin="5" 
+                                BorderBrush="Black" 
+                                BorderThickness="1" 
+                                Grid.Column="0">
+                            <Image Source="{Binding thumbnail}" Stretch="Fill" Width="80" Height="50" />
                         </Border>
                         <StackPanel Grid.Column="1"
                                             Margin="5,5,5,5"
                                             Orientation="Vertical">
-                            <TextBlock Text="{Binding title}" TextWrapping="WrapWithOverflow" FontWeight="Bold" />
-                            <TextBlock Text="{Binding publishDate}" TextWrapping="WrapWithOverflow" />
-                            <TextBlock Text="{Binding duration}" TextWrapping="WrapWithOverflow"
-                                               Foreground="DeepSkyBlue" />
+                            <TextBlock Text="{Binding title}" 
+                                       TextWrapping="WrapWithOverflow" 
+                                       FontWeight="Bold" />
+                            <TextBlock Text="{Binding publishDate}" 
+                                       TextWrapping="WrapWithOverflow" />
+                            <TextBlock Text="{Binding duration}" 
+                                       TextWrapping="WrapWithOverflow"
+                                       Foreground="DeepSkyBlue" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>-->
+        </ListView>
 
     </Grid>
 

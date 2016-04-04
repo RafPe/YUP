@@ -8,17 +8,13 @@ namespace YUP.App.Models
 {
     public class YTVideo
     {
-        public string title
-        {
-            get { return "xxxx"; }
-            set {  }
-        }
-
+        public string                   title       { get; set; }
         public string                   videoId     { get; set; }
         public string                   channelId   { get; set; }
         public string                   description { get; set; }
-        public string                      duration    { get; set; } 
-        public string                 publishDate { get; set; }
+        public int                      duration    { get; set; } 
+        public DateTime                 publishDate { get; set; }
+        public string                   thumbnail   { get; set; }
 
         public bool                     isWatched   { get; set; }
         public bool                     isFavorite  { get; set; }
