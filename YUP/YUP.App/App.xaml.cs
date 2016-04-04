@@ -31,6 +31,7 @@ namespace YUP.App
 
             ContainerHelper.Builder.RegisterType<YupManger>().As<IYupiManager>();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
+            
 
             //TODO: Think if we want to register ViewModel classes as singleton instances ?!
             ContainerHelper.Builder.RegisterType<VideosViewModel>().SingleInstance();

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using YUP.App.Models;
 using YUP.App.Services;
@@ -13,11 +14,27 @@ namespace YUP.App.Videos
 {
     public class VideosViewModel : BindableBase
     {
+
         private IYtManager _ytManager;
+
+
+
+
+
+
+
+
+
+
+
 
         public ObservableCollection<YTVideo> YtVideos { get; set; }
 
         public List<string> xxx;
+
+        public ObservableCollection<string> Testos { get; set; }
+
+
 
         public string test { get; set; }
 
@@ -26,45 +43,28 @@ namespace YUP.App.Videos
         public VideosViewModel(IYtManager ytManager)
         {
             _ytManager = ytManager;
+            Testos = new ObservableCollection<string>();
 
 
+            //var uzytkownikId =  _ytManager.GetChannelIdForUserName("EEVblog");
+            //var filmiki = ytManager.GetVideosFromChannel(uzytkownikId);
+            //var cos = _ytManager.GetChannelStatistcs("EEVblog");
 
-            xx.Add(new YTVideo()
-            {
-                channelId = "dddd",
-                description = "desc",
-                duration = "222",
-                isFavorite = false,
-                isHidden = false,
-                isWatched = false,
-                publishDate = "121",
-                tags = new[]
-    {
-                    "aaa",
-                    "bbb"
-                },
-                title = "mytitle",
-                videoId = "someId"
-            });
-            YtVideos = new ObservableCollection<YTVideo>(xx);
 
         }
 
         public async void LoadData()
         {
 
-            if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
+            //if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
 
+           
 
+            var muchos = await _ytManager.GetChannelIdAsync("EEVblog");
+            var filmiki = await _ytManager.GetVideosFromChannelAsync(muchos);
 
-            xxx = new List<string>()
-            {
-                "e",
-                "123",
-                "213123"
-            };
+            Testos.Add( muchos );
 
-            test = "kurwa-mac;";
 
         }
 

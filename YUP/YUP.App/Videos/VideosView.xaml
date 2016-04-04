@@ -8,11 +8,14 @@
              d:DesignHeight="300" d:DesignWidth="300"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:videos="clr-namespace:YUP.App.Videos"
+             xmlns:helpers="clr-namespace:YUP.App.Contracts"
              xmlns:app="clr-namespace:YUP.App"
-             >
+             xmlns:helpers1="clr-namespace:YUP.App.Helpers">
+
     <Grid>
 
-        <ListView Name="lvPoradnikiOnline" 
+        <ListView ItemsSource="{Binding Testos}"></ListView>
+        <!--<ListView Name="lvPoradnikiOnline" 
                   ItemsSource="{Binding YtVideos}"
                           >
             <ListView.ItemTemplate>
@@ -36,7 +39,7 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
 
     </Grid>
 
