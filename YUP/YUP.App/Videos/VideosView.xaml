@@ -10,42 +10,60 @@
              xmlns:local="clr-namespace:YUP.App.Videos">
 
     <Grid>
+        <!--<Grid.Resources>
+            <DataTemplate DataType="{x:Type local:VideosViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox />
+                    <TextBlock Text="{Binding Path=title}" />
+                    <Button Content="+" />
+                    <Button Content="-" />
+                    <Button Content="..." />
+                </StackPanel>
+            </DataTemplate>
+            <CollectionViewSource x:Key="XYZ" Source="{Binding YtVideos}"/>
+            <CompositeCollection x:Key="data">
+                
+                <TextBlock Text="Title"
+                       FontSize="24"
+                       FontWeight="Thin" />
+                <TextBlock Text="Subtitle"
+                       FontSize="16"
+                       FontWeight="Thin" />
 
-        <ListView Name="lvPoradnikiOnline" 
-                  ItemsSource="{Binding YtVideos}"
-                          >
-            <ListView.ItemTemplate>
+                <CollectionContainer Collection="{Binding Source={StaticResource XYZ}}" />
+
+                <TextBlock Text="User must scroll past the entire list box before seeing this"
+                       FontSize="16"
+                       FontWeight="Thin"
+                       Padding="5"
+                       TextWrapping="Wrap"
+                       Background="#99000000"
+                       Foreground="White" />
+            </CompositeCollection>
+        </Grid.Resources>-->
+
+
+
+        <ListBox x:Name="listbox"
+             VirtualizingPanel.IsVirtualizing="True"
+             VirtualizingPanel.VirtualizationMode="Recycling"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             ItemsSource="{Binding YtVideos}">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="250" />
-                        </Grid.ColumnDefinitions>
-                        <Border Margin="5" 
-                                BorderBrush="Black" 
-                                BorderThickness="1" 
-                                Grid.Column="0">
-                            <Image Source="{Binding thumbnail}" Stretch="Fill" Width="80" Height="50" />
-                        </Border>
-
-                        <VirtualizingStackPanel Grid.Column="1"
-                                            Margin="5,5,5,5"
-                                            Orientation="Vertical">
-                            <TextBlock Text="{Binding title}" 
-                                       TextWrapping="WrapWithOverflow" 
-                                       FontWeight="Bold" />
-                            <TextBlock Text="{Binding publishDate}" 
-                                       TextWrapping="WrapWithOverflow" />
-                            <TextBlock Text="{Binding duration}" 
-                                       TextWrapping="WrapWithOverflow"
-                                       Foreground="DeepSkyBlue" />
-                        </VirtualizingStackPanel>
-                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <!--<CheckBox />-->
+                        <TextBlock Text="{Binding Path=title}" />
+                        <Button Content="+" />
+                        <Button Content="-" />
+                        <Button Content="..." />
+                    </StackPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
+
 
 
 </UserControl>

@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using YUP.App.Models;
 
 namespace YUP.App.Videos
 {
@@ -10,6 +13,7 @@ namespace YUP.App.Videos
         public VideosView()
         {
             InitializeComponent();
+
         }
     }
 }

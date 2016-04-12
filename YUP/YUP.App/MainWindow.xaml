@@ -98,7 +98,9 @@
               
         <Grid x:Name="GridDetails"
               Grid.Column="1"
-              Grid.Row="0">
+              Grid.Row="0"
+              Width="340"
+              Height="600">
             <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
         </Grid>
 
