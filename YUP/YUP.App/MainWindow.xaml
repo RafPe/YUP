@@ -30,6 +30,9 @@
         <DataTemplate DataType="{x:Type yupis:YupisViewModel}">
             <yupis:YupisView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type player:PlayerViewModel}">
+            <player:PlayerView/>
+        </DataTemplate>
 
     </Window.Resources>
     
@@ -107,7 +110,7 @@
         <Grid x:Name="GridPlayer"
               Grid.Column="0"
               Grid.Row="0">
-            <player:PlayerView></player:PlayerView>
+            <ContentControl Content="{Binding CurrentPlayerViewModel}"></ContentControl>
         </Grid>
 
     </Grid>

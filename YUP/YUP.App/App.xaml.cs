@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using Autofac;
 using YUP.App.Contracts;
+using YUP.App.MediaPlayers;
+using YUP.App.Player;
 using YUP.App.Services;
 using YUP.App.Videos;
 using YUP.App.Yupis;
@@ -31,11 +27,14 @@ namespace YUP.App
 
             ContainerHelper.Builder.RegisterType<YupManger>().As<IYupiManager>();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
-            
+
+            //TODO: Register players named ? 
+            ContainerHelper.Builder.RegisterType<FlashAxControl>().Named<IMediaPlayer>("youtube").As<IMediaPlayer>();
 
             //TODO: Think if we want to register ViewModel classes as singleton instances ?!
             ContainerHelper.Builder.RegisterType<VideosViewModel>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YupisViewModel>().SingleInstance();
+            ContainerHelper.Builder.RegisterType<PlayerViewModel>().SingleInstance();
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 

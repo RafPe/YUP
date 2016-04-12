@@ -9,10 +9,9 @@
              xmlns:local="clr-namespace:YUP.App"
 >
     <Grid>
-        <GroupBox x:Name="gbPlayer" 
-                  Margin="5"
-                  >
+        <DockPanel>
+            <TextBlock Text="{Binding whatever}"></TextBlock>
+        </DockPanel>
 
-        </GroupBox>
     </Grid>
 </UserControl>

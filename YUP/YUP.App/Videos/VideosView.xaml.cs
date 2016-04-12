@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using YUP.App.Models;
+﻿using System.Windows.Controls;
 
 namespace YUP.App.Videos
 {

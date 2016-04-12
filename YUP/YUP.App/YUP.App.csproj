@@ -39,6 +39,10 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AxInterop.ShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>MediaPlayers\AxInterop.ShockwaveFlashObjects.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +89,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -116,9 +123,18 @@
     <Compile Include="Contracts\YtManager.cs" />
     <Compile Include="Contracts\YupManger.cs" />
     <Compile Include="CustomBehaviors.cs" />
+    <Compile Include="Events\PlayerStateChangedArgs.cs" />
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="MediaPlayers\FlashAxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MediaPlayers\FlashAxControl.Designer.cs">
+      <DependentUpon>FlashAxControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaPlayers\MediaPlaybackQuality.cs" />
+    <Compile Include="MediaPlayers\MediaPlaybackState.cs" />
     <Compile Include="Models\YTChannel.cs" />
     <Compile Include="Models\YTThumbnail.cs" />
     <Compile Include="Models\YTVideo.cs" />
@@ -128,6 +144,7 @@
     <Compile Include="Player\PlayerViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Services\IMediaPlayer.cs" />
     <Compile Include="Services\IYtManager.cs" />
     <Compile Include="Services\IYupiManager.cs" />
     <Compile Include="Services\IYupViewModel.cs" />
@@ -182,6 +199,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="MediaPlayers\FlashAxControl.resx">
+      <DependentUpon>FlashAxControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -202,6 +222,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MediaPlayers\AxInterop.ShockwaveFlashObjects.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ShockwaveFlashObjects">
+      <Guid>{D27CDB6B-AE6D-11CF-96B8-444553540000}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
