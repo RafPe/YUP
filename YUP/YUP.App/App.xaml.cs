@@ -29,7 +29,7 @@ namespace YUP.App
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
 
             //TODO: Register players named ? 
-            ContainerHelper.Builder.RegisterType<FlashAxControl>().Named<IMediaPlayer>("youtube").As<IMediaPlayer>();
+            ContainerHelper.Builder.RegisterType<FlashAxControl>().Named<IMediaPlayer>("youtube").SingleInstance();
 
             //TODO: Think if we want to register ViewModel classes as singleton instances ?!
             ContainerHelper.Builder.RegisterType<VideosViewModel>().SingleInstance();

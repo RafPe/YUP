@@ -169,24 +169,26 @@ namespace YUP.App.MediaPlayers
         private bool IsVideoIdValidUrl(string videoid)
         {
 
-            var r = new Regex(@"(?<Protocol>\w+):\/\/(?<Domain>[\w@][\w.:@]+)\/?[\w\.?=%&=\-@/$,]*");
+
+            //TODO: Validation should be done by application before sending here ? Or we should extract video ID
+            //var r = new Regex(@"(?<Protocol>\w+):\/\/(?<Domain>[\w@][\w.:@]+)\/?[\w\.?=%&=\-@/$,]*");
             
-            var match = r.Match(videoid);
+            //var match = r.Match(videoid);
 
-            if (match.Success)
-            {
-                if (match.Groups["Domain"].Value.ToLower() == "youtu.be" ||
-                    match.Groups["Domain"].Value.ToLower() == "youtube.com")
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            //if (match.Success)
+            //{
+            //    if (match.Groups["Domain"].Value.ToLower() == "youtu.be" ||
+            //        match.Groups["Domain"].Value.ToLower() == "youtube.com")
+            //    {
+            //        return true;
+            //    }
+            //}
+            //else
+            //{
+            //    return false;
+            //}
 
-            return false;
+            return true;
 
         }
 

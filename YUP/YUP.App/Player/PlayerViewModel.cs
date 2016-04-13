@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using YUP.App.MediaPlayers;
 using YUP.App.Services;
 
 namespace YUP.App.Player
@@ -11,11 +12,6 @@ namespace YUP.App.Player
 
         public PlayerViewModel()
         {
-            //_mediaPlayer = ContainerHelper.GetService<IMediaPlayer>("youtube");
-
-            
-
-            var test = "";
         }
         public async void LoadData()
         {

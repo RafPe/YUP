@@ -9,7 +9,6 @@ namespace YUP.App
 
 
         private BindableBase _CurrentViewModel;
-
         public BindableBase CurrentViewModel
         {
             get
@@ -20,7 +19,6 @@ namespace YUP.App
         }
 
         private BindableBase _CurrentPlayerViewModel;
-
         public BindableBase CurrentPlayerViewModel
         {
             get

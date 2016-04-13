@@ -33,6 +33,8 @@ namespace YUP.App
             return string.IsNullOrEmpty(name) ? Container.Resolve<T>() : Container.ResolveNamed<T>(name);
         }
     }
+
+
 }
 
 

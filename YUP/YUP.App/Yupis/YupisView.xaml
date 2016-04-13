@@ -9,9 +9,10 @@
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:app="clr-namespace:YUP.App">
     <Grid>
-        <DockPanel>
+        <StackPanel>
             <TextBlock Text="{Binding testmessage}"></TextBlock>
-        </DockPanel>
+            <Button x:Name="bt" Command="{Binding test}"></Button>
+        </StackPanel>
             
     </Grid>
 </UserControl>

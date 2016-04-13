@@ -7,11 +7,12 @@
              d:DesignHeight="300" d:DesignWidth="300"
              local:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:local="clr-namespace:YUP.App"
+             Loaded="PlayerView_OnLoaded"
 >
     <Grid>
-        <DockPanel>
-            <TextBlock Text="{Binding whatever}"></TextBlock>
-        </DockPanel>
+        <StackPanel x:Name="player_youtube">
+            <Button Click="ButtonBase_OnClick"></Button>
+        </StackPanel>
 
     </Grid>
 </UserControl>
