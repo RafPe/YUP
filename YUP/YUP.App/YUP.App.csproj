@@ -161,6 +161,7 @@
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
     <Compile Include="ContainerHelper.cs" />
+    <Compile Include="Contracts\EventBus.cs" />
     <Compile Include="Contracts\YtManager.cs" />
     <Compile Include="Contracts\YupManger.cs" />
     <Compile Include="CustomBehaviors.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Player\PlayerViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Services\IEventBus.cs" />
     <Compile Include="Services\IMediaPlayer.cs" />
     <Compile Include="Services\IYtManager.cs" />
     <Compile Include="Services\IYupiManager.cs" />

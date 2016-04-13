@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using YUP.App.Contracts;
 using YUP.App.Services;
 
 namespace YUP.App.Yupis
@@ -8,24 +9,33 @@ namespace YUP.App.Yupis
     {
 
         private IYupiManager    _yupiManager;
+        private IEventBus       _eventBus;
+
+        public event EventBusHandler VideoIdChangedHandler;
+
         public  string          testmessage { get; set; }
         //TODO:Player tests - remove ...
         public  RelayCommand    test        { get; private set; }
 
 
 
-        public YupisViewModel(IYupiManager yupiManager)
+        public YupisViewModel(IYupiManager yupiManager,IEventBus eventBus)
         {
-            _yupiManager = yupiManager;
+            _eventBus       = eventBus;
+            _yupiManager    = yupiManager;
+
             test=new RelayCommand(onTest);
+            _eventBus.PublishEvent("VideoIdChanged", VideoIdChangedHandler);
+
 
             testmessage = String.Format("{0:O}", DateTime.Now);
         }
 
         private void onTest()
         {
-            var yyy = ContainerHelper.GetService<IMediaPlayer>("youtube");
-            yyy.mediaLoadVideo("b9FC9fAlfQE");
+
+            _eventBus.RaiseEvent("VideoIdChanged", this,new EventBusArgs() {Item = "b9FC9fAlfQE" });
+
         }
 
         public async void LoadData()
