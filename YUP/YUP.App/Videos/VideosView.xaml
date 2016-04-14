@@ -41,14 +41,24 @@
                        Foreground="White" />
             </CompositeCollection>
         </Grid.Resources>-->
-
-
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <TextBox></TextBox>
+            <Button x:Name="test"  Grid.Row="0" Command="{Binding test}"></Button>
+        </StackPanel>
+           
         <ListBox x:Name="listbox"
+                 Grid.Row="1"
              VirtualizingPanel.IsVirtualizing="True"
              VirtualizingPanel.VirtualizationMode="Recycling"
              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             ItemsSource="{Binding YtVideos}">
+             ItemsSource="{Binding YtVideos}"
+             SelectedItem="{Binding SelectedYtVideo}"
+                 >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -62,6 +72,7 @@
 
             </ListBox.ItemTemplate>
         </ListBox>
+
     </Grid>
 
 

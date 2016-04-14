@@ -25,21 +25,7 @@ namespace YUP.App.Player
 
             InitializeComponent();
 
-            var host = new WindowsFormsHost(); // Interop z Windows Forms
 
-            cc = (FlashAxControl)ContainerHelper.GetService<IMediaPlayer>("youtube");
-
-            host.Child = cc;
-            int Height = 300;
-            int Width = 300;
-
-            cc.Height = Height;
-            cc.Width = Width;
-
-            cc.mediaSetPlayerSize(Width, Height);
-            
-
-            player_youtube.Children.Add(host);
         }
 
         private void VideoIdChangedHandler(object sender, EventBusArgs busargs)
@@ -51,7 +37,21 @@ namespace YUP.App.Player
 
         private void PlayerView_OnLoaded(object sender, RoutedEventArgs e)
         {
-            
+            var host = new WindowsFormsHost(); // Interop z Windows Forms
+
+            cc = (FlashAxControl)ContainerHelper.GetService<IMediaPlayer>("youtube");
+
+            host.Child = cc;
+            int Height = (int) player_youtube.ActualHeight;
+            int Width = (int) player_youtube.ActualWidth;
+
+            cc.Height = Height;
+            cc.Width = Width;
+
+            cc.mediaSetPlayerSize(Width, Height);
+
+
+            player_youtube.Children.Add(host);
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
