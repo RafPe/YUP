@@ -159,12 +159,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Base\VideoBase.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="ContainerHelper.cs" />
     <Compile Include="Contracts\EventBus.cs" />
     <Compile Include="Contracts\YtManager.cs" />
-    <Compile Include="Contracts\YupManger.cs" />
+    <Compile Include="Contracts\YupRepository.cs" />
     <Compile Include="CustomBehaviors.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Events\PlayerStateChangedArgs.cs" />
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
@@ -189,7 +191,8 @@
     <Compile Include="Services\IEventBus.cs" />
     <Compile Include="Services\IMediaPlayer.cs" />
     <Compile Include="Services\IYtManager.cs" />
-    <Compile Include="Services\IYupiManager.cs" />
+    <Compile Include="Services\IYupRepository.cs" />
+    <Compile Include="Services\IYupSettings.cs" />
     <Compile Include="Services\IYupViewModel.cs" />
     <Compile Include="Videos\VideosView.xaml.cs">
       <DependentUpon>VideosView.xaml</DependentUpon>

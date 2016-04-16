@@ -95,7 +95,7 @@ namespace YUP.App.MediaPlayers
         /// <param name="videoId"> our videoId which is being used</param>
         private void PlayerStateTrigger(MediaPlaybackState status,string videoId)
         {
-            PlayerStateChanged?.Invoke(null, new PlayerStateChangedArgs { PlaybackState = status, VideoId = videoId});
+            PlayerStateChanged?.Invoke(null, new PlayerStateChangedArgs { playbackState = status, videoId = videoId});
         }
 
         #endregion

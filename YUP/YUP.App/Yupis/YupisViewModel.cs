@@ -8,7 +8,7 @@ namespace YUP.App.Yupis
     public class YupisViewModel : BindableBase
     {
 
-        private IYupiManager    _yupiManager;
+        private IYupRepository    _yupiManager;
         private IEventBus       _eventBus;
 
         public event EventBusHandler VideoIdChangedHandler;
@@ -19,7 +19,7 @@ namespace YUP.App.Yupis
 
 
 
-        public YupisViewModel(IYupiManager yupiManager,IEventBus eventBus)
+        public YupisViewModel(IYupRepository yupiManager,IEventBus eventBus)
         {
             _eventBus       = eventBus;
             _yupiManager    = yupiManager;

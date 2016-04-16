@@ -25,7 +25,7 @@ namespace YUP.App
             // Create our DI container and build it 
             ContainerHelper.InitializeBuilder();
 
-            ContainerHelper.Builder.RegisterType<YupManger>().As<IYupiManager>();
+            ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
             ContainerHelper.Builder.Register(c=>new EventBus()).As<IEventBus>().SingleInstance();
 
