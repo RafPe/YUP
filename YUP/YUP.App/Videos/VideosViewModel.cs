@@ -76,7 +76,7 @@ namespace YUP.App.Videos
                 {
                     videoId         = searchResult.Id.VideoId,
                     channelId       = searchResult.Snippet.ChannelId,
-                    publishDate     = searchResult.Snippet.PublishedAt ?? new DateTime(1900, 1, 1),
+                    publishDdate     = searchResult.Snippet.PublishedAt ?? new DateTime(1900, 1, 1),
                     title           = searchResult.Snippet.Title,
                     thumbnail       = searchResult.Snippet.Thumbnails.Default__?.Url ?? "empty"
                 };

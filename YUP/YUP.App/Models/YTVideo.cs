@@ -1,22 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using YUP.App.Base;
 
 namespace YUP.App.Models
 {
-    public class YTVideo
+    /// <summary>
+    /// Public class used to manage Youtube videos
+    /// </summary>
+    public class YTVideo : VideoBase
     {
-        public string                   title       { get; set; }
-        public string                   videoId     { get; set; }
-        public string                   channelId   { get; set; }
-        public string                   description { get; set; }
-        public int                      duration    { get; set; } 
-        public DateTime                 publishDate { get; set; }
-        public string                   thumbnail   { get; set; }
+        public string                           channelId           { get; set; }
 
-        public bool                     isWatched   { get; set; }
-        public bool                     isFavorite  { get; set; }
-        public bool                     isHidden    { get; set; }
-
-        //public List<YTThumbnail>        thumbnails  { get; set; }
-        public string[]                 tags        { get; set; }
+        //public List<YTThumbnail>                thumbnails  { get; set; }
+        public string[]                         tags                { get; set; }
     }
 }
