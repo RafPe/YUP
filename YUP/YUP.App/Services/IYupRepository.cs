@@ -1,7 +1,24 @@
-﻿namespace YUP.App.Services
+﻿using System.Collections.Generic;
+using YUP.App.Models;
+
+namespace YUP.App.Services
 {
-    public interface IYupiManager
+    public interface IYupRepository
     {
-        string test();
+        IEnumerable<YTVideo> ytVideos { get; set; }
+        IEnumerable<YupItem> yupItems { get; set; } 
+
+        void LoadRepository();
+        void SaveRepository();
+
+        void AddChannel();
+        void Editchannel();
+        void RemoveChannel();
+
+        void LoadYupis();
+        void AddYupi();
+        void EditYupi();
+        void RemoveYupi();
+
     }
 }

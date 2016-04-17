@@ -182,6 +182,7 @@
     <Compile Include="Models\YTChannel.cs" />
     <Compile Include="Models\YTThumbnail.cs" />
     <Compile Include="Models\YTVideo.cs" />
+    <Compile Include="Models\YupItem.cs" />
     <Compile Include="Player\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>

@@ -11,5 +11,7 @@ namespace YUP.App.Services
     /// </summary>
     public interface IYupSettings
     {
+        string appPath { get; set; }    
+
     }
 }

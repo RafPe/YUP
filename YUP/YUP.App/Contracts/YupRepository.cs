@@ -3,7 +3,7 @@ using YUP.App.Services;
 
 namespace YUP.App.Contracts
 {
-    public class YupManger : IYupiManager
+    public class YupRepository : IYupRepository
     {
         public string test()
         {
