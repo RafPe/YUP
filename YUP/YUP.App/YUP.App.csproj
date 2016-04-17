@@ -196,6 +196,9 @@
     <Compile Include="Services\IYupRepository.cs" />
     <Compile Include="Services\IYupSettings.cs" />
     <Compile Include="Services\IYupViewModel.cs" />
+    <Compile Include="vChannels\ChannelsView.xaml.cs">
+      <DependentUpon>ChannelsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Videos\VideosView.xaml.cs">
       <DependentUpon>VideosView.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="vChannels\ChannelsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Videos\VideosView.xaml">
       <SubType>Designer</SubType>

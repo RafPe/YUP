@@ -21,7 +21,7 @@ namespace YUP.App.Videos
         private YTChannel           _selectedYtChannel;
 
 
-        public event EventBusHandler VideoIdChangedHandler;
+        public event EventBusHandler VideoIdChanged;
 
         //TODO:This needs to be changed or removed :/
         private bool _dataLoaded;
@@ -46,7 +46,7 @@ namespace YUP.App.Videos
             YtVideos    = new ObservableCollection<YTVideo>();
             YtChannels  = new ObservableCollection<YTChannel>();
 
-            _eventBus.PublishEvent("VideoIdChanged", VideoIdChangedHandler);
+            _eventBus.PublishEvent("VideoIdChanged", VideoIdChanged);
 
         }
 
