@@ -25,10 +25,14 @@ namespace YUP.App.Videos
 
         //TODO:This needs to be changed or removed :/
         private bool _dataLoaded;
-        public RelayCommand test { get; private set; }
 
-        public ObservableCollection<YTVideo>    YtVideos   { get; set; }
-        public ObservableCollection<YTChannel>  YtChannels { get; set; }
+        private bool _isBusy;
+
+
+        public RelayCommand                     test        { get; private set; }
+
+        public ObservableCollection<YTVideo>    YtVideos    { get; set; }
+        public ObservableCollection<YTChannel>  YtChannels  { get; set; }
 
         public VideosViewModel(IYtManager ytManager, IEventBus eventBus, IYupRepository yupRepository)
         {
@@ -72,6 +76,15 @@ namespace YUP.App.Videos
             }
         }
 
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                _isBusy = true;
+            }
+        }
+
         public void onTest()
         {
             _eventBus.RaiseEvent("VideoIdChanged", this, new EventBusArgs() { Item = SelectedYtVideo.videoId });
@@ -80,7 +93,7 @@ namespace YUP.App.Videos
         private async void LoadVideos(string userId)
         {
 
-            var muchos = await _ytManager.GetChannelIdAsync(userId);
+            var muchos  = await _ytManager.GetChannelIdAsync(userId);
             var filmiki = await _ytManager.GetVideosFromChannelAsync(muchos);
 
             // New colletion 
@@ -93,11 +106,11 @@ namespace YUP.App.Videos
             {
                 var tmpobj = new YTVideo()
                 {
-                    videoId = searchResult.Id.VideoId,
-                    channelId = searchResult.Snippet.ChannelId,
-                    publishDdate = searchResult.Snippet.PublishedAt ?? new DateTime(1900, 1, 1),
-                    title = searchResult.Snippet.Title,
-                    thumbnail = searchResult.Snippet.Thumbnails.Default__?.Url ?? "empty"
+                    videoId         = searchResult.Id.VideoId,
+                    channelId       = searchResult.Snippet.ChannelId,
+                    publishDdate    = searchResult.Snippet.PublishedAt ?? new DateTime(1900, 1, 1),
+                    title           = searchResult.Snippet.Title,
+                    thumbnail       = searchResult.Snippet.Thumbnails.Default__?.Url ?? "empty"
                 };
 
                 YtVideos.Add(tmpobj);

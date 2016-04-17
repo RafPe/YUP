@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:helpers="clr-namespace:YUP.App.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="320"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:app="clr-namespace:YUP.App"
              xmlns:local="clr-namespace:YUP.App.Videos">
 
+ <UserControl.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolConverter"/>
+</UserControl.Resources>
+    
     <Grid>
         <!--<Grid.Resources>
             <DataTemplate DataType="{x:Type local:VideosViewModel}">
@@ -61,7 +66,7 @@
         </StackPanel>
            
         <ListBox x:Name="listbox"
-                 Grid.Row="1"
+             Grid.Row="1"
              VirtualizingPanel.IsVirtualizing="True"
              VirtualizingPanel.VirtualizationMode="Recycling"
              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
