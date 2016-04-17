@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace YUP.App.Base
 {
@@ -21,6 +18,7 @@ namespace YUP.App.Base
         public bool                             isWatched           { get; set; }
         public bool                             isFavorite          { get; set; }
         public bool                             isHidden            { get; set; }
+        public bool                             isSelected          { get; set; } //Used for multiple items editing 
         public bool                             isAvailableOffline  { get; set; }
 
         //public List<YTThumbnail>                thumbnails  { get; set; }

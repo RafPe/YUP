@@ -1,4 +1,6 @@
-﻿using YUP.App.Player;
+﻿using YUP.App.Contracts;
+using YUP.App.Player;
+using YUP.App.Services;
 using YUP.App.Videos;
 using YUP.App.Yupis;
 
@@ -8,18 +10,18 @@ namespace YUP.App
     {
 
 
-        private BindableBase _CurrentViewModel;
-        public BindableBase CurrentViewModel
+        private BindableBase _currentDetailsViewModel;
+        public  BindableBase CurrentDetailsViewModel
         {
             get
             {
-                return _CurrentViewModel;
+                return _currentDetailsViewModel;
             }
-            set { SetProperty(ref _CurrentViewModel, value); }
+            set { SetProperty(ref _currentDetailsViewModel, value); }
         }
 
         private BindableBase _CurrentPlayerViewModel;
-        public BindableBase CurrentPlayerViewModel
+        public  BindableBase CurrentPlayerViewModel
         {
             get
             {
@@ -28,11 +30,18 @@ namespace YUP.App
             set { SetProperty(ref _CurrentPlayerViewModel, value); }
         }
 
+        private IYupSettings _yupSettings;
+
 
         public MainWindowViewModel()
         {
+
+            _yupSettings                = ContainerHelper.GetService<IYupSettings>(); ;
+
             NavCommand                  = new RelayCommand<string>(OnNav);
-            _CurrentViewModel           = ContainerHelper.GetService<YupisViewModel>();
+
+
+            _currentDetailsViewModel    = ContainerHelper.GetService<YupisViewModel>();
             _CurrentPlayerViewModel     = ContainerHelper.GetService<PlayerViewModel>();
         }
 
@@ -46,10 +55,10 @@ namespace YUP.App
             {
                 case "yupis":
                     //CurrentViewModel = new YupisViewModel();
-                    CurrentViewModel = ContainerHelper.GetService<YupisViewModel>();
+                    CurrentDetailsViewModel = ContainerHelper.GetService<YupisViewModel>();
                     break;
                 case "videos":
-                    CurrentViewModel = ContainerHelper.GetService<VideosViewModel>();
+                    CurrentDetailsViewModel = ContainerHelper.GetService<VideosViewModel>();
                     break;
                 default:
                     break;

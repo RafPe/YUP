@@ -47,7 +47,16 @@
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="0" Orientation="Vertical">
-            <TextBox></TextBox>
+            <ComboBox ItemsSource="{Binding YtChannels}" SelectedItem="{Binding SelectedYtChannel}">
+                <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!--<Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />-->
+                                <TextBlock Text="{Binding channelId}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             <Button x:Name="test"  Grid.Row="0" Command="{Binding test}"></Button>
         </StackPanel>
            

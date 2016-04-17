@@ -25,7 +25,8 @@ namespace YUP.App
             // Create our DI container and build it 
             ContainerHelper.InitializeBuilder();
 
-            ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>();
+            ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>().SingleInstance();
+            ContainerHelper.Builder.Register(c=>new YupSettings()).As<IYupSettings>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
             ContainerHelper.Builder.Register(c=>new EventBus()).As<IEventBus>().SingleInstance();
 
@@ -38,6 +39,16 @@ namespace YUP.App
             ContainerHelper.Builder.RegisterType<PlayerViewModel>().SingleInstance();
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
+
+            //TODO: We load settings before app starts!?
+            using (var scope = ContainerHelper.Container.BeginLifetimeScope())
+            {
+                
+                var service = scope.Resolve<IYupSettings>();
+
+                service.checkAppFolderPath();
+
+            }
 
             // Create our main window - since we removed startup URI
             YUP.App.MainWindow wnd = new MainWindow();
