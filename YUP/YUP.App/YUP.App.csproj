@@ -165,6 +165,7 @@
     <Compile Include="Contracts\EventBus.cs" />
     <Compile Include="Contracts\YtManager.cs" />
     <Compile Include="Contracts\YupRepository.cs" />
+    <Compile Include="Contracts\YupSettings.cs" />
     <Compile Include="CustomBehaviors.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\PlayerStateChangedArgs.cs" />

@@ -11,7 +11,11 @@ namespace YUP.App.Services
     /// </summary>
     public interface IYupSettings
     {
-        string appPath { get; set; }    
+        string  appPath { get; set; }    
+        YupMode appMode { get; set; }
+
+        bool checkAppFolderPath();
+        bool createAppFolderStructure();
 
     }
 }
