@@ -16,11 +16,17 @@ namespace YUP.App.Contracts
         public  IEnumerable<YupItem>   yupItems             { get; set; }
         public  IEnumerable<YTChannel> ytChannels           { get; set; }
 
+        public YTChannel                currentlySelected   { get; set; }
+
         private string                  jsonChannelsPath    { get; set; }
 
         public YupRepository(IYupSettings yupSettings)
         {
             _yupSettings        = yupSettings;
+
+            //TODO: #3
+            //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
+            //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
 
             jsonChannelsPath    = String.Format(@"{0}\channels.yup", _yupSettings.appPath);
         }
