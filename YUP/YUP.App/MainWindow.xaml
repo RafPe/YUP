@@ -8,6 +8,7 @@
         xmlns:videos="clr-namespace:YUP.App.Videos"
         xmlns:player="clr-namespace:YUP.App.Player"
         xmlns:yupis="clr-namespace:YUP.App.Yupis"
+        xmlns:channels="clr-namespace:YUP.App.vChannels"
         mc:Ignorable="d"
         Title="YUP - Youtube Universal Player"
         Width="1020"
@@ -33,6 +34,10 @@
         <DataTemplate DataType="{x:Type player:PlayerViewModel}">
             <player:PlayerView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type channels:ChannelsViewModel}">
+            <channels:ChannelsView/>
+        </DataTemplate>
+
 
     </Window.Resources>
     
@@ -66,6 +71,21 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="2" Margin="5">
+
+                <Button Content="Channels"
+                        Style="{DynamicResource AccentedSquareButtonStyle}"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="channels">
+                    <Button.LayoutTransform>
+                        <RotateTransform Angle="-90" />
+                    </Button.LayoutTransform>
+                </Button>
+
+            </DockPanel>
 
             <DockPanel Grid.Row="1" Margin="5">
 
@@ -107,10 +127,10 @@
             <ContentControl Content="{Binding CurrentDetailsViewModel}"></ContentControl>
         </Grid>
 
-        <Grid x:Name="GridPlayer"
+        <Grid x:Name="GridDashboard"
               Grid.Column="0"
               Grid.Row="0">
-            <ContentControl Content="{Binding CurrentPlayerViewModel}"></ContentControl>
+            <ContentControl Content="{Binding CurrentDashboardViewModel}"></ContentControl>
         </Grid>
 
     </Grid>

@@ -4,6 +4,7 @@ using YUP.App.Contracts;
 using YUP.App.MediaPlayers;
 using YUP.App.Player;
 using YUP.App.Services;
+using YUP.App.vChannels;
 using YUP.App.Videos;
 using YUP.App.Yupis;
 
@@ -37,6 +38,7 @@ namespace YUP.App
             ContainerHelper.Builder.RegisterType<VideosViewModel>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YupisViewModel>().SingleInstance();
             ContainerHelper.Builder.RegisterType<PlayerViewModel>().SingleInstance();
+            ContainerHelper.Builder.RegisterType<ChannelsViewModel>().SingleInstance();
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 

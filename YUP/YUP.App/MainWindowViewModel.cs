@@ -1,6 +1,7 @@
 ﻿using YUP.App.Contracts;
 using YUP.App.Player;
 using YUP.App.Services;
+using YUP.App.vChannels;
 using YUP.App.Videos;
 using YUP.App.Yupis;
 
@@ -20,15 +21,17 @@ namespace YUP.App
             set { SetProperty(ref _currentDetailsViewModel, value); }
         }
 
-        private BindableBase _CurrentPlayerViewModel;
-        public  BindableBase CurrentPlayerViewModel
+        private BindableBase _CurrentDashboardViewModel;
+        public  BindableBase CurrentDashboardViewModel
         {
             get
             {
-                return _CurrentPlayerViewModel;
+                return _CurrentDashboardViewModel;
             }
-            set { SetProperty(ref _CurrentPlayerViewModel, value); }
+            set { SetProperty(ref _CurrentDashboardViewModel, value); }
         }
+
+
 
         private IYupSettings _yupSettings;
 
@@ -42,7 +45,7 @@ namespace YUP.App
 
 
             _currentDetailsViewModel    = ContainerHelper.GetService<YupisViewModel>();
-            _CurrentPlayerViewModel     = ContainerHelper.GetService<PlayerViewModel>();
+            _CurrentDashboardViewModel  = ContainerHelper.GetService<PlayerViewModel>();
         }
 
 
@@ -54,11 +57,13 @@ namespace YUP.App
             switch (destination)
             {
                 case "yupis":
-                    //CurrentViewModel = new YupisViewModel();
                     CurrentDetailsViewModel = ContainerHelper.GetService<YupisViewModel>();
                     break;
                 case "videos":
                     CurrentDetailsViewModel = ContainerHelper.GetService<VideosViewModel>();
+                    break;
+                case "channels":
+                    CurrentDashboardViewModel = ContainerHelper.GetService<ChannelsViewModel>();
                     break;
                 default:
                     break;
