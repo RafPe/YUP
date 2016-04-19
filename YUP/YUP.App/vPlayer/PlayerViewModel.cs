@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
-using YUP.App.MediaPlayers;
 using YUP.App.Services;
 
-namespace YUP.App.Player
+namespace YUP.App.vPlayer
 {
     public class PlayerViewModel: BindableBase
     {

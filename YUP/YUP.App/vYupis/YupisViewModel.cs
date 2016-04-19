@@ -3,7 +3,7 @@ using System.ComponentModel;
 using YUP.App.Contracts;
 using YUP.App.Services;
 
-namespace YUP.App.Yupis
+namespace YUP.App.vYupis
 {
     public class YupisViewModel : BindableBase
     {

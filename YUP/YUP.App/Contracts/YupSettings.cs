@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using YUP.App.Models;
 using YUP.App.Services;
 
 namespace YUP.App.Contracts
@@ -8,6 +9,10 @@ namespace YUP.App.Contracts
     {
         public string   appPath                 { get; set; }
         public YupMode  appMode                 { get; set; }
+
+
+        public YTChannel    defaultChannel      { get; set; }
+        public string       defaultRepoLocation { get; set; }
 
         private string  _defultApplocation      { get; set; }
 

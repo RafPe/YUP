@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace YUP.App.Yupis
+namespace YUP.App.vYupis
 {
     /// <summary>
     /// Interaction logic for YupisView.xaml

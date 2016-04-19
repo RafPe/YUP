@@ -185,10 +185,10 @@
     <Compile Include="Models\YTThumbnail.cs" />
     <Compile Include="Models\YTVideo.cs" />
     <Compile Include="Models\YupItem.cs" />
-    <Compile Include="Player\PlayerView.xaml.cs">
+    <Compile Include="vPlayer\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Player\PlayerViewModel.cs" />
+    <Compile Include="vPlayer\PlayerViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\IEventBus.cs" />
@@ -201,14 +201,14 @@
       <DependentUpon>ChannelsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="vChannels\ChannelsViewModel.cs" />
-    <Compile Include="Videos\VideosView.xaml.cs">
+    <Compile Include="vVideos\VideosView.xaml.cs">
       <DependentUpon>VideosView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Videos\VideosViewModel.cs" />
-    <Compile Include="Yupis\YupisView.xaml.cs">
+    <Compile Include="vVideos\VideosViewModel.cs" />
+    <Compile Include="vYupis\YupisView.xaml.cs">
       <DependentUpon>YupisView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Yupis\YupisViewModel.cs" />
+    <Compile Include="vYupis\YupisViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -221,7 +221,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Player\PlayerView.xaml">
+    <Page Include="vPlayer\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -233,11 +233,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Videos\VideosView.xaml">
+    <Page Include="vVideos\VideosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Yupis\YupisView.xaml">
+    <Page Include="vYupis\YupisView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,7 +291,7 @@
       <Lcid>0</Lcid>
       <WrapperTool>tlbimp</WrapperTool>
       <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

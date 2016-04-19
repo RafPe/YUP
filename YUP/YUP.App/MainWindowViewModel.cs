@@ -1,9 +1,9 @@
 ﻿using YUP.App.Contracts;
-using YUP.App.Player;
 using YUP.App.Services;
 using YUP.App.vChannels;
-using YUP.App.Videos;
-using YUP.App.Yupis;
+using YUP.App.vPlayer;
+using YUP.App.vVideos;
+using YUP.App.vYupis;
 
 namespace YUP.App
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace YUP.App.Videos
+namespace YUP.App.vVideos
 {
     /// <summary>
     /// Interaction logic for VideosView.xaml

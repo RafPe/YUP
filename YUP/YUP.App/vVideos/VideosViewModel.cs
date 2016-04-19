@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using Google.Apis.YouTube.v3.Data;
 using YUP.App.Contracts;
 using YUP.App.Models;
 using YUP.App.Services;
 
-namespace YUP.App.Videos
+namespace YUP.App.vVideos
 {
     public class VideosViewModel : BindableBase
     {

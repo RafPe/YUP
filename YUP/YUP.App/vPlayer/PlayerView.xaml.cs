@@ -1,12 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
-using Autofac;
 using YUP.App.Contracts;
 using YUP.App.MediaPlayers;
 using YUP.App.Services;
 
-namespace YUP.App.Player
+namespace YUP.App.vPlayer
 {
     /// <summary>
     /// Interaction logic for Player.xaml

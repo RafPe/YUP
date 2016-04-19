@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
@@ -57,6 +58,39 @@ namespace YUP.App.Contracts
             });
         }
 
+        /// <summary>
+        /// Function responsible for parsing URL containing videoId
+        /// Source: http://stackoverflow.com/a/27728417/2476347
+        /// </summary>
+        /// <param name="url">URL containing video ID from youtube</param>
+        /// <returns></returns>
+        public string GetVideoIdFromUrl(string url)
+        {
+            var r = new Regex(@"^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))(?<videoId>[^#\&\?]*).*");
+
+            var match = r.Match(url);
+
+            if (match.Success && !String.IsNullOrEmpty(match.Groups["videoIds"].Value.ToLower()))
+            {
+                return match.Groups["videoIds"].Value.ToLower();
+            }
+
+            return null;
+        }
+
+
+        /// <summary>
+        /// Function responsible for querying channel Id from URL
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string GetChannelIdFromUrl(string url)
+        {
+            var final = url.Substring(url.LastIndexOf('/') + 1);
+
+            return final;
+        }
+
         public Task<string> GetChannelIdAsync(string ytUsername) // No async because the method does not need await
         {
             return Task.Run(() =>
@@ -107,6 +141,35 @@ namespace YUP.App.Contracts
 
             }
             
+        }
+
+        public Task<string> GetChannelIdForUserNameAsync(string username)
+        {
+            return Task.Run(() =>
+            {
+                RestClient client =
+                    new RestClient(
+                        $"https://www.googleapis.com/youtube/v3/channels?key={_youtubeService.ApiKey}&forUsername={username}&part=id");
+                RestRequest restRequest = new RestRequest(Method.GET);
+
+                try
+                {
+                    RestResponse response = (RestResponse) client.Execute(restRequest);
+                    var content = response.Content; // raw content as string
+
+                    JObject o = JObject.Parse(content);
+
+                    string name = (string) o.SelectToken("items[0].id");
+
+                    return name;
+                }
+                catch (Exception ex)
+                {
+
+                    return null;
+
+                }
+            });
         }
 
         public List<object> GetChannelStatistcs(string ytUsername)
