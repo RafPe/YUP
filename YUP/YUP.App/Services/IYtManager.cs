@@ -7,9 +7,10 @@ namespace YUP.App.Services
     public interface IYtManager
     {
         string                      GetChannelIdFromUrl(string url);
-        string                      GetChannelIdForUserName(string username);
-        Task<string>                GetChannelIdForUserNameAsync(string username);
-        Task<string>                GetChannelIdAsync(string ytUsername);
+        string                      GetVideoIdFromUrl(string url);
+
+        string                      GetChannelIdForUser(string username);
+        Task<string>                GetChannelIdForUserAsync(string username);
 
         List<Channel>               GetChannelStatistcs(string ytUsername);
         Task<List<Channel>>         GetChannelStatistcsAsync(string ytUsername);
@@ -19,7 +20,7 @@ namespace YUP.App.Services
 
         List<SearchResult>          GetVideosFromChannel(string ytChannelId);
         Task<List<SearchResult>>    GetVideosFromChannelAsync(string ytChannelId);
-        string                      GetVideoIdFromUrl(string url);
+
 
     }
 }

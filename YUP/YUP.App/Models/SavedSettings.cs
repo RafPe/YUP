@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace YUP.App.Models
 {
@@ -11,6 +8,7 @@ namespace YUP.App.Models
     /// </summary>
     public class SavedSettings
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public YupMode appMode { get; set; }
         public string  appPath { get; set; }
     }

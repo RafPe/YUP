@@ -59,7 +59,7 @@ namespace YUP.App.vChannels
         public async void klinkal()
         {
 
-            var zmienna = await _ytManager.GetChannelIdForUserNameAsync(testos2);
+            var zmienna = await _ytManager.GetChannelIdForUserAsync(testos2);
 
             var x = _ytManager.GetChannelStatistcs(testos2);
 

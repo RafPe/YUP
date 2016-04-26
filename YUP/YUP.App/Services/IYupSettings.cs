@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YUP.App.Models;
+﻿using YUP.App.Models;
 
 namespace YUP.App.Services
 {

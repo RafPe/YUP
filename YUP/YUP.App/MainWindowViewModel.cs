@@ -1,5 +1,4 @@
-﻿using YUP.App.Contracts;
-using YUP.App.Services;
+﻿using YUP.App.Services;
 using YUP.App.vChannels;
 using YUP.App.vPlayer;
 using YUP.App.vVideos;

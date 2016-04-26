@@ -79,10 +79,21 @@ namespace YUP.App.Contracts
 
         public SavedSettings loadAppSettings()
         {
-            if (File.Exists($@"{appPath}\settings.yup"))
+            // If our settings file does not exist let's create it
+            if (!File.Exists($@"{appPath}\settings.yup"))
             {
-                
+                this.checkAppFolderPath();
+
+                this.createNewSettingsFile(this.appPath, new SavedSettings()
+                {
+                    appPath = appPath,
+                    appMode = YupMode.Online
+                });
             }
+
+            var results = JsonConvert.DeserializeObject<SavedSettings>(File.ReadAllText($@"{appPath}\settings.yup"));
+
+            return results;
         }
 
         public bool saveAppSettings(string path, SavedSettings settings2save)

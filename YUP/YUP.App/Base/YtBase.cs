@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace YUP.App.Base
+﻿namespace YUP.App.Base
 {
     public class YtBase
     {

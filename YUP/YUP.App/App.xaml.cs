@@ -47,17 +47,6 @@ namespace YUP.App
             settings.checkAppFolderPath();
             settings.loadAppSettings();
 
-
-            //TODO: We load settings before app starts!?
-            using (var scope = ContainerHelper.Container.BeginLifetimeScope())
-            {
-                
-                var service = scope.Resolve<IYupSettings>();
-
-                service.checkAppFolderPath();
-
-            }
-
             // Create our main window - since we removed startup URI
             YUP.App.MainWindow wnd = new MainWindow();
             wnd.Show();

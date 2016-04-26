@@ -92,7 +92,7 @@ namespace YUP.App.vVideos
         private async void LoadVideos(string userId)
         {
 
-            var muchos  = await _ytManager.GetChannelIdAsync(userId);
+            var muchos  = await _ytManager.GetChannelIdForUserAsync(userId);
             var filmiki = await _ytManager.GetVideosFromChannelAsync(muchos);
 
             // New colletion 
