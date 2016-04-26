@@ -118,6 +118,26 @@ namespace YUP.App.Contracts
             });
         }
 
+        List<Channel> IYtManager.GetChannelStatistcs(string ytUsername)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Channel>> GetChannelStatistcsAsync(string ytUsername)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Channel> GetChannelSnippet(string ytUsername)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Channel>> GetChannelSnippetAsync(string ytUsername)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetChannelIdForUserName(string username)
         {
             RestClient client = new RestClient($"https://www.googleapis.com/youtube/v3/channels?key={_youtubeService.ApiKey}&forUsername={username}&part=id");

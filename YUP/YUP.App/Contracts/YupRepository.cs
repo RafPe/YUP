@@ -10,15 +10,16 @@ namespace YUP.App.Contracts
 {
     public class YupRepository : IYupRepository
     {
-        private IYupSettings _yupSettings;
+        private IYupSettings             _yupSettings;
 
-        public  IEnumerable<YTVideo>   ytVideos             { get; set; }
-        public  IEnumerable<YupItem>   yupItems             { get; set; }
-        public  IEnumerable<YTChannel> ytChannels           { get; set; }
+        public  IEnumerable<YTVideo>     ytVideos             { get; set; }
+        public  IEnumerable<YupItem>     yupItems             { get; set; }
+        public  IEnumerable<YTChannel>   ytChannels           { get; set; }
 
-        public YTChannel                currentlySelected   { get; set; }
+        public  YTChannel                currentlySelected    { get; set; }
+                                                              
+        private string                   jsonChannelsPath     { get; set; }
 
-        private string                  jsonChannelsPath    { get; set; }
 
         public YupRepository(IYupSettings yupSettings)
         {
@@ -27,6 +28,7 @@ namespace YUP.App.Contracts
             //TODO: #3
             //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
             //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
+
 
             jsonChannelsPath    = String.Format(@"{0}\channels.yup", _yupSettings.appPath);
         }

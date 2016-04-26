@@ -181,6 +181,8 @@
     </Compile>
     <Compile Include="MediaPlayers\MediaPlaybackQuality.cs" />
     <Compile Include="MediaPlayers\MediaPlaybackState.cs" />
+    <Compile Include="Models\SavedRepository.cs" />
+    <Compile Include="Models\SavedSettings.cs" />
     <Compile Include="Models\YTChannel.cs" />
     <Compile Include="Models\YTThumbnail.cs" />
     <Compile Include="Models\YTVideo.cs" />

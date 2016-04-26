@@ -12,14 +12,13 @@ namespace YUP.App.Services
     /// </summary>
     public interface IYupSettings
     {
-        string  appPath { get; set; }    
-        YupMode appMode { get; set; }
+        string            appPath { get; set; }
+        YupMode           appMode { get; set; }
 
-        YTChannel   defaultChannel      { get; set;}
-        string      defaultRepoLocation { get; set;}
-
-        bool checkAppFolderPath();
-        bool createAppFolderStructure();
-
+        bool              checkAppFolderPath();
+        bool              createNewSettingsFile(string path=null, SavedSettings newSettings=null);
+        SavedSettings     loadAppSettings();
+        bool              saveAppSettings(string path, SavedSettings settings2save);
+        bool              createAppFolderStructure();
     }
 }

@@ -42,6 +42,12 @@ namespace YUP.App
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 
+
+            var settings = ContainerHelper.GetService<IYupSettings>();
+            settings.checkAppFolderPath();
+            settings.loadAppSettings();
+
+
             //TODO: We load settings before app starts!?
             using (var scope = ContainerHelper.Container.BeginLifetimeScope())
             {
