@@ -11,8 +11,12 @@ namespace YUP.App.Contracts
 {
     public class YupRepository : IYupRepository
     {
+        #region IoC 
         private IYupSettings             _yupSettings;
         private IEventBus                _eventBus;
+        #endregion
+
+        #region Public properties
 
         public List<YTVideo>     ytVideos             { get; set; }
         public List<YupItem>     yupItems             { get; set; }
@@ -20,11 +24,13 @@ namespace YUP.App.Contracts
 
         public  YTChannel                currentlySelected    { get; set; }
 
+        #endregion
+
+        #region cTor
         public YupRepository(IYupSettings yupSettings, IEventBus eventBus)
         {
             _yupSettings        = yupSettings;
             _eventBus           = eventBus;
-
 
 
             // Initialize objects 
@@ -32,10 +38,10 @@ namespace YUP.App.Contracts
             yupItems   = new List<YupItem>();
             ytChannels = new List<YTChannel>();
 
-            //TODO: #3
-            //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
-            //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
         }
+        #endregion  
+
+        #region Repository actions
 
         /// <summary>
         /// Loads repository from storage
@@ -72,6 +78,8 @@ namespace YUP.App.Contracts
 
             File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", jsonRepo);
         }
+
+        #endregion
 
         #region Channels
 
