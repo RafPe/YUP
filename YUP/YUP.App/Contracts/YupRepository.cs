@@ -79,37 +79,37 @@ namespace YUP.App.Contracts
             File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", jsonRepo);
         }
 
-        public void AddChannel()
+        public void AddChannel(YTChannel channel)
         {
             throw new NotImplementedException();
         }
 
-        public void Editchannel()
+        public void Editchannel(YTChannel channel)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveChannel()
+        public void RemoveChannel(YTChannel channel)
         {
             throw new NotImplementedException();
         }
 
-        public void LoadYupis()
+        public void LoadYupis(YupItem yupi)
         {
             throw new NotImplementedException();
         }
 
-        public void AddYupi()
+        public void AddYupi(YupItem yupi)
         {
             throw new NotImplementedException();
         }
 
-        public void EditYupi()
+        public void EditYupi(YupItem yupi)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveYupi()
+        public void RemoveYupi(YupItem yupi)
         {
             throw new NotImplementedException();
         }

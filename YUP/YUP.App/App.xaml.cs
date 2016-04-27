@@ -43,9 +43,13 @@ namespace YUP.App
             ContainerHelper.SetAutofacContainer();
 
 
+
             var settings = ContainerHelper.GetService<IYupSettings>();
             settings.checkAppFolderPath();
             settings.loadAppSettings();
+
+            var repository = ContainerHelper.GetService<IYupRepository>();
+            repository.LoadRepository();
 
             // Create our main window - since we removed startup URI
             YUP.App.MainWindow wnd = new MainWindow();

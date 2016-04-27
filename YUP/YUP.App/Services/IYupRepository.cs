@@ -14,14 +14,13 @@ namespace YUP.App.Services
         void LoadRepository();
         void SaveRepository();
 
-        void AddChannel();
-        void Editchannel();
-        void RemoveChannel();
+        void AddChannel(YTChannel channel);
+        void Editchannel(YTChannel channel);
+        void RemoveChannel(YTChannel channel);
 
-        void LoadYupis();
-        void AddYupi();
-        void EditYupi();
-        void RemoveYupi();
+        void AddYupi(YupItem yupi);
+        void EditYupi(YupItem yupi);
+        void RemoveYupi(YupItem yupi);
 
     }
 }
