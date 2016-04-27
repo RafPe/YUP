@@ -7,8 +7,8 @@ namespace YUP.App.Models
     /// </summary>
     public class SavedRepository
     {
-        public  IEnumerable<YTVideo>     ytVideos             { get; set; }
-        public  IEnumerable<YupItem>     yupItems             { get; set; }
-        public  IEnumerable<YTChannel>   ytChannels           { get; set; }
+        public List<YTVideo>     ytVideos             { get; set; }
+        public List<YupItem>     yupItems             { get; set; }
+        public List<YTChannel>   ytChannels           { get; set; }
     }
 }

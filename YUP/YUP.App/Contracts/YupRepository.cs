@@ -14,9 +14,9 @@ namespace YUP.App.Contracts
         private IYupSettings             _yupSettings;
         private IEventBus                _eventBus;
 
-        public  IEnumerable<YTVideo>     ytVideos             { get; set; }
-        public  IEnumerable<YupItem>     yupItems             { get; set; }
-        public  IEnumerable<YTChannel>   ytChannels           { get; set; }
+        public List<YTVideo>     ytVideos             { get; set; }
+        public List<YupItem>     yupItems             { get; set; }
+        public List<YTChannel>   ytChannels           { get; set; }
 
         public  YTChannel                currentlySelected    { get; set; }
 
@@ -79,39 +79,58 @@ namespace YUP.App.Contracts
             File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", jsonRepo);
         }
 
+        /// <summary>
+        /// Adds new youtube channel to our repository
+        /// </summary>
+        /// <param name="channel">Defined youtube channel</param>
         public void AddChannel(YTChannel channel)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(channel, null)) return;
+
+            ytChannels.Add(channel);
         }
 
         public void Editchannel(YTChannel channel)
         {
-            throw new NotImplementedException();
+            //TODO ? Do we need to edit channels ? 
         }
 
+        /// <summary>
+        /// Removes youtube channel from our repository
+        /// </summary>
+        /// <param name="channel">Channel to be removed </param>
         public void RemoveChannel(YTChannel channel)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(channel, null)) return;
+
+            ytChannels.Remove(channel);
         }
 
-        public void LoadYupis(YupItem yupi)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Adds yupi to our repository
+        /// </summary>
+        /// <param name="yupi">Yupi to be added</param>
         public void AddYupi(YupItem yupi)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(yupi, null)) return;
+
+            yupItems.Add(yupi);
         }
 
         public void EditYupi(YupItem yupi)
         {
-            throw new NotImplementedException();
+            //TODO # We need to do edit of yupis
         }
 
+        /// <summary>
+        /// Removes yupi from our repository
+        /// </summary>
+        /// <param name="yupi">Yupi to be removed</param>
         public void RemoveYupi(YupItem yupi)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(yupi, null)) return;
+
+            yupItems.Remove(yupi);
         }
     }
 }

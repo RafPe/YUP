@@ -5,9 +5,9 @@ namespace YUP.App.Services
 {
     public interface IYupRepository
     {
-        IEnumerable<YTVideo>    ytVideos            { get; set; }
-        IEnumerable<YupItem>    yupItems            { get; set; } 
-        IEnumerable<YTChannel>  ytChannels          { get; set; } 
+        List<YTVideo>    ytVideos            { get; set; }
+        List<YupItem>    yupItems            { get; set; }
+        List<YTChannel>  ytChannels          { get; set; } 
 
         YTChannel               currentlySelected   { get; set; }
 
