@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using YUP.App.Contracts;
+using YUP.App.Events;
 using YUP.App.Helpers;
 using YUP.App.Models;
 using YUP.App.Services;
@@ -11,9 +13,16 @@ namespace YUP.App.vChannels
         private IYupRepository  _yupRepository;
         private YTChannel       _selectedYtChannel;
         private IYtManager      _ytManager;
+        private IEventBus       _eventBus;
+
 
         public ObservableCollection<string>     test        { get; set; }
         public ObservableCollection<YTChannel>  YtChannels  { get; set; }
+
+
+        EventBusHandler channelAdded;
+        EventBusHandler channelRemoved;
+
 
 
         public YTChannel SelectedYtChannel
@@ -37,10 +46,15 @@ namespace YUP.App.vChannels
         public RelayCommand cmdRemoveChannel    { get; private set; }
 
 
-        public ChannelsViewModel(IYupRepository yupRepository, IYtManager ytManager)
+        public ChannelsViewModel(IYupRepository yupRepository, IYtManager ytManager, IEventBus eventbus)
         {
             _yupRepository  = yupRepository;
             _ytManager      = ytManager;
+            _eventBus       = eventbus;
+
+            // Register event publications - when we add or remove channel
+            _eventBus.PublishEvent(EventOnBus.channelAdded, channelAdded);
+            _eventBus.PublishEvent(EventOnBus.channelRemoved, channelRemoved);
 
             YtChannels = new ObservableCollection<YTChannel>();
 

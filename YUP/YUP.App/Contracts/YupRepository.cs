@@ -20,18 +20,12 @@ namespace YUP.App.Contracts
 
         public  YTChannel                currentlySelected    { get; set; }
 
-        EventBusHandler                  channelAdded;
-        EventBusHandler                  channelRemoved;
-
-
         public YupRepository(IYupSettings yupSettings, IEventBus eventBus)
         {
             _yupSettings        = yupSettings;
             _eventBus           = eventBus;
 
-            // Register event publications 
-            _eventBus.PublishEvent(EventOnBus.channelAdded, channelAdded);
-            _eventBus.PublishEvent(EventOnBus.channelRemoved, channelRemoved);
+
 
             // Initialize objects 
             ytVideos   = new List<YTVideo>();
@@ -79,6 +73,8 @@ namespace YUP.App.Contracts
             File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", jsonRepo);
         }
 
+        #region Channels
+
         /// <summary>
         /// Adds new youtube channel to our repository
         /// </summary>
@@ -88,6 +84,8 @@ namespace YUP.App.Contracts
             if (ReferenceEquals(channel, null)) return;
 
             ytChannels.Add(channel);
+
+            _eventBus.RaiseEvent(EventOnBus.channelAdded, this, new EventBusArgs() { Item = channel });
         }
 
         public void Editchannel(YTChannel channel)
@@ -104,7 +102,13 @@ namespace YUP.App.Contracts
             if (ReferenceEquals(channel, null)) return;
 
             ytChannels.Remove(channel);
+
+            _eventBus.RaiseEvent(EventOnBus.channelRemoved, this, new EventBusArgs() { Item = channel });
         }
+
+        #endregion
+
+        #region Yupis
 
         /// <summary>
         /// Adds yupi to our repository
@@ -132,5 +136,7 @@ namespace YUP.App.Contracts
 
             yupItems.Remove(yupi);
         }
+
+        #endregion
     }
 }

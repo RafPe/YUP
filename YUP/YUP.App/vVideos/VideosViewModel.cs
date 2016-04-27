@@ -87,7 +87,7 @@ namespace YUP.App.vVideos
 
         public void onTest()
         {
-            _eventBus.RaiseEvent("VideoIdChanged", this, new EventBusArgs() { Item = SelectedYtVideo.videoId });
+            _eventBus.RaiseEvent(EventOnBus.videoIdChanged, this, new EventBusArgs() { Item = SelectedYtVideo });
         }
 
         private async void LoadVideos(string userId)
