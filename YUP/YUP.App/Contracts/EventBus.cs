@@ -8,7 +8,7 @@ namespace YUP.App.Contracts
 
     public class EventBusArgs : EventArgs
     {
-        public string Item { get; set; }
+        public object Item { get; set; }
     }
 
     public class EventBus : IEventBus

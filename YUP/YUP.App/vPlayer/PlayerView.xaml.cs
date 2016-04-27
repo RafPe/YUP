@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Forms.Integration;
 using YUP.App.Contracts;
+using YUP.App.Events;
 using YUP.App.MediaPlayers;
 using YUP.App.Services;
 
@@ -20,7 +21,7 @@ namespace YUP.App.vPlayer
         {
             _eventBus = ContainerHelper.GetService<IEventBus>();
 
-            _eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
+            _eventBus.SubscribeEvent(EventOnBus.videoIdChanged, VideoIdChangedHandler);
 
             InitializeComponent();
 

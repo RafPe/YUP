@@ -159,6 +159,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Base\AppBase.cs" />
     <Compile Include="Base\YtBase.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="ContainerHelper.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Contracts\YupSettings.cs" />
     <Compile Include="CustomBehaviors.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Events\EventOnBus.cs" />
     <Compile Include="Events\PlayerStateChangedArgs.cs" />
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Helpers\Extensions.cs" />

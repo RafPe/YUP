@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Google.Apis.YouTube.v3.Data;
 using YUP.App.Contracts;
+using YUP.App.Events;
 using YUP.App.Models;
 using YUP.App.Services;
 
@@ -45,7 +46,7 @@ namespace YUP.App.vVideos
             YtVideos    = new ObservableCollection<YTVideo>();
             YtChannels  = new ObservableCollection<YTChannel>();
 
-            _eventBus.PublishEvent("VideoIdChanged", VideoIdChanged);
+            _eventBus.PublishEvent(EventOnBus.videoIdChanged, VideoIdChanged);
 
         }
 

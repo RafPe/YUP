@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using YUP.App.Base;
+using YUP.App.Events;
 using YUP.App.Models;
 using YUP.App.Services;
 
@@ -10,31 +12,53 @@ namespace YUP.App.Contracts
     public class YupRepository : IYupRepository
     {
         private IYupSettings             _yupSettings;
+        private IEventBus                _eventBus;
 
         public  IEnumerable<YTVideo>     ytVideos             { get; set; }
         public  IEnumerable<YupItem>     yupItems             { get; set; }
         public  IEnumerable<YTChannel>   ytChannels           { get; set; }
 
         public  YTChannel                currentlySelected    { get; set; }
-                                                              
-        private string                   jsonChannelsPath     { get; set; }
+
+        EventBusHandler                  channelAdded;
+        EventBusHandler                  channelRemoved;
 
 
-        public YupRepository(IYupSettings yupSettings)
+        public YupRepository(IYupSettings yupSettings, IEventBus eventBus)
         {
             _yupSettings        = yupSettings;
+            _eventBus           = eventBus;
+
+            // Register event publications 
+            _eventBus.PublishEvent(EventOnBus.channelAdded, channelAdded);
+            _eventBus.PublishEvent(EventOnBus.channelRemoved, channelRemoved);
+
+            // Initialize objects 
+            ytVideos   = new List<YTVideo>();
+            yupItems   = new List<YupItem>();
+            ytChannels = new List<YTChannel>();
 
             //TODO: #3
             //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
             //_eventBus.SubscribeEvent("VideoIdChanged", VideoIdChangedHandler);
-
-
-            jsonChannelsPath    = String.Format(@"{0}\channels.yup", _yupSettings.appPath);
         }
 
+        /// <summary>
+        /// Loads repository from storage
+        /// </summary>
         public void LoadRepository()
         {
-           
+            // If our settings file does not exist let's create it
+            if (!File.Exists($@"{_yupSettings.appPath}\{AppBase.fileRepository}")) SaveRepository();
+
+            var loadedRepository = JsonConvert.DeserializeObject<SavedRepository>(File.ReadAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}"));
+
+            // Assign values from loaded repository
+            this.ytChannels = loadedRepository.ytChannels;
+            this.ytVideos   = loadedRepository.ytVideos;
+            this.yupItems   = loadedRepository.yupItems;
+
+
         }
 
         /// <summary>
@@ -42,14 +66,17 @@ namespace YUP.App.Contracts
         /// </summary>
         public void SaveRepository()
         {
-
-            // Save channels 
-            if (!ReferenceEquals(null, ytChannels))
+            // Get our current repository prepared for saving
+            SavedRepository savedRepository = new SavedRepository()
             {
-                var jsonChannels     = JsonConvert.SerializeObject(ytChannels);
-                
-                File.WriteAllText(jsonChannelsPath, jsonChannels);
-            }
+                ytChannels = this.ytChannels,
+                ytVideos   = this.ytVideos,
+                yupItems   = this.yupItems 
+            };
+
+            var jsonRepo = JsonConvert.SerializeObject(savedRepository);
+
+            File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", jsonRepo);
         }
 
         public void AddChannel()
