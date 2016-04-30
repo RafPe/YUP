@@ -75,12 +75,13 @@ namespace YUP.App.vChannels
 
             var chann = new  YTChannel()
             {
-                channelId = "Electronics vBlog",
-                channelFriendlyName = "Electronics blog",
-                channelUser = "eevblog"
+                channelId = zmienna,
+                channelFriendlyName = $"-channel-{testos2}",
+                channelUser = testos2
             };
 
             _yupRepository.ytChannels.Add(chann);
+            YtChannels.Add(chann);
 
 
             _eventBus.RaiseEvent(EventOnBus.channelAdded, this, new EventBusArgs() { Item = chann });

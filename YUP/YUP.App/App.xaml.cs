@@ -36,10 +36,19 @@ namespace YUP.App
             ContainerHelper.Builder.RegisterType<FlashAxControl>().Named<IMediaPlayer>("youtube").SingleInstance();
 
             //TODO: Think if we want to register ViewModel classes as singleton instances ?!
-            ContainerHelper.Builder.RegisterType<VideosViewModel>().AsImplementedInterfaces().SingleInstance();
-            ContainerHelper.Builder.RegisterType<YupisViewModel>().AsImplementedInterfaces().SingleInstance();
-            ContainerHelper.Builder.RegisterType<PlayerViewModel>().SingleInstance();
-            ContainerHelper.Builder.RegisterType<ChannelsViewModel>().AsImplementedInterfaces().SingleInstance();
+            ContainerHelper.Builder.RegisterType<VideosViewModel>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            ContainerHelper.Builder.RegisterType<YupisViewModel>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            ContainerHelper.Builder.RegisterType<PlayerViewModel>()
+                .SingleInstance();
+            ContainerHelper.Builder.RegisterType<ChannelsViewModel>()
+                .AsSelf()
+                .AsImplementedInterfaces().SingleInstance();
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 
