@@ -189,6 +189,7 @@
     <Compile Include="Models\YTThumbnail.cs" />
     <Compile Include="Models\YTVideo.cs" />
     <Compile Include="Models\YupItem.cs" />
+    <Compile Include="Services\IEventRegistrator.cs" />
     <Compile Include="vPlayer\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>

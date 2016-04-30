@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using Autofac;
 using YUP.App.Contracts;
 using YUP.App.MediaPlayers;
@@ -35,13 +36,26 @@ namespace YUP.App
             ContainerHelper.Builder.RegisterType<FlashAxControl>().Named<IMediaPlayer>("youtube").SingleInstance();
 
             //TODO: Think if we want to register ViewModel classes as singleton instances ?!
-            ContainerHelper.Builder.RegisterType<VideosViewModel>().SingleInstance();
-            ContainerHelper.Builder.RegisterType<YupisViewModel>().SingleInstance();
+            ContainerHelper.Builder.RegisterType<VideosViewModel>().AsImplementedInterfaces().SingleInstance();
+            ContainerHelper.Builder.RegisterType<YupisViewModel>().AsImplementedInterfaces().SingleInstance();
             ContainerHelper.Builder.RegisterType<PlayerViewModel>().SingleInstance();
-            ContainerHelper.Builder.RegisterType<ChannelsViewModel>().SingleInstance();
+            ContainerHelper.Builder.RegisterType<ChannelsViewModel>().AsImplementedInterfaces().SingleInstance();
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 
+
+
+            var eventsReg = ContainerHelper.Container.Resolve<IEnumerable<IEventRegistrator>>();
+
+            foreach (IEventRegistrator eventRegistrator in eventsReg)
+            {
+                eventRegistrator.PublishEvents();
+            }
+
+            foreach (IEventRegistrator eventRegistrator in eventsReg)
+            {
+                eventRegistrator.SubscribeEvents();
+            }
 
 
             var settings = ContainerHelper.GetService<IYupSettings>();

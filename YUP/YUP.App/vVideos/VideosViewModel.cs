@@ -10,7 +10,7 @@ using YUP.App.Services;
 
 namespace YUP.App.vVideos
 {
-    public class VideosViewModel : BindableBase
+    public class VideosViewModel : BindableBase, IEventRegistrator
     {
 
         private IYtManager          _ytManager;
@@ -27,6 +27,7 @@ namespace YUP.App.vVideos
         private bool _dataLoaded;
 
         private bool _isBusy;
+
 
 
         public RelayCommand                     test        { get; private set; }
@@ -46,8 +47,31 @@ namespace YUP.App.vVideos
             YtVideos    = new ObservableCollection<YTVideo>();
             YtChannels  = new ObservableCollection<YTChannel>();
 
-            _eventBus.PublishEvent(EventOnBus.videoIdChanged, VideoIdChanged);
+        }
 
+        /// <summary>
+        /// Event occuring when a channel is being removed from repository
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="busargs"></param>
+        private void evtChannelRemoved(object sender, EventBusArgs busargs)
+        {
+            var objEvt = (YTChannel) busargs.Item;
+
+            YtChannels.Remove(objEvt);
+
+        }
+
+        /// <summary>
+        /// Event occuring when a channel is being added to repository
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="busargs"></param>
+        private void evtChannelAdded(object sender, EventBusArgs busargs)
+        {
+            var objEvt = (YTChannel)busargs.Item;
+
+            YtChannels.Add(objEvt);
         }
 
 
@@ -123,45 +147,46 @@ namespace YUP.App.vVideos
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
 
 
-            if (_dataLoaded) return; // avoid all time loading of data
+            //if (_dataLoaded) return; // avoid all time loading of data
 
-            _dataLoaded = true;       // Mark in advance ....
+            //_dataLoaded = true;       // Mark in advance ....
 
-            var lista = new List<YTChannel>();
-            lista.Add(new YTChannel()
-            {
-                channelId = "Electronics vBlog",
-                channelFriendlyName = "Electronics blog",
-                channelUser = "eevblog"
-            });
-            lista.Add(new YTChannel()
-            {
-                channelId = "666",
-                channelFriendlyName = "Electronics blog",
-                channelUser = "mirekk36"
-            });
+            //var lista = new List<YTChannel>();
+            //lista.Add(new YTChannel()
+            //{
+            //    channelId = "Electronics vBlog",
+            //    channelFriendlyName = "Electronics blog",
+            //    channelUser = "eevblog"
+            //});
+            //lista.Add(new YTChannel()
+            //{
+            //    channelId = "666",
+            //    channelFriendlyName = "Electronics blog",
+            //    channelUser = "mirekk36"
+            //});
 
-            YtChannels.Add(lista[0]);
-            YtChannels.Add(lista[1]);
+            //YtChannels.Add(lista[0]);
+            //YtChannels.Add(lista[1]);
 
+            //_yupRepository.ytChannels = lista;
 
-
-
-
-
-            _yupRepository.ytChannels = lista;
-
-
-
-
-            _yupRepository.SaveRepository();
-
-
-
-
+            //_yupRepository.SaveRepository();
 
         }
 
+        public void PublishEvents()
+        {
+            // Publish event when vidoId changes
+            _eventBus.PublishEvent(EventOnBus.videoIdChanged, VideoIdChanged);
+
+        }
+
+        public void SubscribeEvents()
+        {
+            // Subscribe to channel changes 
+            _eventBus.SubscribeEvent(EventOnBus.channelAdded, evtChannelAdded);
+            _eventBus.SubscribeEvent(EventOnBus.channelRemoved, evtChannelRemoved);
+        }
     }
 
 }

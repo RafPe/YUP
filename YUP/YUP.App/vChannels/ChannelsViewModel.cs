@@ -8,7 +8,7 @@ using YUP.App.Services;
 
 namespace YUP.App.vChannels
 {
-    public class ChannelsViewModel : BindableBase
+    public class ChannelsViewModel : BindableBase, IEventRegistrator
     {
         private IYupRepository  _yupRepository;
         private YTChannel       _selectedYtChannel;
@@ -20,8 +20,8 @@ namespace YUP.App.vChannels
         public ObservableCollection<YTChannel>  YtChannels  { get; set; }
 
 
-        EventBusHandler channelAdded;
-        EventBusHandler channelRemoved;
+        public event EventBusHandler channelAdded;
+        public event EventBusHandler channelRemoved;
 
 
 
@@ -52,10 +52,6 @@ namespace YUP.App.vChannels
             _ytManager      = ytManager;
             _eventBus       = eventbus;
 
-            // Register event publications - when we add or remove channel
-            _eventBus.PublishEvent(EventOnBus.channelAdded, channelAdded);
-            _eventBus.PublishEvent(EventOnBus.channelRemoved, channelRemoved);
-
             YtChannels = new ObservableCollection<YTChannel>();
 
             YtChannels.AddRange(_yupRepository.ytChannels);
@@ -77,7 +73,39 @@ namespace YUP.App.vChannels
 
             var x = _ytManager.GetChannelStatistcs(testos2);
 
+            var chann = new  YTChannel()
+            {
+                channelId = "Electronics vBlog",
+                channelFriendlyName = "Electronics blog",
+                channelUser = "eevblog"
+            };
+
+            _yupRepository.ytChannels.Add(chann);
+
+
+            _eventBus.RaiseEvent(EventOnBus.channelAdded, this, new EventBusArgs() { Item = chann });
+
             MessageBox.Show(zmienna??"nie ma");
+
+
+        }
+
+        /// <summary>
+        /// Method responsible for publishing this View specific events
+        /// </summary>
+        public void PublishEvents()
+        {
+            _eventBus.PublishEvent(EventOnBus.channelAdded, channelAdded);
+            _eventBus.PublishEvent(EventOnBus.channelRemoved, channelRemoved);
+        }
+
+
+        /// <summary>
+        /// Method responsible for subscribing this View specific events
+        /// </summary>
+        public void SubscribeEvents()
+        {
+            
         }
     }
 }

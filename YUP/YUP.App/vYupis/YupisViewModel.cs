@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using YUP.App.Contracts;
+using YUP.App.Events;
 using YUP.App.Services;
 
 namespace YUP.App.vYupis
 {
-    public class YupisViewModel : BindableBase
+    public class YupisViewModel : BindableBase, IEventRegistrator
     {
 
         private IYupRepository    _yupiManager;
@@ -25,7 +26,7 @@ namespace YUP.App.vYupis
             _yupiManager    = yupiManager;
 
             test=new RelayCommand(onTest);
-            _eventBus.PublishEvent("VideoIdChanged", VideoIdChangedHandler);
+            
 
 
             testmessage = String.Format("{0:O}", DateTime.Now);
@@ -34,13 +35,23 @@ namespace YUP.App.vYupis
         private void onTest()
         {
 
-            _eventBus.RaiseEvent("VideoIdChanged", this,new EventBusArgs() {Item = "b9FC9fAlfQE" });
+            _eventBus.RaiseEvent(EventOnBus.videoIdChanged, this,new EventBusArgs() {Item = "b9FC9fAlfQE" });
 
         }
 
         public async void LoadData()
         {
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
+        }
+
+        public void PublishEvents()
+        {
+            _eventBus.PublishEvent(EventOnBus.videoIdChanged, VideoIdChangedHandler);
+        }
+
+        public void SubscribeEvents()
+        {
+            
         }
     }
 }
