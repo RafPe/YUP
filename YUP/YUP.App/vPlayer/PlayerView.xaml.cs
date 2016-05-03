@@ -45,10 +45,10 @@ namespace YUP.App.vPlayer
             int Height = (int) player_youtube.ActualHeight;
             int Width = (int) player_youtube.ActualWidth;
 
-            cc.Height = Height;
-            cc.Width = Width;
+            cc.Height = 500;
+            cc.Width = 1020;
 
-            cc.mediaSetPlayerSize(Width, Height);
+            cc.mediaSetPlayerSize(400, 200);
 
 
             player_youtube.Children.Add(host);

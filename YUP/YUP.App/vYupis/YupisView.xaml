@@ -7,11 +7,10 @@
              d:DesignHeight="300" d:DesignWidth="300"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:app="clr-namespace:YUP.App">
-    <Grid>
-        <StackPanel>
-            <TextBlock Text="{Binding testmessage}"></TextBlock>
-            <Button x:Name="bt" Command="{Binding test}"></Button>
-        </StackPanel>
+    <Grid >
+        <TextBlock Text="{Binding testmessage}"></TextBlock>
+        <Button x:Name="bt" Command="{Binding test}"></Button>
+
             
     </Grid>
 </UserControl>

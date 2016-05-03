@@ -12,6 +12,7 @@
         xmlns:videos="clr-namespace:YUP.App.vVideos"
         xmlns:yupis="clr-namespace:YUP.App.vYupis"
         xmlns:player="clr-namespace:YUP.App.vPlayer"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -26,6 +27,15 @@
     </Window.DataContext>
     
     <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />-->
+                <!-- throw in some extra colour for our floating action button -->
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />-->
+            </ResourceDictionary.MergedDictionaries>
         <DataTemplate DataType="{x:Type videos:VideosViewModel}">
             <videos:VideosView/> 
          </DataTemplate>
@@ -38,11 +48,109 @@
         <DataTemplate DataType="{x:Type channels:ChannelsViewModel}">
             <channels:ChannelsView/>
         </DataTemplate>
-
+        </ResourceDictionary>
 
     </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          Mode="PrimaryMid" 
+                                      DockPanel.Dock="Top"
+                                  Grid.Row="0">
+            <!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                      x:Name="MenuToggleButton"/>
+                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                    <StackPanel>
+                        <Button Content="Hello World"/>
+                        <Button Content="Nice Popup"/>
+                        <Button Content="Goodbye"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>-->
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Youtube Universal Player</TextBlock>
+        </materialDesign:ColorZone>
+
+        <ContentControl Content="{Binding CurrentDashboardViewModel}"
+                        Grid.Row="1"/>
+
+        <!--<DockPanel>
+                <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          Mode="PrimaryMid" 
+                                      DockPanel.Dock="Top">
+                --><!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                      x:Name="MenuToggleButton"/>
+                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                    <StackPanel>
+                        <Button Content="Hello World"/>
+                        <Button Content="Nice Popup"/>
+                        <Button Content="Goodbye"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>--><!--
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Youtube Universal Player</TextBlock>
+            </materialDesign:ColorZone>
+            <ContentControl Content="{Binding CurrentDashboardViewModel}"/>
+        </DockPanel>-->
+
+
+
+        
+        <!--<DockPanel Grid.Row="1">
+
+
+
+            
+
+            <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                 Margin="32" Grid.Row="1">
+                <StackPanel>
+                    <Button ToolTip="GitHub">
+                        <materialDesign:PackIcon Kind="GithubCircle" Height="20" Width="20" />
+                    </Button>
+                    <Button ToolTip="Twitter" 
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                        <materialDesign:PackIcon Kind="Twitter" />
+                    </Button>
+                    <Button ToolTip="Chat">
+                        --><!-- mix up the colours by brinking in a named palette (see merged dictionaries at top) --><!--
+                        <Button.Background>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary500}" />
+                        </Button.Background>
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary500Foreground}" />
+                        </Button.Foreground>
+                        <materialDesign:PackIcon Kind="Message" />
+                    </Button>
+                    <Button ToolTip="Email"
+                        Background="{DynamicResource SecondaryAccentBrush}"
+                        Foreground="{DynamicResource SecondaryAccentForegroundBrush}"
+                        >
+                        <materialDesign:PackIcon Kind="Email" />
+                    </Button>
+                    <Button ToolTip="Feel like you want to make a donation?  It would be gratefully received.  Click the button to donate via Pledgie." 
+                        >
+                        <Button.Background>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary200}" />
+                        </Button.Background>
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary200Foreground}" />
+                        </Button.Foreground>
+                        <materialDesign:PackIcon Kind="Gift" />
+                    </Button>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </DockPanel>-->
+
+    </Grid>
+
+
     
-    <Grid x:Name="GridMain">
+    <!--<Grid x:Name="GridMain">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"></ColumnDefinition>
             <ColumnDefinition Width="6*"></ColumnDefinition>
@@ -121,5 +229,5 @@
             <ContentControl Content="{Binding CurrentDashboardViewModel}"></ContentControl>
         </Grid>
 
-    </Grid>
+    </Grid>-->
 </Window>

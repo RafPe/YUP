@@ -7,12 +7,56 @@
              d:DesignHeight="300" d:DesignWidth="300"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:app="clr-namespace:YUP.App"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              Loaded="PlayerView_OnLoaded"
 >
     <Grid>
-        <StackPanel x:Name="player_youtube">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DockPanel x:Name="player_youtube">
             <Button Click="ButtonBase_OnClick"></Button>
-        </StackPanel>
+            <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                 Margin="32" Grid.Row="1">
+                <StackPanel>
+                    <Button ToolTip="GitHub">
+                        <materialDesign:PackIcon Kind="GithubCircle" Height="20" Width="20" />
+                    </Button>
+                    <Button ToolTip="Twitter" 
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+                        <materialDesign:PackIcon Kind="Twitter" />
+                    </Button>
+                    <Button ToolTip="Chat">
+                        <!-- mix up the colours by brinking in a named palette (see merged dictionaries at top) -->
 
+                        <Button.Background>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary500}" />
+                        </Button.Background>
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary500Foreground}" />
+                        </Button.Foreground>
+                        <materialDesign:PackIcon Kind="Message" />
+                    </Button>
+                    <Button ToolTip="Email"
+                        Background="{DynamicResource SecondaryAccentBrush}"
+                        Foreground="{DynamicResource SecondaryAccentForegroundBrush}"
+                        >
+                        <materialDesign:PackIcon Kind="Email" />
+                    </Button>
+                    <Button ToolTip="Feel like you want to make a donation?  It would be gratefully received.  Click the button to donate via Pledgie." 
+                        >
+                        <Button.Background>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary200}" />
+                        </Button.Background>
+                        <Button.Foreground>
+                            <SolidColorBrush Color="{StaticResource GreenPrimary200Foreground}" />
+                        </Button.Foreground>
+                        <materialDesign:PackIcon Kind="Gift" />
+                    </Button>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </DockPanel>
     </Grid>
 </UserControl>
