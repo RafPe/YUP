@@ -150,24 +150,18 @@ namespace YUP.App.Contracts
 
 
 
-        public List<Channel>       GetChannelStatistcs(string ytUsername)
+        public Channel       GetChannelStatistcs(string ytUsername)
         {
-            var channelStatisticsReq         = _youtubeService.Channels.List("statistics");
+            var channelStatisticsReq         = _youtubeService.Channels.List("statistics,snippet");
             channelStatisticsReq.ForUsername = ytUsername;
+            channelStatisticsReq.MaxResults = 1;
 
             var channelStatisticsResp = channelStatisticsReq.Execute();
 
-            List<Channel> tmpChannels = new List<Channel>();
-
-            foreach (Channel channel in channelStatisticsResp.Items)
-            {
-                tmpChannels.Add(channel);
-            }
-
-            return tmpChannels;
+            return channelStatisticsResp.Items[0] ;
         }
 
-        public Task<List<Channel>> GetChannelStatistcsAsync(string ytUsername)
+        public Task<Channel> GetChannelStatistcsAsync(string ytUsername)
         {
             throw new NotImplementedException();
         }

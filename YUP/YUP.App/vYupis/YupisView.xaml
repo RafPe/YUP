@@ -6,11 +6,89 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1020"
              app:CustomBehaviors.LoadedMethodName="LoadData"
-             xmlns:app="clr-namespace:YUP.App">
-    <DockPanel >
-        <TextBlock Text="{Binding testmessage}"></TextBlock>
-        <Button x:Name="bt" Command="{Binding test}"></Button>
+             xmlns:app="clr-namespace:YUP.App"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-            
+    <DockPanel x:Name="xResultPanel">
+        <ListBox x:Name="bResultPanel" ItemsSource="{Binding ResultList}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <materialDesign:Card Margin="4 4 0 0" MaxWidth="200">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="140" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Image Source="http://vignette3.wikia.nocookie.net/non-aliencreatures/images/c/c1/Minion.png/revision/latest?cb=20151126032010" Height="140" Width="196" Stretch="UniformToFill" />
+                            <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+         HorizontalAlignment="Right" VerticalAlignment="Bottom"
+         Margin="0 0 16 -20">
+                                <materialDesign:PackIcon Kind="Bike" />
+                            </Button>
+                            <StackPanel Grid.Row="1" Margin="8 24 8 0" >
+                                <TextBlock FontWeight="Bold">{Binding Name}</TextBlock>
+                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">A great way to keep fit and forget about the constant grind of IT.</TextBlock>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
+                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
+             materialDesign:RippleAssist.IsCentered="True">
+                                    <materialDesign:PackIcon Kind="ShareVariant" />
+                                </Button>
+                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
+             materialDesign:RippleAssist.IsCentered="True">
+                                    <materialDesign:PackIcon Kind="Heart" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </DockPanel>
+
+    <!--<Grid>
+    <Grid.RowDefinitions> 
+        <RowDefinition Height="*"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+
+        <materialDesign:Card Margin="4 4 0 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="140" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Image Source="http://vignette3.wikia.nocookie.net/non-aliencreatures/images/c/c1/Minion.png/revision/latest?cb=20151126032010" Height="140" Width="196" Stretch="UniformToFill" />
+                <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                        Margin="0 0 16 -20">
+                    <materialDesign:PackIcon Kind="Bike" />
+                </Button>
+                <StackPanel Grid.Row="1" Margin="8 24 8 0" >
+                    <TextBlock FontWeight="Bold">Cycling</TextBlock>
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">A great way to keep fit and forget about the constant grind of IT.</TextBlock>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                        <materialDesign:PackIcon Kind="ShareVariant" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                        <materialDesign:PackIcon Kind="Heart" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>-->
+    
 </UserControl>

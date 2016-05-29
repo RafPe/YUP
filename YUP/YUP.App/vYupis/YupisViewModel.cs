@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using YUP.App.Contracts;
 using YUP.App.Events;
@@ -26,7 +27,6 @@ namespace YUP.App.vYupis
             _yupiManager    = yupiManager;
 
             test=new RelayCommand(onTest);
-            
 
 
             testmessage = String.Format("{0:O}", DateTime.Now);
@@ -54,4 +54,13 @@ namespace YUP.App.vYupis
             
         }
     }
+
+    public class User
+        {
+                public string Name { get; set; }
+
+                public int Age { get; set; }
+
+                public string Mail { get; set; }
+        }
 }

@@ -75,9 +75,10 @@ namespace YUP.App.vChannels
 
             var chann = new  YTChannel()
             {
-                channelId = zmienna,
-                channelFriendlyName = $"-channel-{testos2}",
-                channelUser = testos2
+                description          = x.Snippet.Description,
+                thumbnail            = x.Snippet.Thumbnails.High.Url,
+                channelId            = x.Id,
+                channelUser          = testos2
             };
 
             _yupRepository.ytChannels.Add(chann);

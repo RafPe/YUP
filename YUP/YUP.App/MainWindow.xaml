@@ -15,6 +15,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -95,6 +96,15 @@
                         VerticalContentAlignment="Stretch"
                         Command="{Binding NavCommand}"
                         CommandParameter="videos">
+            </Button>
+
+            <Button     Margin="10"
+                        Content="Exit"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="exit">
             </Button>
 
         </DockPanel>
