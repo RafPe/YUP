@@ -15,10 +15,12 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto" 
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
         >
     
@@ -52,17 +54,68 @@
 
     </Window.Resources>
 
+    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto" MinHeight="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <ContentControl Content="{Binding CurrentDashboardViewModel}"/>
+
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <Button     Margin="10"
+                        Content="Yupis"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="yupis">
+            </Button>
+
+            <Button     Margin="10"
+                        Content="channels"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="channels">
+            </Button>
+
+            <Button     Margin="10"
+                        Content="Videos"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="videos">
+            </Button>
+
+        </DockPanel>
+
+    </Grid>
+
+
+
+
+    <!--<Grid>
+        <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+        <ContentControl Content="{Binding CurrentDashboardViewModel}"/>
+        
+        --><!--<materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                           Mode="PrimaryMid" 
                                       DockPanel.Dock="Top"
                                   Grid.Row="0">
-            <!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+            --><!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
                                       x:Name="MenuToggleButton"/>
                 <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel>
@@ -70,12 +123,11 @@
                         <Button Content="Nice Popup"/>
                         <Button Content="Goodbye"/>
                     </StackPanel>
-                </materialDesign:PopupBox>-->
+                </materialDesign:PopupBox>--><!--
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Youtube Universal Player</TextBlock>
-        </materialDesign:ColorZone>
+        </materialDesign:ColorZone>-->
 
-        <ContentControl Content="{Binding CurrentDashboardViewModel}"
-                        Grid.Row="1"/>
+        
 
         <!--<DockPanel>
                 <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
@@ -144,9 +196,9 @@
                     </Button>
                 </StackPanel>
             </materialDesign:PopupBox>
-        </DockPanel>-->
+        </DockPanel>--><!--
 
-    </Grid>
+    </Grid>-->
 
 
     

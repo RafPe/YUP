@@ -56,10 +56,10 @@ namespace YUP.App
             switch (destination)
             {
                 case "yupis":
-                    CurrentDetailsViewModel = ContainerHelper.GetService<YupisViewModel>();
+                    CurrentDashboardViewModel = ContainerHelper.GetService<YupisViewModel>();
                     break;
                 case "videos":
-                    CurrentDetailsViewModel = ContainerHelper.GetService<VideosViewModel>();
+                    CurrentDashboardViewModel = ContainerHelper.GetService<VideosViewModel>();
                     break;
                 case "channels":
                     CurrentDashboardViewModel = ContainerHelper.GetService<ChannelsViewModel>();

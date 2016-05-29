@@ -101,9 +101,9 @@ namespace YUP.App.Contracts
 
             var match = r.Match(url);
 
-            if (match.Success && !String.IsNullOrEmpty(match.Groups["videoIds"].Value.ToLower()))
+            if (match.Success && !String.IsNullOrEmpty(match.Groups["videoId"].Value.ToLower()))
             {
-                return match.Groups["videoIds"].Value.ToLower();
+                return match.Groups["videoId"].Value.ToLower();
             }
 
             return null;

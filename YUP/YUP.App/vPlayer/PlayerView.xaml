@@ -4,59 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="800" d:DesignWidth="1020"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:app="clr-namespace:YUP.App"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             Loaded="PlayerView_OnLoaded"
->
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <DockPanel x:Name="player_youtube">
-            <Button Click="ButtonBase_OnClick"></Button>
-            <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                 Margin="32" Grid.Row="1">
-                <StackPanel>
-                    <Button ToolTip="GitHub">
-                        <materialDesign:PackIcon Kind="GithubCircle" Height="20" Width="20" />
-                    </Button>
-                    <Button ToolTip="Twitter" 
-                        Background="{DynamicResource PrimaryHueMidBrush}"
-                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
-                        <materialDesign:PackIcon Kind="Twitter" />
-                    </Button>
-                    <Button ToolTip="Chat">
-                        <!-- mix up the colours by brinking in a named palette (see merged dictionaries at top) -->
+             Loaded="PlayerView_OnLoaded">
 
-                        <Button.Background>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary500}" />
-                        </Button.Background>
-                        <Button.Foreground>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary500Foreground}" />
-                        </Button.Foreground>
-                        <materialDesign:PackIcon Kind="Message" />
-                    </Button>
-                    <Button ToolTip="Email"
-                        Background="{DynamicResource SecondaryAccentBrush}"
-                        Foreground="{DynamicResource SecondaryAccentForegroundBrush}"
-                        >
-                        <materialDesign:PackIcon Kind="Email" />
-                    </Button>
-                    <Button ToolTip="Feel like you want to make a donation?  It would be gratefully received.  Click the button to donate via Pledgie." 
-                        >
-                        <Button.Background>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary200}" />
-                        </Button.Background>
-                        <Button.Foreground>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary200Foreground}" />
-                        </Button.Foreground>
-                        <materialDesign:PackIcon Kind="Gift" />
-                    </Button>
-                </StackPanel>
-            </materialDesign:PopupBox>
-        </DockPanel>
+    <Grid x:Name="vPLayerMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="vPlayerQuickPlay" Grid.Row="0" Margin="16" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <materialDesign:PackIcon Kind="Camera" VerticalAlignment="Center"></materialDesign:PackIcon>
+            <TextBlock Text="Enter URL:" Grid.Column="1" Margin="8,0,0,0" VerticalAlignment="Center"/>
+            <TextBox x:Name="tbxSearchBox" Grid.Column="2" Margin="8,0,0,0" VerticalAlignment="Center"
+                     Text="{Binding SearchBoxTerm, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:TextFieldAssist.Hint="Paste URL/VideoId"/>
+            <Button x:Name="btnSearchBox"  Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                    Grid.Column="3" Margin="8,0,0,0" 
+                    Command="{Binding SearchBoxCmd}"
+                    Content="SUBMIT"/>
+        </Grid>
+
+
+        <DockPanel x:Name="player_youtube" Grid.Row="1"/>
+        
     </Grid>
+
 </UserControl>

@@ -1,20 +1,63 @@
 ﻿using System.ComponentModel;
+using YUP.App.Contracts;
+using YUP.App.Events;
 using YUP.App.Services;
 
 namespace YUP.App.vPlayer
 {
-    public class PlayerViewModel: BindableBase
+    public class PlayerViewModel: BindableBase , IEventRegistrator
     {
-        private IMediaPlayer _mediaPlayer; // Hostowany obiekt flash player'a
+        private IMediaPlayer        _mediaPlayer; // Hostowany obiekt flash player'a
+        private IYupRepository      _yupRepository;
+        private IYtManager          _ytManager;
+        private IEventBus           _eventBus;
 
-        public string whatever { get; set; } = "kurwa";
+        public event EventBusHandler VideoIdChangedHandler;
 
-        public PlayerViewModel()
+        // Binding on textbox using http://stackoverflow.com/a/20089930/2476347
+        public string SearchBoxTerm { get; set; } = "";
+
+        public RelayCommand SearchBoxCmd { get; private set; }
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public PlayerViewModel(IYupRepository yupRepository, IYtManager ytManager, IEventBus eventbus)
         {
+            _yupRepository  = yupRepository;
+            _ytManager      = ytManager;
+            _eventBus       = eventbus;
+
+
+            SearchBoxCmd = new RelayCommand(onSearchBoxCmd);
         }
+
+
+        private void onSearchBoxCmd()
+        {
+           //var videoId2play =  _ytManager.GetVideoIdFromUrl(SearchBoxTerm);
+
+           // if (videoId2play == null) return;
+
+            _eventBus.RaiseEvent(EventOnBus.videoIdChanged, this, new EventBusArgs() { Item = SearchBoxTerm });
+            
+        }
+
         public async void LoadData()
         {
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
+        }
+
+
+
+        public void PublishEvents()
+        {
+            _eventBus.PublishEvent(EventOnBus.videoIdChanged, VideoIdChangedHandler);
+        }
+
+        public void SubscribeEvents()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

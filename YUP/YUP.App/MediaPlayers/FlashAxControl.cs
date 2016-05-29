@@ -118,20 +118,40 @@ namespace YUP.App.MediaPlayers
 
         public void mediaLoadVideo(string videoId, string videoquality = "default")
         {
+
+            if (IsVideoIdValidUrl(videoId))
+            {
+                 videoId = GetVideoIdFromUrl(videoId);
+            }
+
+            // No Id and no URL - we bail out
+            if (videoId == null) return;
+            
+
             _currentVideoId = videoId;
 
-            YTplayer_CallFlash(IsVideoIdValidUrl(videoId)
-                ? $"loadVideoById({videoId},0,{videoquality})"
-                : $"loadVideoByUrl({videoId},0,{videoquality})");
+            var videoURL = $"https://www.youtube.com/v/{videoId}?version=3";
+
+            YTplayer_CallFlash($"loadVideoByUrl({videoURL},0,{videoquality})");
         }
 
         public void mediaLoadVideo(string videoId, int startFrom, string videoquality = "default")
         {
+            if (IsVideoIdValidUrl(videoId))
+            {
+                videoId = GetVideoIdFromUrl(videoId);
+            }
+
+            // No Id and no URL - we bail out
+            if (videoId == null) return;
+
+
             _currentVideoId = videoId;
 
-            YTplayer_CallFlash(IsVideoIdValidUrl(videoId)
-                ? $"loadVideoById({videoId},{startFrom},{videoquality})"
-                : $"loadVideoByUrl({videoId},{startFrom},{videoquality})");
+            var videoURL = $"https://www.youtube.com/v/{videoId}?version=3";
+
+            YTplayer_CallFlash($"loadVideoByUrl({videoURL},{startFrom},{videoquality})");
+
         }
 
         public void mediaPlayPause()
@@ -162,35 +182,41 @@ namespace YUP.App.MediaPlayers
         #region Private methods
 
         /// <summary>
-        /// This method checks if we have valid URL for youtube
+        /// Gets video Id from given URL
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private string GetVideoIdFromUrl(string url)
+        {
+            var r = new Regex(@"^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))(?<videoId>[^#\&\?]*).*");
+
+            var match = r.Match(url);
+
+            if (match.Success && !String.IsNullOrEmpty(match.Groups["videoId"].Value.ToLower()))
+            {
+                return match.Groups["videoId"].Value;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// This method checks if we have valid URL
         /// </summary>
         /// <param name="videoid"></param>
         /// <returns></returns>
         private bool IsVideoIdValidUrl(string videoid)
         {
 
+            var r = new Regex(@"^http(s)?.*");
 
-            //TODO: Validation should be done by application before sending here ? Or we should extract video ID
-            //var r = new Regex(@"(?<Protocol>\w+):\/\/(?<Domain>[\w@][\w.:@]+)\/?[\w\.?=%&=\-@/$,]*");
-            
-            //var match = r.Match(videoid);
+            var match = r.Match(videoid);
 
-            //if (match.Success)
-            //{
-            //    if (match.Groups["Domain"].Value.ToLower() == "youtu.be" ||
-            //        match.Groups["Domain"].Value.ToLower() == "youtube.com")
-            //    {
-            //        return true;
-            //    }
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            if (match.Success) return true;
 
-            return true;
+            return false;
 
-        }
+        } 
 
         /// <summary>
         /// Method used to call flash functions
