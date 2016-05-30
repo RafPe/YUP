@@ -150,7 +150,7 @@ namespace YUP.App.Contracts
 
 
 
-        public Channel       GetChannelStatistcs(string ytUsername)
+        public Channel GetChannelStatistcs(string ytUsername)
         {
             var channelStatisticsReq         = _youtubeService.Channels.List("statistics,snippet");
             channelStatisticsReq.ForUsername = ytUsername;
@@ -158,7 +158,9 @@ namespace YUP.App.Contracts
 
             var channelStatisticsResp = channelStatisticsReq.Execute();
 
-            return channelStatisticsResp.Items[0] ;
+            if (channelStatisticsResp.Items.Count > 0 ) return channelStatisticsResp.Items[0] ;
+
+            return null;
         }
 
         public Task<Channel> GetChannelStatistcsAsync(string ytUsername)
@@ -167,6 +169,10 @@ namespace YUP.App.Contracts
         }
 
 
+        public Task<Channel> GetChannelStatistcsByChannelIdAsync(string ytChannelId)
+        {
+            throw new NotImplementedException();
+        }
 
         public List<Channel>       GetChannelSnippet(string ytUsername)
         {
@@ -177,8 +183,6 @@ namespace YUP.App.Contracts
         {
             throw new NotImplementedException();
         }
-
-
 
         public string       GetChannelIdForUser(string username)
         {
@@ -232,6 +236,37 @@ namespace YUP.App.Contracts
 
                 }
             });
+        }
+
+        public Channel GetChannelStatistcsByUser(string ytUsername)
+        {
+            var channelStatisticsReq = _youtubeService.Channels.List("statistics,snippet");
+            channelStatisticsReq.ForUsername = ytUsername;
+            channelStatisticsReq.MaxResults = 1;
+
+            var channelStatisticsResp = channelStatisticsReq.Execute();
+
+            if (channelStatisticsResp.Items.Count > 0) return channelStatisticsResp.Items[0];
+
+            return null;
+        }
+
+        public Task<Channel> GetChannelStatistcsByUserAsync(string ytUsername)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Channel GetChannelStatistcsByChannelId(string ytChannelId)
+        {
+            var channelStatisticsReq = _youtubeService.Channels.List("statistics,snippet");
+            channelStatisticsReq.Id = ytChannelId;
+            channelStatisticsReq.MaxResults = 1;
+
+            var channelStatisticsResp = channelStatisticsReq.Execute();
+
+            if (channelStatisticsResp.Items.Count > 0) return channelStatisticsResp.Items[0];
+
+            return null;
         }
 
         //public List<object> GetChannelStatistcs(string ytUsername)

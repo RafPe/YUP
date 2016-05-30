@@ -28,9 +28,10 @@ namespace YUP.App
             ContainerHelper.InitializeBuilder();
 
             ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>().SingleInstance();
+            ContainerHelper.Builder.Register(c => new EventBus()).As<IEventBus>().SingleInstance();
             ContainerHelper.Builder.Register(c=>new YupSettings()).As<IYupSettings>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
-            ContainerHelper.Builder.Register(c=>new EventBus()).As<IEventBus>().SingleInstance();
+
 
             //TODO: Register players named ? 
             ContainerHelper.Builder.RegisterType<FlashAxControl>().Named<IMediaPlayer>("youtube").SingleInstance();

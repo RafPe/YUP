@@ -24,12 +24,14 @@ namespace YUP.App.vVideos
         public event EventBusHandler VideoIdChanged;
 
         //TODO:This needs to be changed or removed :/
-        private bool _dataLoaded;
+        private bool _dataLoaded = false;
 
         private bool _isBusy;
 
+        // Binding on textbox using http://stackoverflow.com/a/20089930/2476347
+        public string SearchBoxTerm { get; set; } = "";
 
-
+        public RelayCommand SearchBoxCmd                    { get; private set; }
         public RelayCommand                     test        { get; private set; }
 
         public ObservableCollection<YTVideo>    YtVideos    { get; set; }
@@ -147,9 +149,18 @@ namespace YUP.App.vVideos
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
 
 
-            //if (_dataLoaded) return; // avoid all time loading of data
+            if (_dataLoaded) return; // avoid all time loading of data
 
-            //_dataLoaded = true;       // Mark in advance ....
+            _dataLoaded = true;       // Mark in advance ....
+
+            // We need to add all channels which we have in our settings file! 
+            // as this will refresh our view details
+            foreach (YTChannel ytChannel in _yupRepository.ytChannels)
+            {
+                YtChannels.Add(ytChannel);
+            }
+
+
 
             //var lista = new List<YTChannel>();
             //lista.Add(new YTChannel()

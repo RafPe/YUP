@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using YUP.App.Events;
 using YUP.App.Models;
 using YUP.App.Services;
 
@@ -8,6 +9,9 @@ namespace YUP.App.Contracts
 {
     public class YupSettings : IYupSettings
     {
+        private IEventBus _eventBus;
+
+        public event EventBusHandler channelAdded;
 
         private string _appPath { get; set; }
         public  string appPath
@@ -33,7 +37,6 @@ namespace YUP.App.Contracts
 
         public YupSettings()
         {
-
         }
 
 

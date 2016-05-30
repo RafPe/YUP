@@ -1,18 +1,19 @@
-﻿<UserControl x:Class="YUP.App.vVideos.VideosView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:YUP.App.Helpers"
+             xmlns:app="clr-namespace:YUP.App"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="YUP.App.vVideos.VideosView"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="320"
              app:CustomBehaviors.LoadedMethodName="LoadData"
-             xmlns:app="clr-namespace:YUP.App"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+             >
 
- <UserControl.Resources>
+    <UserControl.Resources>
         <helpers:BoolToVisibilityConverter x:Key="BoolConverter"/>
-</UserControl.Resources>
+    </UserControl.Resources>
 
     <DockPanel x:Name="xResultPanel">
         <ListBox x:Name="bResultPanel" ItemsSource="{Binding YtChannels}">
@@ -27,21 +28,21 @@
                             </Grid.RowDefinitions>
                             <Image Source="{Binding thumbnail}" Height="140" Width="196" Stretch="UniformToFill" />
                             <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-         HorizontalAlignment="Right" VerticalAlignment="Bottom"
-         Margin="0 0 16 -20">
-                                <materialDesign:PackIcon Kind="Bike" />
+								HorizontalAlignment="Right" VerticalAlignment="Bottom"
+								Margin="0 0 16 -20">
+                                <materialDesign:PackIcon Kind="Movie" />
                             </Button>
                             <StackPanel Grid.Row="1" Margin="8 24 8 0" >
-                                <TextBlock FontWeight="Bold" Text="{Binding Name}"></TextBlock>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding description}"></TextBlock>
+                                <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
+                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding description}"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
                                 <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-             materialDesign:RippleAssist.IsCentered="True">
+									materialDesign:RippleAssist.IsCentered="True">
                                     <materialDesign:PackIcon Kind="ShareVariant" />
                                 </Button>
                                 <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-             materialDesign:RippleAssist.IsCentered="True">
+									materialDesign:RippleAssist.IsCentered="True">
                                     <materialDesign:PackIcon Kind="Heart" />
                                 </Button>
                             </StackPanel>
@@ -58,7 +59,8 @@
     </DockPanel>
 
     <!--<Grid>
-        --><!--<Grid.Resources>
+        -->
+    <!--<Grid.Resources>
             <DataTemplate DataType="{x:Type local:VideosViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <CheckBox />
@@ -88,7 +90,8 @@
                        Background="#99000000"
                        Foreground="White" />
             </CompositeCollection>
-        </Grid.Resources>--><!--
+        </Grid.Resources>-->
+    <!--
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
@@ -99,7 +102,9 @@
                 <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                --><!--<Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />--><!--
+                                -->
+    <!--<Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />-->
+    <!--
                                 <TextBlock Text="{Binding channelId}" />
                             </StackPanel>
                         </DataTemplate>
@@ -119,7 +124,9 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        --><!--<CheckBox />--><!--
+                        -->
+    <!--<CheckBox />-->
+    <!--
                         <TextBlock Text="{Binding Path=title}" />
                         <Button Content="+" />
                         <Button Content="-" />

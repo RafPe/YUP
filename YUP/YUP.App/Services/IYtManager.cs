@@ -12,8 +12,11 @@ namespace YUP.App.Services
         string                      GetChannelIdForUser(string username);
         Task<string>                GetChannelIdForUserAsync(string username);
 
-        Channel                     GetChannelStatistcs(string ytUsername);
-        Task<Channel>               GetChannelStatistcsAsync(string ytUsername);
+        Channel                     GetChannelStatistcsByUser(string ytUsername);
+        Task<Channel>               GetChannelStatistcsByUserAsync(string ytUsername);
+
+        Channel                     GetChannelStatistcsByChannelId(string ytChannelId);
+        Task<Channel>               GetChannelStatistcsByChannelIdAsync(string ytChannelId);
 
         List<Channel>               GetChannelSnippet(string ytUsername);
         Task<List<Channel>>         GetChannelSnippetAsync(string ytUsername);
