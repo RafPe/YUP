@@ -42,6 +42,19 @@ namespace YUP.App.vChannels
             set { _selectedYtChannel = value; }
         }
 
+        /// <summary>
+        /// Used for TAGS when adding / editing channel
+        /// </summary>
+        private string _newYtChannelTagSelected;
+        public string NewYtChannelTagSelected
+        {
+            get { return this._newYtChannelTagSelected; }
+            set
+            {
+                this._newYtChannelTagSelected = value;
+            }
+        }
+
         #endregion
 
 

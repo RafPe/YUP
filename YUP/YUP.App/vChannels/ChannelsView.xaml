@@ -39,7 +39,7 @@
             </Button>
         </Grid>
         <ListBox x:Name="bResultPanel"  Grid.Row="1"
-				ItemsSource="{Binding AllStaff}"
+				ItemsSource="{Binding NewYtChannel}"
 				VerticalAlignment="Stretch"
 				ScrollViewer.VerticalScrollBarVisibility ="Auto"
                 SelectedItem="{Binding SelectedYtChannel}"
