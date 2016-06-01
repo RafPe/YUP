@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="YUP - Youtube Universal Player"
         Width="1135"
-        Height="720"
+        Height="770"
         xmlns:videos="clr-namespace:YUP.App.vVideos"
         xmlns:yupis="clr-namespace:YUP.App.vYupis"
         xmlns:player="clr-namespace:YUP.App.vPlayer"
@@ -54,12 +54,12 @@
 
     </Window.Resources>
 
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto" MinHeight="100"></RowDefinition>
-        </Grid.RowDefinitions>
+    <materialDesign:DialogHost Identifier="RootDialog">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto" MinHeight="100"></RowDefinition>
+            </Grid.RowDefinitions>
 
 
             <ContentControl Grid.Row="0"
@@ -69,227 +69,46 @@
 
 
 
-        <DockPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <DockPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <Button     Margin="10"
+                <Button     Margin="10"
                         Content="Yupis"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}" 
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
                         Command="{Binding NavCommand}"
                         CommandParameter="yupis">
-            </Button>
+                </Button>
 
-            <Button     Margin="10"
+                <Button     Margin="10"
                         Content="channels"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}" 
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
                         Command="{Binding NavCommand}"
                         CommandParameter="channels">
-            </Button>
+                </Button>
 
-            <Button     Margin="10"
+                <Button     Margin="10"
                         Content="Videos"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}" 
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
                         Command="{Binding NavCommand}"
                         CommandParameter="videos">
-            </Button>
+                </Button>
 
-            <Button     Margin="10"
+                <Button     Margin="10"
                         Content="Exit"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}" 
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"
                         Command="{Binding NavCommand}"
                         CommandParameter="exit">
-            </Button>
-
-        </DockPanel>
-
-    </Grid>
-
-
-
-
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <ContentControl Content="{Binding CurrentDashboardViewModel}"/>
-        
-        --><!--<materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                          Mode="PrimaryMid" 
-                                      DockPanel.Dock="Top"
-                                  Grid.Row="0">
-            --><!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
-                                      x:Name="MenuToggleButton"/>
-                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                    <StackPanel>
-                        <Button Content="Hello World"/>
-                        <Button Content="Nice Popup"/>
-                        <Button Content="Goodbye"/>
-                    </StackPanel>
-                </materialDesign:PopupBox>--><!--
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Youtube Universal Player</TextBlock>
-        </materialDesign:ColorZone>-->
-
-        
-
-        <!--<DockPanel>
-                <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                          Mode="PrimaryMid" 
-                                      DockPanel.Dock="Top">
-                --><!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
-                                      x:Name="MenuToggleButton"/>
-                <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                    <StackPanel>
-                        <Button Content="Hello World"/>
-                        <Button Content="Nice Popup"/>
-                        <Button Content="Goodbye"/>
-                    </StackPanel>
-                </materialDesign:PopupBox>--><!--
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Youtube Universal Player</TextBlock>
-            </materialDesign:ColorZone>
-            <ContentControl Content="{Binding CurrentDashboardViewModel}"/>
-        </DockPanel>-->
-
-
-
-        
-        <!--<DockPanel Grid.Row="1">
-
-
-
-            
-
-            <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                 Margin="32" Grid.Row="1">
-                <StackPanel>
-                    <Button ToolTip="GitHub">
-                        <materialDesign:PackIcon Kind="GithubCircle" Height="20" Width="20" />
-                    </Button>
-                    <Button ToolTip="Twitter" 
-                        Background="{DynamicResource PrimaryHueMidBrush}"
-                        Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
-                        <materialDesign:PackIcon Kind="Twitter" />
-                    </Button>
-                    <Button ToolTip="Chat">
-                        --><!-- mix up the colours by brinking in a named palette (see merged dictionaries at top) --><!--
-                        <Button.Background>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary500}" />
-                        </Button.Background>
-                        <Button.Foreground>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary500Foreground}" />
-                        </Button.Foreground>
-                        <materialDesign:PackIcon Kind="Message" />
-                    </Button>
-                    <Button ToolTip="Email"
-                        Background="{DynamicResource SecondaryAccentBrush}"
-                        Foreground="{DynamicResource SecondaryAccentForegroundBrush}"
-                        >
-                        <materialDesign:PackIcon Kind="Email" />
-                    </Button>
-                    <Button ToolTip="Feel like you want to make a donation?  It would be gratefully received.  Click the button to donate via Pledgie." 
-                        >
-                        <Button.Background>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary200}" />
-                        </Button.Background>
-                        <Button.Foreground>
-                            <SolidColorBrush Color="{StaticResource GreenPrimary200Foreground}" />
-                        </Button.Foreground>
-                        <materialDesign:PackIcon Kind="Gift" />
-                    </Button>
-                </StackPanel>
-            </materialDesign:PopupBox>
-        </DockPanel>--><!--
-
-    </Grid>-->
-
-
-    
-    <!--<Grid x:Name="GridMain">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"></ColumnDefinition>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-        </Grid.RowDefinitions>
-        
-        <Grid x:Name="GridControls" 
-              Grid.Column="2"
-              Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <DockPanel Grid.Row="2" Margin="5">
-
-                <Button Content="Channels"
-                        Style="{DynamicResource AccentedSquareButtonStyle}"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="channels">
-                    <Button.LayoutTransform>
-                        <RotateTransform Angle="-90" />
-                    </Button.LayoutTransform>
                 </Button>
 
             </DockPanel>
 
-            <DockPanel Grid.Row="1" Margin="5">
-
-                <Button Content="Yupis"
-                        Style="{DynamicResource AccentedSquareButtonStyle}"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="yupis">
-                    <Button.LayoutTransform>
-                        <RotateTransform Angle="-90" />
-                    </Button.LayoutTransform>
-                </Button>
-
-            </DockPanel>
-
-            <DockPanel Grid.Row="0" Margin="5">
-
-                <Button Content="Members Info"
-                        Style="{DynamicResource AccentedSquareButtonStyle}"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="videos">
-                    <Button.LayoutTransform>
-                        <RotateTransform Angle="-90" />
-                    </Button.LayoutTransform>
-                </Button>
-
-            </DockPanel>
         </Grid>
-               
-              
-        <Grid x:Name="GridDetails"
-              Grid.Column="1"
-              Grid.Row="0"
-              Width="340"
-              Height="600">
-            <ContentControl Content="{Binding CurrentDetailsViewModel}"></ContentControl>
-        </Grid>
-
-        <Grid x:Name="GridDashboard"
-              Grid.Column="0"
-              Grid.Row="0">
-            <ContentControl Content="{Binding CurrentDashboardViewModel}"></ContentControl>
-        </Grid>
-
-    </Grid>-->
+    </materialDesign:DialogHost>
 </Window>

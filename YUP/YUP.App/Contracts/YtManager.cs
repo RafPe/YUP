@@ -240,7 +240,7 @@ namespace YUP.App.Contracts
 
         public Channel GetChannelStatistcsByUser(string ytUsername)
         {
-            var channelStatisticsReq = _youtubeService.Channels.List("statistics,snippet");
+            var channelStatisticsReq = _youtubeService.Channels.List("id,snippet,statistics,contentDetails,topicDetails");
             channelStatisticsReq.ForUsername = ytUsername;
             channelStatisticsReq.MaxResults = 1;
 
@@ -258,7 +258,7 @@ namespace YUP.App.Contracts
 
         public Channel GetChannelStatistcsByChannelId(string ytChannelId)
         {
-            var channelStatisticsReq = _youtubeService.Channels.List("statistics,snippet");
+            var channelStatisticsReq = _youtubeService.Channels.List("id,snippet,statistics,contentDetails,topicDetails");
             channelStatisticsReq.Id = ytChannelId;
             channelStatisticsReq.MaxResults = 1;
 
@@ -268,26 +268,5 @@ namespace YUP.App.Contracts
 
             return null;
         }
-
-        //public List<object> GetChannelStatistcs(string ytUsername)
-        //{
-        //    var channelStatisticsReq            = _youtubeService.Channels.List("statistics");
-        //    channelStatisticsReq.ForUsername    = ytUsername;
-
-        //    var channelStatisticsResp = channelStatisticsReq.Execute();
-
-        //    List<object> tmpChannels = new List<object>();
-
-        //    foreach (Channel channel in channelStatisticsResp.Items)
-        //    {
-        //        tmpChannels.Add(channel);
-        //    }
-
-        //    return tmpChannels;
-        //}
-
-       
-
-
     }
 }

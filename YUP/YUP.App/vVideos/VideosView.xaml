@@ -16,6 +16,23 @@
     </UserControl.Resources>
 
     <DockPanel x:Name="xResultPanel">
+        <Button Margin="5">
+            <Button.Content>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Height="24" Width="24"
+                                              Grid.Column="0" 
+                                              Kind="Play" Margin="0,0,10,0"/>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Watch Now" FontSize="10" />
+                        <TextBlock Text="Duration: 50m" FontSize="5" Foreground="Gainsboro" />
+                    </StackPanel>
+                </Grid>
+            </Button.Content>
+        </Button>
         <ListBox x:Name="bResultPanel" ItemsSource="{Binding YtChannels}">
             <ListBox.ItemTemplate>
                 <DataTemplate>

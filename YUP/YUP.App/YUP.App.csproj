@@ -171,11 +171,18 @@
     <Compile Include="Contracts\YupRepository.cs" />
     <Compile Include="Contracts\YupSettings.cs" />
     <Compile Include="CustomBehaviors.cs" />
+    <Compile Include="Dialogs\DialogEditChannel.xaml.cs">
+      <DependentUpon>DialogEditChannel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogRemoveChannel.xaml.cs">
+      <DependentUpon>DialogRemoveChannel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="Events\EventOnBus.cs" />
     <Compile Include="Events\PlayerStateChangedArgs.cs" />
     <Compile Include="Helpers\Converters.cs" />
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\GroupFilter.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="MediaPlayers\FlashAxControl.cs">
@@ -217,6 +224,14 @@
       <DependentUpon>YupisView.xaml</DependentUpon>
     </Compile>
     <Compile Include="vYupis\YupisViewModel.cs" />
+    <Page Include="Dialogs\DialogEditChannel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DialogRemoveChannel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -291,9 +306,7 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dialogs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Data;
+using Google.Apis.YouTube.v3.Data;
+using MaterialDesignThemes.Wpf;
 using YUP.App.Contracts;
+using YUP.App.Dialogs;
 using YUP.App.Events;
 using YUP.App.Helpers;
 using YUP.App.Models;
@@ -12,36 +17,72 @@ namespace YUP.App.vChannels
 {
     public class ChannelsViewModel : BindableBase, IEventRegistrator
     {
-        private IYupRepository _yupRepository;
-        private YTChannel _selectedYtChannel;
-        private IYtManager _ytManager;
-        private IEventBus _eventBus;
+        private IYupRepository  _yupRepository;
+        private YTChannel       _selectedYtChannel;
+        private IYtManager      _ytManager;
+        private IEventBus       _eventBus;
 
 
-        public ObservableCollection<string> test { get; set; }
-        public ObservableCollection<YTChannel> YtChannels { get; set; }
+        public ObservableCollection<YTChannel>  YtChannels { get; set; }
+
+        public YTChannel SelectedYtChannel
+        {
+            get { return _selectedYtChannel; }
+            set { _selectedYtChannel = value; }
+        }
+
+        #region Add / Edit youtube channel
+
+        /// <summary>
+        /// This is used when we add new channel to our repo
+        /// </summary>
+        public YTChannel NewYtChannel
+        {
+            get { return _selectedYtChannel; }
+            set { _selectedYtChannel = value; }
+        }
+
+        #endregion
+
 
 
         public event EventBusHandler channelAdded;
         public event EventBusHandler channelRemoved;
 
-        public YTChannel SelectedYtChannel
+        // Binding on textbox using http://stackoverflow.com/a/20089930/2476347
+        //public string       SearchBoxTerm           { get; set; } = "";
+
+        public RelayCommand CardShareCmd            { get; private set; }
+        public RelayCommand CardDeleteCmd           { get; private set; }
+        public RelayCommand CardEditmd              { get; private set; }
+        public RelayCommand CardFavoriteCmd         { get; private set; }
+        public RelayCommand SearchBoxCmd            { get; private set; }
+
+
+
+        internal CollectionViewSource CvsStaff { get; set; }
+        public ICollectionView AllStaff
         {
-            get { return _selectedYtChannel; }
+            get { return CvsStaff.View; }
+        }
+
+        private string _searchBoxTerm;
+
+        public string SearchBoxTerm
+        {
+            get { return this._searchBoxTerm; }
             set
             {
-                _selectedYtChannel = value;
-                SearchBoxTerm = value.channelId ?? "";
+                this._searchBoxTerm = value;
+                if (SearchBoxTerm.Length ==0 || SearchBoxTerm.Length >3 ) OnFilterChanged();
             }
         }
 
+        private void OnFilterChanged()
+        {
+             CvsStaff.View.Refresh();
+        }
 
-        // Binding on textbox using http://stackoverflow.com/a/20089930/2476347
-        public string SearchBoxTerm { get; set; } = "";
-
-        public RelayCommand XYZ { get; private set; }
-        public RelayCommand cmdRemoveChannel { get; private set; }
-        public RelayCommand SearchBoxCmd { get; private set; }
 
         /// <summary>
         /// ctor
@@ -51,53 +92,129 @@ namespace YUP.App.vChannels
         /// <param name="eventbus"></param>
         public ChannelsViewModel(IYupRepository yupRepository, IYtManager ytManager, IEventBus eventbus)
         {
-            _yupRepository = yupRepository;
-            _ytManager = ytManager;
-            _eventBus = eventbus;
+            _yupRepository  = yupRepository;
+            _ytManager      = ytManager;
+            _eventBus       = eventbus;
 
-            YtChannels = new ObservableCollection<YTChannel>();
+            YtChannels      = new ObservableCollection<YTChannel>();
 
-            XYZ = new RelayCommand(testme);
-            SearchBoxCmd = new RelayCommand(klinkal);
-            cmdRemoveChannel = new RelayCommand(onCmdRemoveChannel);
+
+            CvsStaff        = new CollectionViewSource();
+            CvsStaff.Source = this.YtChannels;
+            CvsStaff.Filter += ApplyFilter;
+            CvsStaff.Filter += ApplyFilterUserName;
+
+            CardShareCmd    = new RelayCommand(onCmdRemoveChannel);
+            CardDeleteCmd   = new RelayCommand(onCmdRemoveChannel);
+            CardEditmd      = new RelayCommand(onCmdRemoveChannel);
+            CardFavoriteCmd = new RelayCommand(onCmdRemoveChannel);
+
+            SearchBoxCmd    = new RelayCommand(klinkal);
+
 
         }
 
-        private void testme()
+        private void ApplyFilterUserName(object sender, FilterEventArgs e)
         {
-            var cos = "";
+            YTChannel svm = (YTChannel)e.Item;
+
+            if (string.IsNullOrWhiteSpace(this.SearchBoxTerm) || this.SearchBoxTerm.Length == 0 || this.SearchBoxTerm.Length < 3)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = (svm.user.IndexOf(SearchBoxTerm, StringComparison.OrdinalIgnoreCase)) >= 0;
+            }
         }
 
-        public void onCmdRemoveChannel()
+        private void ApplyFilter(object sender, FilterEventArgs e)
         {
-            YtChannels.Remove(SelectedYtChannel);
+
+            YTChannel svm = (YTChannel)e.Item;
+
+            if (string.IsNullOrWhiteSpace(this.SearchBoxTerm) || this.SearchBoxTerm.Length == 0 || this.SearchBoxTerm.Length <3)
+            {
+                e.Accepted = true;
+            }
+            else
+            {
+                e.Accepted = (svm.description.IndexOf(SearchBoxTerm, StringComparison.OrdinalIgnoreCase)) >= 0;
+            }
+        }
+
+        public async void onCmdRemoveChannel()
+        {
+
+            if (_selectedYtChannel == null) return;
+
+            //let's set up a little MVVM, cos that's what the cool kids are doing:
+            var view = new DialogEditChannel()
+            {
+                DataContext = this
+            };
+
+            //show the dialog
+            bool result = (bool) await DialogHost.Show(view, "RootDialog");
+
+            if(result) YtChannels.Remove(SelectedYtChannel);
+
+        }
+
+        private bool IsUrl(string input)
+        {
+
+            var r = new Regex(@"^http(s)?.*");
+
+            var match = r.Match(input);
+
+            if (match.Success) return true;
+
+            return false;
+
         }
 
         public async void klinkal()
         {
-
+            // If we dont have anything we skip actions :) 
             if (string.IsNullOrWhiteSpace(SearchBoxTerm)) return;
 
             string tmpChannelID;
+            Channel tmpChannelStats = null;
 
-            // First we check if we got details by username
-            tmpChannelID = await _ytManager.GetChannelIdForUserAsync(SearchBoxTerm);
+            if (IsUrl(SearchBoxTerm))
+            {
+                tmpChannelID = _ytManager.GetChannelIdFromUrl(SearchBoxTerm);
 
-            if (tmpChannelID == null) tmpChannelID = _ytManager.GetChannelIdFromUrl(SearchBoxTerm);
+                if (tmpChannelID != null)
+                {
+                    tmpChannelStats = _ytManager.GetChannelStatistcsByChannelId(tmpChannelID);
+                }
 
-            if (tmpChannelID == null) return;
+            }
+            else
+            {
+                tmpChannelID = await _ytManager.GetChannelIdForUserAsync(SearchBoxTerm);
 
-            var x = _ytManager.GetChannelStatistcsByChannelId(tmpChannelID);
+                if (tmpChannelID != null)
+                {
+                    tmpChannelStats = _ytManager.GetChannelStatistcsByUser(SearchBoxTerm);
+                }
 
-            if(x==null)  x = _ytManager.GetChannelStatistcsByUser(SearchBoxTerm);
+            }
+
+            // bail out if we have not found anything 
+            if (tmpChannelStats == null) return;
+
+
 
             var chann = new YTChannel()
             {
                 description =
-                    $"{x.Snippet.Description.Substring(0, x.Snippet.Description.Length < 100 ? x.Snippet.Description.Length : 100).Trim()} ... <read more>",
-                thumbnail = x.Snippet.Thumbnails.High.Url,
-                channelId = x.Id,
-                channelUser = SearchBoxTerm
+                    $"{tmpChannelStats.Snippet.Description.Substring(0, tmpChannelStats.Snippet.Description.Length < 100 ? tmpChannelStats.Snippet.Description.Length : 100).Trim()} ...",
+                thumbnail = tmpChannelStats.Snippet.Thumbnails.High.Url,
+                channelId = tmpChannelStats.Id,
+                user = tmpChannelStats.Snippet.Title
             };
 
             _yupRepository.ytChannels.Add(chann);
@@ -106,6 +223,12 @@ namespace YUP.App.vChannels
 
 
             _eventBus.RaiseEvent(EventOnBus.channelAdded, this, new EventBusArgs() {Item = chann});
+
+            // Lastly we refresh our collection source 
+
+            SearchBoxTerm = "";
+
+            CvsStaff.View.Refresh();
 
         }
 

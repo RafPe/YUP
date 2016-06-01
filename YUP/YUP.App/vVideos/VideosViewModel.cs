@@ -98,7 +98,7 @@ namespace YUP.App.vVideos
             set
             {
                 _selectedYtChannel = value;
-                LoadVideos(_selectedYtChannel.channelUser);
+                LoadVideos(_selectedYtChannel.user);
             }
         }
 
