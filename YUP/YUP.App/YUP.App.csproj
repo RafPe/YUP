@@ -167,6 +167,7 @@
     <Compile Include="BindableBase.cs" />
     <Compile Include="ContainerHelper.cs" />
     <Compile Include="Contracts\EventBus.cs" />
+    <Compile Include="Contracts\HoldingBay.cs" />
     <Compile Include="Contracts\YtManager.cs" />
     <Compile Include="Contracts\YupRepository.cs" />
     <Compile Include="Contracts\YupSettings.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="Models\YTVideo.cs" />
     <Compile Include="Models\YupItem.cs" />
     <Compile Include="Services\IEventRegistrator.cs" />
+    <Compile Include="Services\IHoldingBay.cs" />
     <Compile Include="vPlayer\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>

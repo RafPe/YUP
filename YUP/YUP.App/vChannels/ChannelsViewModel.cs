@@ -31,34 +31,6 @@ namespace YUP.App.vChannels
             set { _selectedYtChannel = value; }
         }
 
-        #region Add / Edit youtube channel
-
-        /// <summary>
-        /// This is used when we add new channel to our repo
-        /// </summary>
-        public YTChannel NewYtChannel
-        {
-            get { return _selectedYtChannel; }
-            set { _selectedYtChannel = value; }
-        }
-
-        /// <summary>
-        /// Used for TAGS when adding / editing channel
-        /// </summary>
-        private string _newYtChannelTagSelected;
-        public string NewYtChannelTagSelected
-        {
-            get { return this._newYtChannelTagSelected; }
-            set
-            {
-                this._newYtChannelTagSelected = value;
-            }
-        }
-
-        #endregion
-
-
-
         public event EventBusHandler channelAdded;
         public event EventBusHandler channelRemoved;
 
@@ -114,8 +86,8 @@ namespace YUP.App.vChannels
 
             CvsStaff        = new CollectionViewSource();
             CvsStaff.Source = this.YtChannels;
-            CvsStaff.Filter += ApplyFilter;
-            CvsStaff.Filter += ApplyFilterUserName;
+            //CvsStaff.Filter += ApplyFilter;
+            //CvsStaff.Filter += ApplyFilterUserName;
 
             CardShareCmd    = new RelayCommand(onCmdRemoveChannel);
             CardDeleteCmd   = new RelayCommand(onCmdRemoveChannel);

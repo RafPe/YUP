@@ -31,6 +31,7 @@ namespace YUP.App
             ContainerHelper.Builder.Register(c => new EventBus()).As<IEventBus>().SingleInstance();
             ContainerHelper.Builder.Register(c=>new YupSettings()).As<IYupSettings>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
+            ContainerHelper.Builder.Register(c=>new HoldingBay()).As<IHoldingBay>().SingleInstance();
 
 
             //TODO: Register players named ? 
