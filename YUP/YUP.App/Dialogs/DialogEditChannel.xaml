@@ -94,7 +94,7 @@
                              Margin="10"
                              VerticalAlignment="Center"
                              IsEnabled="False"
-                             Text="Some-User-Name"
+                             Text="{Binding NewYtChannel.user}"
                              />
 
                 <wpf:PackIcon Kind="Login" 
@@ -135,7 +135,7 @@
                              VerticalAlignment="Center"
                             
                              wpf:TextFieldAssist.Hint="tag"
-                             Text="Some-User-Name"
+                             Text="my TAGs"
                              />
 
                 <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" 
@@ -174,7 +174,7 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
 
-                <WrapPanel >
+                <WrapPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
                        <Button Width="10" Height="10" Margin="10"></Button>
                     <Button Margin="5" Style="{StaticResource MaterialDesignRaisedAccentButton}">
                         <Button.Content>
