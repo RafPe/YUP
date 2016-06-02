@@ -13,8 +13,7 @@
         public bool                             isHidden            { get; set; }
         public bool                             IsChosen            { get; set; } //Used for multiple items editing 
 
-
-        //public List<YTThumbnail>                thumbnails  { get; set; }
+        public string                           category            { get; set; }  
         public string[]                         tags                { get; set; }
     }
 }
