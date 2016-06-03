@@ -107,6 +107,15 @@
                         CommandParameter="exit">
                 </Button>
 
+                <Button     Margin="10"
+                        Content="Player"
+                        Style="{StaticResource MaterialDesignRaisedAccentButton}" 
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Command="{Binding NavCommand}"
+                        CommandParameter="player">
+                </Button>
+
             </DockPanel>
 
         </Grid>

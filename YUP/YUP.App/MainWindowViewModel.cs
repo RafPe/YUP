@@ -64,6 +64,9 @@ namespace YUP.App
                 case "channels":
                     CurrentDashboardViewModel = ContainerHelper.GetService<ChannelsViewModel>();
                     break;
+                case "player":
+                    CurrentDashboardViewModel = ContainerHelper.GetService<PlayerViewModel>();
+                    break;
                 case "exit":
                     App.Current.Shutdown(0);
                     break;

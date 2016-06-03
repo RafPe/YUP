@@ -182,6 +182,9 @@ namespace YUP.App.vChannels
 
             _eventBus.RaiseEvent(EventOnBus.channelAdded, this, new EventBusArgs() { Item = chann });
 
+            // Clean up searchbox terms 
+            _searchBoxTerm = "";
+            SearchBoxTerm = "";
             this.OnFilterChanged();
               
         }
@@ -238,6 +241,10 @@ namespace YUP.App.vChannels
 
             // Fire up event that we had a channel modification
             _eventBus.RaiseEvent(EventOnBus.channelEdited, this, new EventBusArgs() { Item = _selectedYtChannel });
+
+            // Clean up searchbox terms 
+            _searchBoxTerm = "";
+            SearchBoxTerm = "";
 
         }
 
