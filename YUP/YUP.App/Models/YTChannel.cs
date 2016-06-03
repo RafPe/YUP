@@ -11,6 +11,13 @@ namespace YUP.App.Models
         public string   videosCount      { get; set; }
         public DateTime dtAdded          { get; set; }
 
-
+        public YTChannel()
+        {
+            user            = "";
+            friendlyName    = "";
+            description     = "";
+            category        = "";
+            tags            = new[] {""};
+        }
     }
 }

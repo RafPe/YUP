@@ -6,10 +6,16 @@
              xmlns:local="clr-namespace:YUP.App.vChannels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:app="clr-namespace:YUP.App"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="YUP.App.vChannels.ChannelsView"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+    x:Class="YUP.App.vChannels.ChannelsView"
              mc:Ignorable="d" 
              app:CustomBehaviors.LoadedMethodName="LoadData"
              d:DesignHeight="800" d:DesignWidth="1135">
+    <UserControl.Resources>
+        <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -63,8 +69,10 @@
                                 <materialDesign:PackIcon Kind="YoutubePlay" />
                             </Button>
                             <StackPanel Grid.Row="1" Margin="8 24 8 0" >
-                                <TextBlock FontWeight="Bold" Text="{Binding user}"/>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding description}"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding friendlyName}" Margin="0,0,0,5"
+                                           Visibility="{Binding friendlyName, Converter={StaticResource NullableToVisibilityConverter}}"/>
+                                <TextBlock Text="{Binding user}" Margin="0,0,0,5"/>
+                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" FontSize="10" Text="{Binding description}"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
                                 <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"

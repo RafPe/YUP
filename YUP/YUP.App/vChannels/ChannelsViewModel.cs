@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 using Google.Apis.YouTube.v3.Data;
@@ -40,7 +41,7 @@ namespace YUP.App.vChannels
         #region RelayCommands
         public RelayCommand CardShareCmd            { get; private set; }
         public RelayCommand CardDeleteCmd           { get; private set; }
-        public RelayCommand CardEdited              { get; private set; }
+        public RelayCommand CardEditCmd             { get; private set; }
         public RelayCommand CardFavoriteCmd         { get; private set; }
         public RelayCommand SearchBoxCmd            { get; private set; }
         #endregion
@@ -93,12 +94,11 @@ namespace YUP.App.vChannels
 
             CvsStaff        = new CollectionViewSource();
             CvsStaff.Source = this.YtChannels;
-            CvsStaff.Filter += ApplyFilterUserName;
-            CvsStaff.Filter += ApplyFilterFriendlyName;
+            CvsStaff.Filter += FilterChannels;
 
             CardShareCmd    = new RelayCommand(OnCardShareCmd);
             CardDeleteCmd   = new RelayCommand(OnCardDeleteCmd);
-            CardEdited      = new RelayCommand(OnCardEdited);
+            CardEditCmd     = new RelayCommand(OnCardEdited);
             CardFavoriteCmd = new RelayCommand(OnCardFavoriteCmd);
 
             SearchBoxCmd    = new RelayCommand(OnSearchBoxCmd);
@@ -202,9 +202,42 @@ namespace YUP.App.vChannels
         /// <summary>
         /// Handler executed when CardEditmd command is invoked
         /// </summary>
-        private void OnCardEdited()
+        private async void OnCardEdited()
         {
 
+            if (ReferenceEquals(_selectedYtChannel, null)) return;
+
+            // Create a copy if we would cancel our edit 
+            var channelBackup = Activator.CreateInstance<YTChannel>();
+            var fields = channelBackup.GetType().GetFields(BindingFlags.Public
+                | BindingFlags.Instance);
+            foreach (var field in fields)
+            {
+                var value = field.GetValue(_selectedYtChannel);
+                field.SetValue(channelBackup, value);
+            }
+
+            //let's set up a little MVVM, cos that's what the cool kids are doing:
+            var view = new DialogEditChannel()
+            {
+                DataContext = new DialogEditChannelViewModel(_selectedYtChannel)
+            };
+
+            //show the dialog
+            bool result = (bool)await DialogHost.Show(view, "RootDialog");
+
+            // User cliked cancel - so we dont edit this channel
+            if (!result)
+            {
+                _selectedYtChannel = channelBackup;
+                return;                             
+            }
+
+            // Save change in our repository
+            _yupRepository.SaveRepository();
+
+            // Fire up event that we had a channel modification
+            _eventBus.RaiseEvent(EventOnBus.channelEdited, this, new EventBusArgs() { Item = _selectedYtChannel });
 
         }
 
@@ -312,7 +345,7 @@ namespace YUP.App.vChannels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ApplyFilterUserName(object sender, FilterEventArgs e)
+        private void FilterChannels(object sender, FilterEventArgs e)
         {
             YTChannel svm = (YTChannel)e.Item;
 
@@ -324,36 +357,7 @@ namespace YUP.App.vChannels
             {
                 if (!ReferenceEquals(svm.user, null))
                 {
-                    e.Accepted = (svm.user.IndexOf(SearchBoxTerm, StringComparison.OrdinalIgnoreCase)) >= 0;
-                }
-                else
-                {
-                    e.Accepted = true;
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// Method responsible for filtering based on channel friendly name
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ApplyFilterFriendlyName(object sender, FilterEventArgs e)
-        {
-
-            YTChannel svm = (YTChannel)e.Item;
-
-            if (string.IsNullOrWhiteSpace(this.SearchBoxTerm) || this.SearchBoxTerm.Length == 0 || this.SearchBoxTerm.Length < 3)
-            {
-                e.Accepted = true;
-            }
-            else
-            {
-
-                if (!ReferenceEquals(svm.friendlyName, null))
-                {
-                    e.Accepted = (svm.friendlyName.IndexOf(SearchBoxTerm, StringComparison.OrdinalIgnoreCase)) >= 0;
+                    e.Accepted = (svm.friendlyName.IndexOf(SearchBoxTerm, StringComparison.OrdinalIgnoreCase)) >= 0  || (svm.user.IndexOf(SearchBoxTerm, StringComparison.OrdinalIgnoreCase)) >= 0 || (svm.description.IndexOf(SearchBoxTerm, StringComparison.OrdinalIgnoreCase)) >= 0;
                 }
                 else
                 {

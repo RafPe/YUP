@@ -54,8 +54,10 @@
                 <RowDefinition Height="140" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Image  Source="https://pbs.twimg.com/media/BmF5xSJIYAAuiDB.jpg" 
+            <Image Grid.Row="0" Source="{Binding NewYtChannel.thumbnail}"
+                   Stretch="UniformToFill" />
+            <!--<StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Image  Source="{Binding NewYtChannel.thumbnail}" 
                    Height="120" Width="176" 
                    Stretch="UniformToFill" HorizontalAlignment="Left" />
                 <TextBlock Margin="10" Text="Huuuraaa" 
@@ -63,7 +65,7 @@
                            VerticalAlignment="Center"
                            Style="{StaticResource MaterialDesignDisplay1TextBlock}"
                            ></TextBlock>
-            </StackPanel>
+            </StackPanel>-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -106,7 +108,7 @@
                              Margin="10,10,20,10"                             
                              VerticalAlignment="Center"
                              IsEnabled="False"
-                             Text="Some-channelId"
+                             Text="{Binding NewYtChannel.channelId}"
                              />
 
                 <wpf:PackIcon Kind="Login" 
@@ -119,7 +121,9 @@
                              Margin="10,10,20,10"
                              MinWidth="300"
                              VerticalAlignment="Center"
-                             Text="Channel Friendly name"
+                             wpf:TextFieldAssist.Hint="Your own channel title goes here"
+                             Text="{Binding NewYtChannel.friendlyName}"
+                         
                              />
 
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
@@ -135,12 +139,11 @@
                              VerticalAlignment="Center"
                             
                              wpf:TextFieldAssist.Hint="tag"
-                             Text="my TAGs"
                              />
 
                 <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" 
                           VerticalAlignment="Center"
-                          wpf:TextFieldAssist.Hint="Search" 
+                          wpf:TextFieldAssist.Hint="Category" 
                           IsEditable="True" 
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                   Margin="10">
@@ -175,17 +178,6 @@
                 </ListBox>
 
                 <WrapPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
-                       <Button Width="10" Height="10" Margin="10"></Button>
-                    <Button Margin="5" Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Watch Now" FontSize="5" />
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                    
-                    <Button Width="10" Height="10" Margin="10"></Button>
-                    <Button Width="10" Height="10" Margin="10"></Button>
                     <Button Width="10" Height="10" Margin="10"></Button>
                 </WrapPanel>
 
