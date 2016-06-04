@@ -44,7 +44,7 @@ namespace YUP.App
 
 
             _currentDetailsViewModel    = ContainerHelper.GetService<YupisViewModel>();
-            _CurrentDashboardViewModel  = ContainerHelper.GetService<PlayerViewModel>();
+            _CurrentDashboardViewModel  = ContainerHelper.GetService<ChannelsViewModel>();
         }
 
 

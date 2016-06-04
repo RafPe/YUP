@@ -1,4 +1,6 @@
-﻿namespace YUP.App
+﻿using System.Windows.Input;
+
+namespace YUP.App
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -8,6 +10,8 @@
         public MainWindow()
         {
             InitializeComponent();
+
+            titleBar.MouseLeftButtonDown += (o, e) => DragMove();
         }
     }
 }

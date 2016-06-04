@@ -13,8 +13,9 @@
         xmlns:yupis="clr-namespace:YUP.App.vYupis"
         xmlns:player="clr-namespace:YUP.App.vPlayer"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        ResizeMode="CanResize"
-        WindowStartupLocation="CenterScreen"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        WindowStyle="None" ResizeMode="NoResize"
+        AllowsTransparency="True" 
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -23,11 +24,13 @@
         TextOptions.TextRenderingMode="Auto" 
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
         >
-    
-    <Window.DataContext>
+
+
+
+        <Window.DataContext>
         <local:MainWindowViewModel></local:MainWindowViewModel>
     </Window.DataContext>
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -38,38 +41,62 @@
                 <!-- throw in some extra colour for our floating action button -->
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
-        <DataTemplate DataType="{x:Type videos:VideosViewModel}">
-            <videos:VideosView/> 
-         </DataTemplate>
-        <DataTemplate DataType="{x:Type yupis:YupisViewModel}">
-            <yupis:YupisView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type player:PlayerViewModel}">
-            <player:PlayerView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type channels:ChannelsViewModel}">
-            <channels:ChannelsView/>
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type videos:VideosViewModel}">
+                <videos:VideosView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type yupis:YupisViewModel}">
+                <yupis:YupisView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type player:PlayerViewModel}">
+                <player:PlayerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type channels:ChannelsViewModel}">
+                <channels:ChannelsView/>
+            </DataTemplate>
         </ResourceDictionary>
 
     </Window.Resources>
-
-    <materialDesign:DialogHost Identifier="RootDialog">
-        <Grid>
+    <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="Auto" MinHeight="100"></RowDefinition>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <materialDesign:DialogHost Identifier="RootDialog" Grid.Row="1">
+            <dragablz:TabablzControl AdjacentHeaderItemOffset="10" ShowDefaultAddButton="False"
+                                     ShowDefaultCloseButton="False">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController />
+                </dragablz:TabablzControl.InterTabController>
+                
+                <TabItem Header="HELLO" >
+                    <ContentControl 
+                                VerticalContentAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                Content="{Binding CurrentDashboardViewModel}" />
+                </TabItem>
+                <TabItem Header="MATERIAL">
+                </TabItem>
+                <TabItem Header="DESIGN">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
+                </TabItem>
+            </dragablz:TabablzControl>
+            </materialDesign:DialogHost>
 
-            <ContentControl Grid.Row="0"
+        <DockPanel Grid.Row="0" Name="titleBar"
+                                DockPanel.Dock="Top"
+                                Height="10"
+                                Background="{DynamicResource PrimaryHueMidBrush}">
+        </DockPanel>
+
+    </Grid>
+        <!--<ContentControl Grid.Row="1"
                             VerticalContentAlignment="Stretch" 
                             HorizontalContentAlignment="Stretch" 
-                            Content="{Binding CurrentDashboardViewModel}" />
+                            Content="{Binding CurrentDashboardViewModel}" />-->
 
 
-
-            <DockPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <!--<DockPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                 <Button     Margin="10"
                         Content="Yupis"
@@ -116,8 +143,5 @@
                         CommandParameter="player">
                 </Button>
 
-            </DockPanel>
-
-        </Grid>
-    </materialDesign:DialogHost>
+            </DockPanel>-->
 </Window>
