@@ -9,72 +9,83 @@ namespace YUP.App
     public class MainWindowViewModel : BindableBase
     {
 
-
-        private BindableBase _currentDetailsViewModel;
-        public  BindableBase CurrentDetailsViewModel
-        {
-            get
-            {
-                return _currentDetailsViewModel;
-            }
-            set { SetProperty(ref _currentDetailsViewModel, value); }
-        }
-
-        private BindableBase _CurrentDashboardViewModel;
-        public  BindableBase CurrentDashboardViewModel
-        {
-            get
-            {
-                return _CurrentDashboardViewModel;
-            }
-            set { SetProperty(ref _CurrentDashboardViewModel, value); }
-        }
-
-
-
         private IYupSettings _yupSettings;
+
+        /*
+            //TODO: Views control
+            This is a bit of against good practice since we 
+            should not have seperated properties for each of the view 
+            --- however since I switched to tabs this approach needs to be 
+            revisited carefully 
+
+        */
+
+        private BindableBase _DashboardViewModel;
+        public  BindableBase DashboardViewModel
+        {
+            get
+            {
+                return _DashboardViewModel;
+            }
+            set { SetProperty(ref _DashboardViewModel, value); }
+        }
+
+        private BindableBase _PlayerViewModel;
+        public  BindableBase PlayerViewModel
+        {
+            get
+            {
+                return _PlayerViewModel;
+            }
+            set { SetProperty(ref _PlayerViewModel, value); }
+        }
+
+
+        private BindableBase _VideosViewModel;
+        public  BindableBase VideosViewModel
+        {
+            get
+            {
+                return _VideosViewModel;
+            }
+            set { SetProperty(ref _VideosViewModel, value); }
+        }
+
+        private BindableBase _ChannelsViewModel;
+        public  BindableBase ChannelsViewModel
+        {
+            get
+            {
+                return _ChannelsViewModel;
+            }
+            set { SetProperty(ref _ChannelsViewModel, value); }
+        }
+
+        private BindableBase _YuipsViewModel;
+        public  BindableBase YuipsViewModel
+        {
+            get
+            {
+                return _YuipsViewModel;
+            }
+            set { SetProperty(ref _YuipsViewModel, value); }
+        }
+
+
+
 
 
         public MainWindowViewModel()
         {
 
-            _yupSettings                = ContainerHelper.GetService<IYupSettings>(); ;
+            _yupSettings       = ContainerHelper.GetService<IYupSettings>(); ;
 
-            NavCommand                  = new RelayCommand<string>(OnNav);
+            _YuipsViewModel    = ContainerHelper.GetService<YupisViewModel>();
+            _VideosViewModel   = ContainerHelper.GetService<VideosViewModel>();
+            _ChannelsViewModel = ContainerHelper.GetService<ChannelsViewModel>();
+            _PlayerViewModel   = ContainerHelper.GetService<PlayerViewModel>();
 
-
-            _currentDetailsViewModel    = ContainerHelper.GetService<YupisViewModel>();
-            _CurrentDashboardViewModel  = ContainerHelper.GetService<ChannelsViewModel>();
+            //_DashboardViewModel = ContainerHelper.GetService<DashboardViewModel>();
         }
-
-
-
-        public RelayCommand<string> NavCommand { get; private set; }
-
-        private void OnNav(string destination)
-        {
-            switch (destination)
-            {
-                case "yupis":
-                    CurrentDashboardViewModel = ContainerHelper.GetService<YupisViewModel>();
-                    break;
-                case "videos":
-                    CurrentDashboardViewModel = ContainerHelper.GetService<VideosViewModel>();
-                    break;
-                case "channels":
-                    CurrentDashboardViewModel = ContainerHelper.GetService<ChannelsViewModel>();
-                    break;
-                case "player":
-                    CurrentDashboardViewModel = ContainerHelper.GetService<PlayerViewModel>();
-                    break;
-                case "exit":
-                    App.Current.Shutdown(0);
-                    break;
-                default:
-                    break;
-            }
-
-        }
-
     }
 }

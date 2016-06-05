@@ -5,157 +5,159 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:helpers="clr-namespace:YUP.App.Helpers"
              xmlns:app="clr-namespace:YUP.App"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" x:Class="YUP.App.vVideos.VideosView"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+    x:Class="YUP.App.vVideos.VideosView"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="320"
+             d:DesignHeight="800" d:DesignWidth="1135"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              >
 
+
     <UserControl.Resources>
         <helpers:BoolToVisibilityConverter x:Key="BoolConverter"/>
+        <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
     </UserControl.Resources>
-
-    <DockPanel x:Name="xResultPanel">
-        <Button Margin="5">
-            <Button.Content>
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Height="24" Width="24"
-                                              Grid.Column="0" 
-                                              Kind="Play" Margin="0,0,10,0"/>
-                    <StackPanel Grid.Column="1">
-                        <TextBlock Text="Watch Now" FontSize="10" />
-                        <TextBlock Text="Duration: 50m" FontSize="5" Foreground="Gainsboro" />
-                    </StackPanel>
-                </Grid>
-            </Button.Content>
-        </Button>
-        <ListBox x:Name="bResultPanel" ItemsSource="{Binding YtChannels}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <materialDesign:Card Margin="4 4 0 0" MaxWidth="200">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="140" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Image Source="{Binding thumbnail}" Height="140" Width="196" Stretch="UniformToFill" />
-                            <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-								HorizontalAlignment="Right" VerticalAlignment="Bottom"
-								Margin="0 0 16 -20">
-                                <materialDesign:PackIcon Kind="Movie" />
-                            </Button>
-                            <StackPanel Grid.Row="1" Margin="8 24 8 0" >
-                                <TextBlock FontWeight="Bold" Text="{Binding Name}"/>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding description}"/>
-                            </StackPanel>
-                            <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
-                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-									materialDesign:RippleAssist.IsCentered="True">
-                                    <materialDesign:PackIcon Kind="ShareVariant" />
-                                </Button>
-                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-									materialDesign:RippleAssist.IsCentered="True">
-                                    <materialDesign:PackIcon Kind="Heart" />
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </materialDesign:Card>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-    </DockPanel>
-
-    <!--<Grid>
-        -->
-    <!--<Grid.Resources>
-            <DataTemplate DataType="{x:Type local:VideosViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox />
-                    <TextBlock Text="{Binding Path=title}" />
-                    <Button Content="+" />
-                    <Button Content="-" />
-                    <Button Content="..." />
-                </StackPanel>
-            </DataTemplate>
-            <CollectionViewSource x:Key="XYZ" Source="{Binding YtVideos}"/>
-            <CompositeCollection x:Key="data">
-                
-                <TextBlock Text="Title"
-                       FontSize="24"
-                       FontWeight="Thin" />
-                <TextBlock Text="Subtitle"
-                       FontSize="16"
-                       FontWeight="Thin" />
-
-                <CollectionContainer Collection="{Binding Source={StaticResource XYZ}}" />
-
-                <TextBlock Text="User must scroll past the entire list box before seeing this"
-                       FontSize="16"
-                       FontWeight="Thin"
-                       Padding="5"
-                       TextWrapping="Wrap"
-                       Background="#99000000"
-                       Foreground="White" />
-            </CompositeCollection>
-        </Grid.Resources>-->
-    <!--
+    
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0" Orientation="Vertical">
-            <ComboBox ItemsSource="{Binding YtChannels}" SelectedItem="{Binding SelectedYtChannel}">
-                <ComboBox.ItemTemplate>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <DataGrid Margin="0 8 0 0" 
+                  Grid.Row="0"
+                  ItemsSource="{Binding YtVideos}" 
+                  CanUserSortColumns="True" 
+                  CanUserAddRows="False" 
+                  AutoGenerateColumns="False"
+                  materialDesign:DataGridAssist.CellPadding="13 8 8 8" 
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{Binding IsSelected}" 
+                                                ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                                                EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                    <DataGridCheckBoxColumn.Header>
+                        <!--padding to allow hit test to pass thru for sorting -->
+                        <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
+                            <CheckBox HorizontalAlignment="Center"                                               
+                                              DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"
+                                              IsChecked="{Binding IsAllItems3Selected}" />
+                        </Border>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+                <!--IMAGE-->
+                <DataGridTemplateColumn Header="Preview">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image 
+                                   Source="{Binding thumbnail}" 
+                                   Height="30" 
+                                   Width="40" 
+                                   Stretch="UniformToFill" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <!--TITLE-->
+                <DataGridTemplateColumn Header="Title">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap"
+                                       Text="{Binding title}"
+                                       Width="180"  />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- RATING -->
+                <DataGridTemplateColumn Header="Rating">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <materialDesign:RatingBar Value="{Binding rating}" 
+                                                      x:Name="BasicRatingBar" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Available offline -->
+                <DataGridTemplateColumn Header="Is Offline">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <materialDesign:PackIcon Kind="Airplay" Width="24"
+                                                     Visibility="{Binding isAvailableOffline,Converter={StaticResource BoolConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- PUBLISH DATE --> 
+                <DataGridTextColumn Binding="{Binding publishDdate, StringFormat={}{0:MM/dd/yyyy}}"
+                                            Header="Published"
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                            />
+
+                <!-- Category -->
+                <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
+                <materialDesign:MaterialDataGridComboBoxColumn Header="Category"                                                                                                                              
+                                                               ItemsSourceBinding="{Binding category}" />
+
+                <!-- Controls -->
+                <DataGridTemplateColumn Header="Controls">
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                -->
-    <!--<Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />-->
-    <!--
-                                <TextBlock Text="{Binding channelId}" />
+                                <Button Content="uod" Margin="2"/>
+                                <Button Content="duo" Margin="2"/>
+                                <Button Content="trio" Margin="2"/>
                             </StackPanel>
                         </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            <Button x:Name="test"  Grid.Row="0" Command="{Binding test}"></Button>
-        </StackPanel>
-           
-        <ListBox x:Name="listbox"
-             Grid.Row="1"
-             VirtualizingPanel.IsVirtualizing="True"
-             VirtualizingPanel.VirtualizationMode="Recycling"
-             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-             ItemsSource="{Binding YtVideos}"
-             SelectedItem="{Binding SelectedYtVideo}"
-                 >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        -->
-    <!--<CheckBox />-->
-    <!--
-                        <TextBlock Text="{Binding Path=title}" />
-                        <Button Content="+" />
-                        <Button Content="-" />
-                        <Button Content="..." />
-                    </StackPanel>
-                </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </DataGrid.Columns>
+        </DataGrid>
 
-    </Grid>-->
-
-
-
+        <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Grid.Row="1">
+            <DockPanel>
+                <ToggleButton Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center"
+                                  DockPanel.Dock="Right" />
+                <StackPanel Orientation="Horizontal"
+                            materialDesign:RippleAssist.IsCentered="True">
+                    <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1"
+                                   
+                                   materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                    Command="{Binding SearchBoxCmd}">
+                                <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
+                            </Button>
+                            <TextBox Grid.Column="1" Margin="8 0 0 0"
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                                     MinWidth="200" VerticalAlignment="Center"
+                                     Text="{Binding SearchBoxTerm, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"/>
+                            <Button Style="{DynamicResource MaterialDesignToolButton}" Grid.Column="2">
+                                <materialDesign:PackIcon Kind="Microphone" Opacity=".56" Margin="8 0 0 0" />
+                            </Button>
+                        </Grid>
+                    </materialDesign:ColorZone>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Panel.ZIndex="0"
+				Width="30" Height="30" Margin="8,0,0,0" 
+				Command="{Binding SearchBoxCmd}" 
+                        VerticalAlignment="Center"
+                        ToolTip="MaterialDesignFloatingActionAccentButton">
+                        <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </materialDesign:ColorZone>
+    </Grid>
 </UserControl>

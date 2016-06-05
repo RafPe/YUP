@@ -127,17 +127,24 @@ namespace YUP.App.vVideos
 
             List<YTVideo> xx = new List<YTVideo>();
 
+            Random rnd = new Random();
 
             foreach (SearchResult searchResult in filmiki)
             {
                 var tmpobj = new YTVideo()
                 {
-                    videoId         = searchResult.Id.VideoId,
-                    channelId       = searchResult.Snippet.ChannelId,
-                    publishDdate    = searchResult.Snippet.PublishedAt ?? new DateTime(1900, 1, 1),
-                    title           = searchResult.Snippet.Title,
-                    thumbnail       = searchResult.Snippet.Thumbnails.Default__?.Url ?? "empty"
-                };
+                    videoId            = searchResult.Id.VideoId,
+                    channelId          = searchResult.Snippet.ChannelId,
+                    publishDdate       = searchResult.Snippet.PublishedAt ?? new DateTime(1900, 1, 1),
+                    title              = searchResult.Snippet.Title,
+                    thumbnail          = searchResult.Snippet.Thumbnails.Default__?.Url ?? "empty",
+                    description        = searchResult.Snippet.Description,
+                    rating             = rnd.Next(0, 5),  // creates a number between 1 and 6
+                    isAvailableOffline = true,
+                    category           = "default"
+
+
+            };
 
                 YtVideos.Add(tmpobj);
             }
@@ -153,35 +160,7 @@ namespace YUP.App.vVideos
 
             _dataLoaded = true;       // Mark in advance ....
 
-            // We need to add all channels which we have in our settings file! 
-            // as this will refresh our view details
-            foreach (YTChannel ytChannel in _yupRepository.ytChannels)
-            {
-                YtChannels.Add(ytChannel);
-            }
-
-
-
-            //var lista = new List<YTChannel>();
-            //lista.Add(new YTChannel()
-            //{
-            //    channelId = "Electronics vBlog",
-            //    channelFriendlyName = "Electronics blog",
-            //    channelUser = "eevblog"
-            //});
-            //lista.Add(new YTChannel()
-            //{
-            //    channelId = "666",
-            //    channelFriendlyName = "Electronics blog",
-            //    channelUser = "mirekk36"
-            //});
-
-            //YtChannels.Add(lista[0]);
-            //YtChannels.Add(lista[1]);
-
-            //_yupRepository.ytChannels = lista;
-
-            //_yupRepository.SaveRepository();
+            this.LoadVideos("mirekk36");
 
         }
 

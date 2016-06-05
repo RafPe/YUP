@@ -13,9 +13,22 @@ namespace YUP.App.Models
         public int                              duration            { get; set; } 
         public DateTime                         publishDdate        { get; set; }
         public bool                             isAvailableOffline  { get; set; }
+
+        // Might be used in future?
         public Dictionary<string,string>        videoSource         { get; set; }
 
-        //public List<YTThumbnail>                thumbnails  { get; set; }
+
         public string[]                         tags                { get; set; }
+
+        /// <summary>
+        /// Constructor with default values
+        /// </summary>
+        public YTVideo()
+        {
+            isAvailableOffline  = false;
+            category            = "default";
+            rating              = 0;
+
+        }
     }
 }
