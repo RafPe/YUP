@@ -12,7 +12,7 @@ namespace YUP.App
         private IYupSettings _yupSettings;
 
         /*
-            //TODO: Views control
+            //TODO: UI-002
             This is a bit of against good practice since we 
             should not have seperated properties for each of the view 
             --- however since I switched to tabs this approach needs to be 

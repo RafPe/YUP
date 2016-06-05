@@ -38,18 +38,6 @@
                   materialDesign:DataGridAssist.CellPadding="13 8 8 8" 
                   materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Binding="{Binding IsSelected}" 
-                                                ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
-                                                EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
-                    <DataGridCheckBoxColumn.Header>
-                        <!--padding to allow hit test to pass thru for sorting -->
-                        <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
-                            <CheckBox HorizontalAlignment="Center"                                               
-                                              DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"
-                                              IsChecked="{Binding IsAllItems3Selected}" />
-                        </Border>
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
                 <!--IMAGE-->
                 <DataGridTemplateColumn Header="Preview">
                     <DataGridTemplateColumn.CellTemplate>
@@ -64,21 +52,22 @@
                 </DataGridTemplateColumn>
                 
                 <!--TITLE-->
-                <DataGridTemplateColumn Header="Title">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock TextWrapping="Wrap"
-                                       Text="{Binding title}"
-                                       Width="180"  />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Title" Binding="{Binding title}" Width="250">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                            <Setter Property="TextBlock.HorizontalAlignment" Value="Left" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
 
                 <!-- RATING -->
                 <DataGridTemplateColumn Header="Rating">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <materialDesign:RatingBar Value="{Binding rating}" 
+                            <materialDesign:RatingBar Value="{Binding rating}" VerticalAlignment="Center"
                                                       x:Name="BasicRatingBar" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -88,17 +77,23 @@
                 <DataGridTemplateColumn Header="Is Offline">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <materialDesign:PackIcon Kind="Airplay" Width="24"
+                            <materialDesign:PackIcon Kind="Airplay" Width="24" VerticalAlignment="Center" HorizontalAlignment="Center"
                                                      Visibility="{Binding isAvailableOffline,Converter={StaticResource BoolConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!-- PUBLISH DATE --> 
-                <DataGridTextColumn Binding="{Binding publishDdate, StringFormat={}{0:MM/dd/yyyy}}"
-                                            Header="Published"
-                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                                            />
+                <!-- PUBLISH DATE -->
+                <DataGridTextColumn Binding="{Binding publishDdate, StringFormat={}{0:MM/dd/yyyy}}" 
+                                            Header="Published" >
+
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                            <Setter Property="TextBlock.HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
 
                 <!-- Category -->
                 <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
