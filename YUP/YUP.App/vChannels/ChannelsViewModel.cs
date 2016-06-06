@@ -175,7 +175,7 @@ namespace YUP.App.vChannels
 
             chann = (YTChannel) _holdingbay.GetEntry("CHANNEL_NEW");
 
-            _yupRepository.ytChannels.Add(chann);
+            _yupRepository.AddChannel(chann);
             _yupRepository.SaveRepository();
 
             YtChannels.Add(chann);
@@ -273,7 +273,7 @@ namespace YUP.App.vChannels
 
                 AllStaff.Refresh();
 
-                _yupRepository.ytChannels.Remove(_selectedYtChannel);   // Remove channel from repository
+                _yupRepository.RemoveChannel(_selectedYtChannel);   // Remove channel from repository
                 _yupRepository.SaveRepository();                        // Save repo
 
                 _eventBus.RaiseEvent(EventOnBus.channelRemoved,         // Raie event to notify the remaining components
@@ -331,7 +331,7 @@ namespace YUP.App.vChannels
 
             isDataLoaded = true;
 
-            YtChannels.AddRange(_yupRepository.ytChannels);
+            YtChannels.AddRange(_yupRepository.GetAllYtChannels());
 
         }
 

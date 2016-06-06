@@ -67,10 +67,7 @@
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Dashboard comes here</TextBlock>
                 </TabItem>
                 <TabItem Header="Player">
-                    <ContentControl 
-                                VerticalContentAlignment="Stretch" 
-                                HorizontalContentAlignment="Stretch" 
-                                Content="{Binding PlayerViewModel}" />
+                    <player:PlayerView></player:PlayerView>
                 </TabItem>
                 <TabItem Header="Channels" >
                     <ContentControl 

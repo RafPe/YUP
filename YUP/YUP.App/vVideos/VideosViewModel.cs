@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Google.Apis.YouTube.v3.Data;
+using Org.BouncyCastle.Asn1.Mozilla;
 using YUP.App.Contracts;
 using YUP.App.Events;
+using YUP.App.Helpers;
 using YUP.App.Models;
 using YUP.App.Services;
 
@@ -34,6 +36,8 @@ namespace YUP.App.vVideos
         public RelayCommand SearchBoxCmd                    { get; private set; }
         public RelayCommand                     test        { get; private set; }
 
+        public ObservableCollection<string>     Categories  { get; set; } 
+
         public ObservableCollection<YTVideo>    YtVideos    { get; set; }
         public ObservableCollection<YTChannel>  YtChannels  { get; set; }
 
@@ -44,6 +48,8 @@ namespace YUP.App.vVideos
             _ytManager      = ytManager;
 
             _dataLoaded = false;
+
+            Categories = new ObservableCollection<string>();
 
             test        = new RelayCommand(onTest);
             YtVideos    = new ObservableCollection<YTVideo>();
@@ -155,6 +161,9 @@ namespace YUP.App.vVideos
 
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
 
+            var test = _yupRepository.GetAllCategories();
+
+            this.Categories.UpdateRange(test);
 
             if (_dataLoaded) return; // avoid all time loading of data
 

@@ -97,14 +97,15 @@
 
                 <!-- Category -->
                 <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
-                <materialDesign:MaterialDataGridComboBoxColumn Header="Category"                                                                                                                              
-                                                               ItemsSourceBinding="{Binding category}" />
-
+                <materialDesign:MaterialDataGridComboBoxColumn Header="Category"                                                               
+                                                               SelectedValueBinding="{Binding category}"                                                            
+                                                               ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Categories}" />
+                
                 <!-- Controls -->
                 <DataGridTemplateColumn Header="Controls">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="uod" Margin="2"/>
                                 <Button Content="duo" Margin="2"/>
                                 <Button Content="trio" Margin="2"/>

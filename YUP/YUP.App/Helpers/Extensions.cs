@@ -15,6 +15,14 @@ namespace YUP.App.Helpers
                 source.Add(item);
             }
         }
+
+        public static void UpdateRange<TSource>(this ObservableCollection<TSource> source, IEnumerable<TSource> items)
+        {
+            foreach (var item in items)
+            {
+               if(!source.Contains(item)) source.Add(item);
+            }
+        }
     }
 
 }

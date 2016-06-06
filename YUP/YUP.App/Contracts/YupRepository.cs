@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using YUP.App.Base;
 using YUP.App.Events;
@@ -18,11 +19,7 @@ namespace YUP.App.Contracts
 
         #region Public properties
 
-        public List<YTVideo>     ytVideos             { get; set; }
-        public List<YupItem>     yupItems             { get; set; }
-        public List<YTChannel>   ytChannels           { get; set; }
-
-        public  YTChannel                currentlySelected    { get; set; }
+        public AppRepository     appRepo { get; set; }
 
         #endregion
 
@@ -32,11 +29,6 @@ namespace YUP.App.Contracts
             _yupSettings        = yupSettings;
             _eventBus           = eventBus;
 
-
-            // Initialize objects 
-            ytVideos   = new List<YTVideo>();
-            yupItems   = new List<YupItem>();
-            ytChannels = new List<YTChannel>();
 
         }
         #endregion  
@@ -51,14 +43,12 @@ namespace YUP.App.Contracts
             // If our settings file does not exist let's create it
             if (!File.Exists($@"{_yupSettings.appPath}\{AppBase.fileRepository}")) SaveRepository();
 
-            var loadedRepository = JsonConvert.DeserializeObject<SavedRepository>(File.ReadAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}"));
+            var loadedRepository = JsonConvert.DeserializeObject<AppRepository>(File.ReadAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}"));
+
+            if (!loadedRepository.categories.Contains("default")) loadedRepository.categories.Add("default");
 
             // Assign values from loaded repository
-            this.ytChannels = loadedRepository.ytChannels;
-            this.ytVideos   = loadedRepository.ytVideos;
-            this.yupItems   = loadedRepository.yupItems;
-
-
+            appRepo = loadedRepository;
         }
 
         /// <summary>
@@ -66,17 +56,9 @@ namespace YUP.App.Contracts
         /// </summary>
         public void SaveRepository()
         {
-            // Get our current repository prepared for saving
-            SavedRepository savedRepository = new SavedRepository()
-            {
-                ytChannels = this.ytChannels,
-                ytVideos   = this.ytVideos,
-                yupItems   = this.yupItems 
-            };
+            if(ReferenceEquals(appRepo,null)) appRepo = new AppRepository();
 
-            var jsonRepo = JsonConvert.SerializeObject(savedRepository);
-
-            File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", jsonRepo);
+            File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", JsonConvert.SerializeObject(appRepo) );
         }
 
         #endregion
@@ -91,7 +73,7 @@ namespace YUP.App.Contracts
         {
             if (ReferenceEquals(channel, null)) return;
 
-            ytChannels.Add(channel);
+            appRepo.ytChannels.Add(channel);
 
             _eventBus.RaiseEvent(EventOnBus.channelAdded, this, new EventBusArgs() { Item = channel });
         }
@@ -109,9 +91,14 @@ namespace YUP.App.Contracts
         {
             if (ReferenceEquals(channel, null)) return;
 
-            ytChannels.Remove(channel);
+            appRepo.ytChannels.Remove(channel);
 
             _eventBus.RaiseEvent(EventOnBus.channelRemoved, this, new EventBusArgs() { Item = channel });
+        }
+
+        public List<YTChannel> GetAllYtChannels()
+        {
+            return appRepo.ytChannels;
         }
 
         #endregion
@@ -126,7 +113,7 @@ namespace YUP.App.Contracts
         {
             if (ReferenceEquals(yupi, null)) return;
 
-            yupItems.Add(yupi);
+            appRepo.yupItems.Add(yupi);
         }
 
         public void EditYupi(YupItem yupi)
@@ -142,7 +129,30 @@ namespace YUP.App.Contracts
         {
             if (ReferenceEquals(yupi, null)) return;
 
-            yupItems.Remove(yupi);
+            appRepo.yupItems.Remove(yupi);
+        }
+        #endregion
+
+        #region Category
+
+        public void AddCategory(string cat)
+        {
+            appRepo.categories.Add(cat);
+        }
+
+        public List<string> GetAllCategories()
+        {
+            return appRepo.categories;
+        }
+
+        public void EditCategory(string cat, string newCat)
+        {
+            appRepo.categories[appRepo.categories.FindIndex(ind => ind.Equals(cat))] = newCat;
+        }
+
+        public void RemoveCategory(string cat)
+        {
+            appRepo.categories.Remove(cat);
         }
 
         #endregion
