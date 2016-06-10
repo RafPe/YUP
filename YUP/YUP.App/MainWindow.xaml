@@ -14,8 +14,9 @@
         xmlns:player="clr-namespace:YUP.App.vPlayer"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:helpers="clr-namespace:YUP.App.Helpers"
         WindowStyle="None" ResizeMode="NoResize"
-        AllowsTransparency="True" 
+        AllowsTransparency="False" 
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -56,7 +57,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <materialDesign:DialogHost Identifier="RootDialog" Grid.Row="1">
             <dragablz:TabablzControl AdjacentHeaderItemOffset="10" ShowDefaultAddButton="False"
                                      ShowDefaultCloseButton="False">
@@ -64,10 +64,16 @@
                     <dragablz:InterTabController />
                 </dragablz:TabablzControl.InterTabController>
                 <TabItem Header="Dashboard" IsSelected="True" >
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Dashboard comes here</TextBlock>
+
+
                 </TabItem>
                 <TabItem Header="Player">
-                    <player:PlayerView></player:PlayerView>
+                    <ContentControl 
+                                VerticalContentAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                Content="{Binding PlayerViewModel}" />
+
+
                 </TabItem>
                 <TabItem Header="Channels" >
                     <ContentControl 

@@ -47,10 +47,13 @@ namespace YUP.App
                 .AsImplementedInterfaces()
                 .SingleInstance();
             ContainerHelper.Builder.RegisterType<PlayerViewModel>()
+                .AsSelf()
                 .SingleInstance();
             ContainerHelper.Builder.RegisterType<ChannelsViewModel>()
                 .AsSelf()
-                .AsImplementedInterfaces().SingleInstance();
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 

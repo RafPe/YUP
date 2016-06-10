@@ -8,12 +8,16 @@
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:app="clr-namespace:YUP.App"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:helpers="clr-namespace:YUP.App.Helpers"
+             xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
              Loaded="PlayerView_OnLoaded">
 
-    <Grid x:Name="vPLayerMain">
+    <wpf:ChromiumWebBrowser x:Name="WebBrowser" Grid.Row="0" Address="https://github.com/cefsharp/CefSharp/wiki/Frequently-asked-questions" />
+
+    <!--<Grid x:Name="vPLayerMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid x:Name="vPlayerQuickPlay" Grid.Row="0" Margin="16" VerticalAlignment="Top">
@@ -35,8 +39,11 @@
         </Grid>
 
 
-        <DockPanel x:Name="player_youtube" Grid.Row="1"/>
+        <DockPanel x:Name="playe_youtube" Grid.Row="1">
+            <WebBrowser Source="http://wykop.pl"></WebBrowser>
+        </DockPanel>
         
-    </Grid>
+        
+    </Grid>-->
 
 </UserControl>

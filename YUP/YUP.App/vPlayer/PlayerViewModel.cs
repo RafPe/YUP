@@ -39,13 +39,15 @@ namespace YUP.App.vPlayer
 
            // if (videoId2play == null) return;
 
-            _eventBus.RaiseEvent(EventOnBus.videoIdChanged, this, new EventBusArgs() { Item = SearchBoxTerm });
+            //_eventBus.RaiseEvent(EventOnBus.videoIdChanged, this, new EventBusArgs() { Item = SearchBoxTerm });
             
         }
 
         public async void LoadData()
         {
             if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject())) return;
+
+            _eventBus.RaiseEvent(EventOnBus.videoIdChanged, this, new EventBusArgs() { Item = "" });
         }
 
 
