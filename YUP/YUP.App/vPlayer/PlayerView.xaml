@@ -9,10 +9,44 @@
              xmlns:app="clr-namespace:YUP.App"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:helpers="clr-namespace:YUP.App.Helpers"
-             xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-             Loaded="PlayerView_OnLoaded">
+             xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf">
 
-    <wpf:ChromiumWebBrowser x:Name="WebBrowser" Grid.Row="0" Address="https://github.com/cefsharp/CefSharp/wiki/Frequently-asked-questions" />
+
+    <!--
+    
+                                Address="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1"
+    
+    -->
+    
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="1" Content="{Binding WebBrowser,Mode=TwoWay}" >
+            
+        </ContentControl>
+        
+        <!--<wpf:ChromiumWebBrowser Grid.Row="1" Loaded="Xxx_OnLoaded" FrameLoadEnd="Xxx_OnFrameLoadEnd" Name="xxx"
+
+                            Address="file:///C:/temp/testme.html"
+                            Margin="10"
+                                />-->
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Button Width="100" x:Name="btnPlay"        Grid.Row="0" Height="50" Margin="10" Command="{ Binding relayCmdPlay }"  Content="Play"/>
+            <Button Width="100" x:Name="btnStop"        Grid.Row="0" Height="50" Margin="10" Command="{ Binding relayCmdStop }"  Content="Stop"/>
+            <Button Width="100" x:Name="btnCurrentTime" Grid.Row="0" Height="50" Margin="10" Command="{ Binding relayCmdYupi }" Content="Yupi"/>
+
+        </StackPanel>
+        
+    </Grid>
+
+
+
+
 
     <!--<Grid x:Name="vPLayerMain">
         <Grid.RowDefinitions>

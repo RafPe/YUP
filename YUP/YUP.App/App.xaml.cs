@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using Autofac;
+using CefSharp;
 using YUP.App.Contracts;
 using YUP.App.MediaPlayers;
 using YUP.App.Services;
@@ -24,14 +25,26 @@ namespace YUP.App
         {
             base.OnStartup(e);
 
+
+            var cefSettings = new CefSharp.CefSettings
+            {
+                //PackLoadingDisabled = true
+            };
+            cefSettings.CefCommandLineArgs.Add("disable-gpu", "1");
+            cefSettings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
+
+
+            Cef.Initialize(cefSettings);
+
+
             // Create our DI container and build it 
             ContainerHelper.InitializeBuilder();
 
             ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>().SingleInstance();
             ContainerHelper.Builder.Register(c => new EventBus()).As<IEventBus>().SingleInstance();
-            ContainerHelper.Builder.Register(c=>new YupSettings()).As<IYupSettings>().SingleInstance();
+            ContainerHelper.Builder.Register(c => new YupSettings()).As<IYupSettings>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
-            ContainerHelper.Builder.Register(c=>new HoldingBay()).As<IHoldingBay>().SingleInstance();
+            ContainerHelper.Builder.Register(c => new HoldingBay()).As<IHoldingBay>().SingleInstance();
 
 
             //TODO: Register players named ? 
@@ -48,6 +61,7 @@ namespace YUP.App
                 .SingleInstance();
             ContainerHelper.Builder.RegisterType<PlayerViewModel>()
                 .AsSelf()
+                .AsImplementedInterfaces()
                 .SingleInstance();
             ContainerHelper.Builder.RegisterType<ChannelsViewModel>()
                 .AsSelf()

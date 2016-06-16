@@ -195,7 +195,6 @@
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\GroupFilter.cs" />
     <Compile Include="Helpers\ViewModelLocator.cs" />
-    <Compile Include="Helpers\WpfBrowserWrapper.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="MediaPlayers\FlashAxControl.cs">
       <SubType>UserControl</SubType>
