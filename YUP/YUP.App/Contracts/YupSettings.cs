@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-using YUP.App.Events;
 using YUP.App.Models;
 using YUP.App.Services;
 

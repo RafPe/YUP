@@ -7,7 +7,7 @@
              xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="500">
+             d:DesignHeight="500" d:DesignWidth="700">
     <UserControl.Resources>
         <Style x:Key="aaa" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="#373737" />
@@ -42,8 +42,8 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
-    <Grid Height="400" Width="500">
+
+    <Grid Height="500" Width="700">
         <Grid.RowDefinitions>
             <RowDefinition Height="15*" />
             <RowDefinition Height="2*" />
@@ -56,16 +56,6 @@
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Source="{Binding NewYtChannel.thumbnail}"
                    Stretch="UniformToFill" />
-            <!--<StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Image  Source="{Binding NewYtChannel.thumbnail}" 
-                   Height="120" Width="176" 
-                   Stretch="UniformToFill" HorizontalAlignment="Left" />
-                <TextBlock Margin="10" Text="Huuuraaa" 
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Style="{StaticResource MaterialDesignDisplay1TextBlock}"
-                           ></TextBlock>
-            </StackPanel>-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -87,46 +77,44 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <wpf:PackIcon Kind="Login" 
+                <!--<wpf:PackIcon Kind="Login" 
                                   Grid.Row="0" 
                                   Grid.Column="0"
-                                  Margin="20,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox    Grid.Row="0" 
-                             Grid.Column="1" 
+                                  Margin="20,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+                <TextBox    Grid.Row="1" 
+                             Grid.Column="3" 
                              Margin="10"
                              VerticalAlignment="Center"
                              IsEnabled="False"
                              Text="{Binding NewYtChannel.user}"
                              />
 
-                <wpf:PackIcon Kind="Login" 
+                <!--<wpf:PackIcon Kind="Login" 
                                   Grid.Row="0" 
                                   Grid.Column="2"
-                                  Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox Grid.Row="0" 
+                                  Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+                <TextBox     Grid.Row="0" 
                              Grid.Column="3" 
-                             Margin="10,10,20,10"                             
+                             Margin="10"                             
                              VerticalAlignment="Center"
                              IsEnabled="False"
                              Text="{Binding NewYtChannel.channelId}"
                              />
 
-                <wpf:PackIcon Kind="Login" 
+                <!--<wpf:PackIcon Kind="Login" 
                                   Grid.Row="1" 
                                   Grid.Column="0"
-                                  Margin="20,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBox Grid.Row="1" 
-                             Grid.Column="1" 
-                             Grid.ColumnSpan="3"
-                             Margin="10,10,20,10"
-                             MinWidth="300"
+                                  Margin="20,10,10,10" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+                <TextBox Grid.Row="2" 
+                             Grid.Column="3"
+                             Margin="10"
                              VerticalAlignment="Center"
                              wpf:TextFieldAssist.Hint="Your own channel title goes here"
                              Text="{Binding NewYtChannel.friendlyName}"
                          
                              />
 
-                <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                <!--<Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                         Margin="5" HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Grid.Row="2" Grid.Column="0" Width="25" Height="25"
@@ -141,12 +129,15 @@
                              wpf:TextFieldAssist.Hint="tag"
                              />
 
-                <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" 
+                -->
+
+                <ComboBox Grid.Row="3" 
+                          Grid.Column="3"                              
                           VerticalAlignment="Center"
                           wpf:TextFieldAssist.Hint="Category" 
                           IsEditable="True" 
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                  Margin="10">
+                  Margin="8">
                     <ComboBoxItem IsSelected="True">kategoria-a</ComboBoxItem>
                     <ComboBoxItem>kategoria-b</ComboBoxItem>
                     <ComboBoxItem>kategoria-c</ComboBoxItem>
@@ -159,7 +150,71 @@
                     <ComboBoxItem>kategoria-k</ComboBoxItem>
                 </ComboBox>
 
-                <ListBox x:Name="tags"  Grid.Row="1"
+                <wpf:DialogHost Grid.Row="0"
+                                Margin="0,10,0,0"
+                                Grid.RowSpan="4"
+                                Grid.Column="1" HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                    <wpf:DialogHost.DialogContent>
+                        <StackPanel Margin="16">
+                            <TextBlock>Add a new fruit.</TextBlock>
+                            <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" x:Name="FruitTextBox" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                       IsDefault="True"
+                                       Margin="0 8 8 0"
+                                       Command="wpf:DialogHost.CloseDialogCommand">
+                                    <Button.CommandParameter>
+                                        <system:Boolean>True</system:Boolean>
+                                    </Button.CommandParameter>
+                                    ACCEPT
+                                </Button>
+                                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                       IsCancel="True"
+                                       Margin="0 8 8 0"
+                                       Command="wpf:DialogHost.CloseDialogCommand">
+                                    <Button.CommandParameter>
+                                        <system:Boolean>False</system:Boolean>
+                                    </Button.CommandParameter>
+                                    CANCEL
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </wpf:DialogHost.DialogContent>
+
+                    <Border BorderThickness="1" 
+                            BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                           MinWidth="256" MinHeight="256" 
+                            ClipToBounds="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="55*" />
+                                <RowDefinition Height="151*"/>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ListBox x:Name="FruitListBox" Grid.RowSpan="2">
+                                <ListBoxItem>Apple</ListBoxItem>
+                                <ListBoxItem>Banana</ListBoxItem>
+                                <ListBoxItem>Pear</ListBoxItem>
+                            </ListBox>
+                            <wpf:ColorZone Mode="PrimaryMid" Grid.Row="2" Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                                <TextBlock Margin="16">Fruit Bowl</TextBlock>
+                            </wpf:ColorZone>
+                            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"                                
+                                   Command="{x:Static wpf:DialogHost.OpenDialogCommand}"
+                                   VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                                   Grid.Row="1" Margin="0,0,28,28" Grid.RowSpan="2">
+                                <Viewbox Width="22" Height="22">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" />
+                                    </Canvas>
+                                </Viewbox>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </wpf:DialogHost>
+
+                <!--<ListBox x:Name="tags"  Grid.Row="1"
 				ItemsSource="{Binding }"
 				VerticalAlignment="Stretch"
 				ScrollViewer.VerticalScrollBarVisibility ="Auto"
@@ -175,11 +230,7 @@
                             <WrapPanel />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
-                </ListBox>
-
-                <WrapPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
-                    <Button Width="10" Height="10" Margin="10"></Button>
-                </WrapPanel>
+                </ListBox>-->
 
             </Grid>
         </Grid>

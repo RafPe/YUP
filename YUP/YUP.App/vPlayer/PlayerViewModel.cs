@@ -57,7 +57,13 @@ namespace YUP.App.vPlayer
             _ytManager      = ytManager;
             _eventBus       = eventbus;
 
-            _webBrowser = new ChromiumWebBrowser() {Address = "file:///C:/temp/testme.html"};
+            var sss = System.AppDomain.CurrentDomain.BaseDirectory;
+
+            Uri xyx = new Uri(sss);
+
+
+
+            _webBrowser = new ChromiumWebBrowser() {Address = $"{xyx.AbsolutePath}/YtPlayer.html" };
             _webBrowser.FrameLoadEnd += delegate(object sender, FrameLoadEndEventArgs args)
             {
                 this.isBrowserReady = true;

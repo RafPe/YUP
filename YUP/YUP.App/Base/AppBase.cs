@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YUP.App.Base
+﻿namespace YUP.App.Base
 {
     /// <summary>
     /// Class containing static set of names used across application

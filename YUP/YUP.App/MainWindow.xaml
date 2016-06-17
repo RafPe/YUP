@@ -58,8 +58,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <materialDesign:DialogHost Identifier="RootDialog" Grid.Row="1">
-            <dragablz:TabablzControl AdjacentHeaderItemOffset="10" ShowDefaultAddButton="False"
-                                     ShowDefaultCloseButton="False">
+            <dragablz:TabablzControl AdjacentHeaderItemOffset="10" 
+                                     HorizontalContentAlignment="Stretch"
+                                     ShowDefaultAddButton="False"
+                                     ShowDefaultCloseButton="False"
+                                     >
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController />
                 </dragablz:TabablzControl.InterTabController>
@@ -93,6 +96,12 @@
                                 VerticalContentAlignment="Stretch" 
                                 HorizontalContentAlignment="Stretch" 
                                 Content="{Binding VideosViewModel}" />
+                </TabItem>
+                <TabItem Header="Yupis">
+                    <ContentControl 
+                                VerticalContentAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                Content="{Binding YuipsViewModel}" />
                 </TabItem>
             </dragablz:TabablzControl>
         </materialDesign:DialogHost>

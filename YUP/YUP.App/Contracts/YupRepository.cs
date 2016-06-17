@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 using YUP.App.Base;
 using YUP.App.Events;
@@ -19,7 +17,7 @@ namespace YUP.App.Contracts
 
         #region Public properties
 
-        public AppRepository     appRepo { get; set; }
+        public AppMediaRepository     appRepo { get; set; }
 
         #endregion
 
@@ -44,7 +42,7 @@ namespace YUP.App.Contracts
             // If our settings file does not exist let's create it
             if (!File.Exists($@"{_yupSettings.appPath}\{AppBase.fileRepository}")) SaveRepository();
 
-            var loadedRepository = JsonConvert.DeserializeObject<AppRepository>(File.ReadAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}"));
+            var loadedRepository = JsonConvert.DeserializeObject<AppMediaRepository>(File.ReadAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}"));
 
             if (!loadedRepository.categories.Contains("default")) loadedRepository.categories.Add("default");
 
@@ -57,7 +55,7 @@ namespace YUP.App.Contracts
         /// </summary>
         public void SaveRepository()
         {
-            if(ReferenceEquals(appRepo,null)) appRepo = new AppRepository();
+            if(ReferenceEquals(appRepo,null)) appRepo = new AppMediaRepository();
 
             File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", JsonConvert.SerializeObject(appRepo) );
         }

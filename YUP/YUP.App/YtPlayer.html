@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+    <div id="ytplayer"></div>
+
+    <script>
+
+	var ytPlayer;
+    var ytPlayerIsReady = false;
+
+
+    // this methods only works if defined in the global scope !!
+    window.onYouTubeIframeAPIReady = function () {
+        ytPlayer = new YT.Player('ytplayer', {
+		    height: '600',
+			width: '1100',
+            playerVars: {
+                enablejsapi: 1,
+                controls: 0,
+                fs: 1,
+                autoplay: 1,
+                rel: 0,
+                showinfo: 0,
+                modestbranding: 1
+            },
+            events: {
+                onReady: onReady,
+                onError: onError,
+                onStateChange: onStateChange
+            }
+        });
+    };
+
+
+    // youtube code for calling the iframe api
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+	function XplayThis() {
+		ytPlayer.playVideo();
+	}
+
+	function XstopThis() {
+		ytPlayer.stopVideo();
+	}
+
+	function XloadVideoById(videoId) {
+		ytPlayer.loadVideoById(videoId);
+	}
+
+	function XgetCurrentTime() {
+      var currentTime = ytPlayer.getCurrentTime()
+      return currentTime;
+    }
+
+    function onError(event) {
+        console.log("error with code" + event.data);
+    }
+
+    function onStateChange(event) {
+        console.log("change state to " + event.data);
+    }
+
+    function onReady(event) {
+        ytPlayerIsReady = true;
+        console.log("I'm ready");
+    }
+
+
+    window.myVideoPlayer = {
+        init: function (options) {
+
+
+            // some arbitrary code...
+            // the trick is to fire options.callback,
+            // which contains all the logic needed
+
+
+
+            function timeout() {
+                setTimeout(function () {
+                    if (false === ytPlayerIsReady) {
+                        timeout();
+                    }
+                    else {
+                        if (options.callback) {
+                            options.callback();
+                        }
+                    }
+                }, 1000);
+            }
+            timeout();
+        }
+    };
+
+
+    myVideoPlayer.init({
+        callback: function(){
+            // now the youtube api is ready, you should be able to call
+            // loadVideoById without problems (at least it worked for me)
+
+
+
+            // ytPlayer.removeEventListener('onStateChange');
+            // ytPlayer.addEventListener('onStateChange', '_myYtPlayerOnChange');
+            // ytPlayer.loadVideoById({
+            //        videoId: 'xxxx',
+            //        startSeconds: 12
+            //    });
+
+        }
+    });
+    </script>
+</body>
+</html>

@@ -7,88 +7,64 @@
              d:DesignHeight="800" d:DesignWidth="1135"
              app:CustomBehaviors.LoadedMethodName="LoadData"
              xmlns:app="clr-namespace:YUP.App"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:system="clr-namespace:System;assembly=mscorlib">
 
-    <DockPanel x:Name="xResultPanel">
-        <ListBox x:Name="bResultPanel" ItemsSource="{Binding ResultList}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <materialDesign:Card Margin="4 4 0 0" MaxWidth="200">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="140" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Image Source="http://vignette3.wikia.nocookie.net/non-aliencreatures/images/c/c1/Minion.png/revision/latest?cb=20151126032010" Height="140" Width="196" Stretch="UniformToFill" />
-                            <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-         HorizontalAlignment="Right" VerticalAlignment="Bottom"
-         Margin="0 0 16 -20">
-                                <materialDesign:PackIcon Kind="Bike" />
-                            </Button>
-                            <StackPanel Grid.Row="1" Margin="8 24 8 0" >
-                                <TextBlock FontWeight="Bold">{Binding Name}</TextBlock>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">A great way to keep fit and forget about the constant grind of IT.</TextBlock>
-                            </StackPanel>
-                            <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
-                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-             materialDesign:RippleAssist.IsCentered="True">
-                                    <materialDesign:PackIcon Kind="ShareVariant" />
-                                </Button>
-                                <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-             materialDesign:RippleAssist.IsCentered="True">
-                                    <materialDesign:PackIcon Kind="Heart" />
-                                </Button>
-                            </StackPanel>
-                        </Grid>
-                    </materialDesign:Card>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-    </DockPanel>
-
-    <!--<Grid>
-    <Grid.RowDefinitions> 
-        <RowDefinition Height="*"></RowDefinition>
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="200"></ColumnDefinition>
-    </Grid.ColumnDefinitions>
-
-        <materialDesign:Card Margin="4 4 0 0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="140" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Image Source="http://vignette3.wikia.nocookie.net/non-aliencreatures/images/c/c1/Minion.png/revision/latest?cb=20151126032010" Height="140" Width="196" Stretch="UniformToFill" />
-                <Button Grid.Row="0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
-                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                        Margin="0 0 16 -20">
-                    <materialDesign:PackIcon Kind="Bike" />
-                </Button>
-                <StackPanel Grid.Row="1" Margin="8 24 8 0" >
-                    <TextBlock FontWeight="Bold">Cycling</TextBlock>
-                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">A great way to keep fit and forget about the constant grind of IT.</TextBlock>
-                </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Grid.Row="2" Orientation="Horizontal" Margin="8">
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                        <materialDesign:PackIcon Kind="ShareVariant" />
+    <materialDesign:DialogHost HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel Margin="16">
+                <TextBlock>Add a new fruit.</TextBlock>
+                <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" x:Name="FruitTextBox" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                       IsDefault="True"
+                                       Margin="0 8 8 0"
+                                       Command="materialDesign:DialogHost.CloseDialogCommand">
+                        <Button.CommandParameter>
+                            <system:Boolean>True</system:Boolean>
+                        </Button.CommandParameter>
+                        ACCEPT
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="30" Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                        <materialDesign:PackIcon Kind="Heart" />
+                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                       IsCancel="True"
+                                       Margin="0 8 8 0"
+                                       Command="materialDesign:DialogHost.CloseDialogCommand">
+                        <Button.CommandParameter>
+                            <system:Boolean>False</system:Boolean>
+                        </Button.CommandParameter>
+                        CANCEL
                     </Button>
                 </StackPanel>
-            </Grid>
-        </materialDesign:Card>
-    </Grid>-->
-    
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        
+        <Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                           MinWidth="256" MinHeight="256" ClipToBounds="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListBox x:Name="FruitListBox">
+                <ListBoxItem>Apple</ListBoxItem>
+                <ListBoxItem>Banana</ListBoxItem>
+                <ListBoxItem>Pear</ListBoxItem>
+            </ListBox>
+            <materialDesign:ColorZone Mode="PrimaryMid" Grid.Row="1" Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                <TextBlock Margin="16">Fruit Bowl</TextBlock>
+            </materialDesign:ColorZone>
+            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"                                
+                                   Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                   VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                                   Grid.Row="0" Margin="0 0 28 -20">
+                <Viewbox Width="22" Height="22">
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </Grid>
+    </Border>
+    </materialDesign:DialogHost>
 </UserControl>
