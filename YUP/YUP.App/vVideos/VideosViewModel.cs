@@ -41,6 +41,7 @@ namespace YUP.App.vVideos
         public ObservableCollection<YTVideo>    YtVideos    { get; set; }
         public ObservableCollection<YTChannel>  YtChannels  { get; set; }
 
+
         public VideosViewModel(IYtManager ytManager, IEventBus eventBus, IYupRepository yupRepository)
         {
             _eventBus       = eventBus;
@@ -54,6 +55,7 @@ namespace YUP.App.vVideos
             test        = new RelayCommand(onTest);
             YtVideos    = new ObservableCollection<YTVideo>();
             YtChannels  = new ObservableCollection<YTChannel>();
+            YtChannels.AddRange(_yupRepository.GetAllYtChannels());
 
         }
 
@@ -104,7 +106,7 @@ namespace YUP.App.vVideos
             set
             {
                 _selectedYtChannel = value;
-                LoadVideos(_selectedYtChannel.user);
+                LoadVideos(_selectedYtChannel.user,_selectedYtChannel.channelId);
             }
         }
 
@@ -122,11 +124,24 @@ namespace YUP.App.vVideos
             _eventBus.RaiseEvent(EventOnBus.videoIdChanged, this, new EventBusArgs() { Item = SelectedYtVideo });
         }
 
-        private async void LoadVideos(string userId)
+        private async void LoadVideos(string userId, string channelId)
         {
+            List<SearchResult> filmiki;
 
             var muchos  = await _ytManager.GetChannelIdForUserAsync(userId);
-            var filmiki = await _ytManager.GetVideosFromChannelAsync(muchos);
+
+            if (!ReferenceEquals(muchos, null))
+            {
+                filmiki = await _ytManager.GetVideosFromChannelAsync(muchos);
+            }
+            else
+            {
+                filmiki = await _ytManager.GetVideosFromChannelAsync(channelId);
+            }
+
+            if (ReferenceEquals(filmiki, null)) return;
+
+
 
             // New colletion 
             YtVideos.Clear();
@@ -169,7 +184,7 @@ namespace YUP.App.vVideos
 
             _dataLoaded = true;       // Mark in advance ....
 
-            this.LoadVideos("mirekk36");
+            //this.LoadVideos("mirekk36");
 
         }
 

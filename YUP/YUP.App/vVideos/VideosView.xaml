@@ -119,21 +119,75 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Grid.Row="1">
+        <StackPanel Orientation="Horizontal" Margin="8" Grid.Row="1">
+            <Border Background="White" MaxHeight="30" CornerRadius="3" ToolTip="Enter to search, ignore case">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{DynamicResource MaterialDesignToolButton}" 
+                                Command="{Binding SearchCommand}" x:Name="SearchButton"
+                                CommandParameter="{Binding ElementName=SearchBox, Path=Text}"
+                                Height="24" Width="24">
+                        <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
+                    </Button>
+                    <TextBox Grid.Column="1" Margin="5 0 0 0" KeyDown="Search_OnKeyDown"
+                             materialDesign:TextFieldAssist.Hint="Search" x:Name="SearchBox"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                             MinWidth="200" VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+            <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignSubheadingTextBlock}" VerticalAlignment="Center">Usage:</TextBlock>
+            <ComboBox Width="150" Margin="8,0,8,0"
+                      ItemsSource="{Binding YtChannels}" 
+                      SelectedValue="{Binding SelectedYtChannel}"
+                      DisplayMemberPath="user"                      
+                      >
+            </ComboBox>
+            <!--<materialDesign:ColorZone Mode="Standard" Margin="8" CornerRadius="2" Padding="6 2 6 2">
+                <TextBox IsReadOnly="True"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                             BorderThickness="0"
+                             FontFamily="Courier New"
+                             FontWeight="Bold"
+                             GotFocus="TextBox_OnGotFocus"
+                             Text="{Binding  ElementName=KindsListBox, Path=SelectedValue, StringFormat='&lt;materialDesign:PackIcon Kind=&quot;{0}&quot; \/>'}" />
+            </materialDesign:ColorZone>-->
+            <materialDesign:PackIcon Kind="{Binding ElementName=KindsListBox, Path=SelectedValue}" VerticalAlignment="Center" />
+            <Button Margin="8 0" Command="{Binding CopyToClipboardCommand, Mode=OneTime}" CommandParameter="{Binding ElementName=KindsListBox, Path=SelectedValue}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ContentCopy"/>
+                    <TextBlock Text="Copy To Clipboard"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+
+
+        <!--<materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Grid.Row="1">
             <DockPanel>
                 <ToggleButton Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center"
                                   DockPanel.Dock="Right" />
                 <StackPanel Orientation="Horizontal"
                             materialDesign:RippleAssist.IsCentered="True">
-                    <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1"
-                                   
-                                   materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                    <materialDesign:ColorZone Mode="Standard" 
+                                              Padding="8 4 8 4" 
+                                              CornerRadius="2" 
+                                              Panel.ZIndex="1"
+                                              materialDesign:ShadowAssist.ShadowDepth="Depth1">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
+                            
+                            
                             <Button Style="{DynamicResource MaterialDesignToolButton}"
                                     Command="{Binding SearchBoxCmd}">
                                 <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
@@ -154,8 +208,9 @@
                         ToolTip="MaterialDesignFloatingActionAccentButton">
                         <materialDesign:PackIcon Kind="Magnify" Height="24" Width="24" />
                     </Button>
+                    
                 </StackPanel>
             </DockPanel>
-        </materialDesign:ColorZone>
+        </materialDesign:ColorZone>-->
     </Grid>
 </UserControl>

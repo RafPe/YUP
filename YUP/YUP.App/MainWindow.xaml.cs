@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 
 namespace YUP.App
 {
@@ -12,6 +13,11 @@ namespace YUP.App
             InitializeComponent();
 
             titleBar.MouseLeftButtonDown += (o, e) => DragMove();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
         }
     }
 }

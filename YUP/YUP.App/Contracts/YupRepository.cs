@@ -29,6 +29,7 @@ namespace YUP.App.Contracts
             _yupSettings        = yupSettings;
             _eventBus           = eventBus;
 
+            this.LoadRepository();
 
         }
         #endregion  

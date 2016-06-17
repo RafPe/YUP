@@ -65,7 +65,14 @@
                 </dragablz:TabablzControl.InterTabController>
                 <TabItem Header="Dashboard" IsSelected="True" >
 
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" Margin="15"
+                               VerticalAlignment="Center" FontSize="38">Here Comes Dashboard - What would u like to see here ?</TextBlock>
+                        <Button Height="50" Width="150" Content="Exit" Click="ButtonBase_OnClick"></Button>
+                    </StackPanel>
 
+                        
                 </TabItem>
                 <TabItem Header="Player">
                     <ContentControl 

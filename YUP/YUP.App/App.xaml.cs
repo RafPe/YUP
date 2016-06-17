@@ -39,10 +39,9 @@ namespace YUP.App
 
             // Create our DI container and build it 
             ContainerHelper.InitializeBuilder();
-
-            ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>().SingleInstance();
             ContainerHelper.Builder.Register(c => new EventBus()).As<IEventBus>().SingleInstance();
             ContainerHelper.Builder.Register(c => new YupSettings()).As<IYupSettings>().SingleInstance();
+            ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
             ContainerHelper.Builder.Register(c => new HoldingBay()).As<IHoldingBay>().SingleInstance();
 
@@ -71,7 +70,8 @@ namespace YUP.App
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 
-
+            var repository = ContainerHelper.GetService<IYupRepository>();
+            repository.LoadRepository();
 
             var eventsReg = ContainerHelper.Container.Resolve<IEnumerable<IEventRegistrator>>();
 
@@ -89,9 +89,6 @@ namespace YUP.App
             var settings = ContainerHelper.GetService<IYupSettings>();
             settings.checkAppFolderPath();
             settings.loadAppSettings();
-
-            var repository = ContainerHelper.GetService<IYupRepository>();
-            repository.LoadRepository();
 
             // Create our main window - since we removed startup URI
             YUP.App.MainWindow wnd = new MainWindow();
