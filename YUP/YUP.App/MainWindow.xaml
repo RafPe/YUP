@@ -1,117 +1,107 @@
-﻿<Controls:MetroWindow 
-        x:Class="YUP.App.MainWindow"
+﻿<Window x:Class="YUP.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YUP.App"
-        xmlns:videos="clr-namespace:YUP.App.Videos"
-        xmlns:player="clr-namespace:YUP.App.Player"
-        xmlns:yupis="clr-namespace:YUP.App.Yupis"
+        xmlns:channels="clr-namespace:YUP.App.vChannels"
         mc:Ignorable="d"
         Title="YUP - Youtube Universal Player"
-        Width="1020"
-        Height="720"
-        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
-        ResizeMode="CanResize"
-        GlowBrush="{DynamicResource AccentColorBrush}"
-        WindowStartupLocation="CenterScreen"
+        Width="1135"
+        Height="770"
+        xmlns:videos="clr-namespace:YUP.App.vVideos"
+        xmlns:yupis="clr-namespace:YUP.App.vYupis"
+        xmlns:player="clr-namespace:YUP.App.vPlayer"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:helpers="clr-namespace:YUP.App.Helpers"
+        WindowStyle="None" ResizeMode="NoResize"
+        AllowsTransparency="False" 
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto" 
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
         >
-    
-    <Window.DataContext>
+
+
+
+        <Window.DataContext>
         <local:MainWindowViewModel></local:MainWindowViewModel>
     </Window.DataContext>
-    
+
     <Window.Resources>
-        <DataTemplate DataType="{x:Type videos:VideosViewModel}">
-            <videos:VideosView/> 
-         </DataTemplate>
-        <DataTemplate DataType="{x:Type yupis:YupisViewModel}">
-            <yupis:YupisView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type player:PlayerViewModel}">
-            <player:PlayerView/>
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type videos:VideosViewModel}">
+                <videos:VideosView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type yupis:YupisViewModel}">
+                <yupis:YupisView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type player:PlayerViewModel}">
+                <player:PlayerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type channels:ChannelsViewModel}">
+                <channels:ChannelsView/>
+            </DataTemplate>
+        </ResourceDictionary>
 
     </Window.Resources>
-    
-    <Grid x:Name="GridMain">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"></ColumnDefinition>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <StatusBar Grid.Row="1"
-                   Grid.ColumnSpan="3"
-                   >
-            <StatusBarItem>YUP Connectivity mode</StatusBarItem>
-            <Separator Style="{StaticResource MetroStatusBarSeparator}" />
-            <StatusBarItem>Mode :</StatusBarItem>
-            <StatusBarItem Content="Offline" />
-            <!--<StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />-->
-        </StatusBar>
+        <materialDesign:DialogHost Identifier="RootDialog" Grid.Row="1">
+            <dragablz:TabablzControl AdjacentHeaderItemOffset="10" ShowDefaultAddButton="False"
+                                     ShowDefaultCloseButton="False">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController />
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem Header="Dashboard" IsSelected="True" >
+
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center" Margin="15"
+                               VerticalAlignment="Center" FontSize="38">Here Comes Dashboard - What would u like to see here ?</TextBlock>
+                        <Button Height="50" Width="150" Content="Exit" Click="ButtonBase_OnClick"></Button>
+                    </StackPanel>
+
+                        
+                </TabItem>
+                <TabItem Header="Player">
+                    <ContentControl 
+                                VerticalContentAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                Content="{Binding PlayerViewModel}" />
 
 
-        <Grid x:Name="GridControls" 
-              Grid.Column="2"
-              Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
+                </TabItem>
+                <TabItem Header="Channels" >
+                    <ContentControl 
+                                VerticalContentAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                Content="{Binding ChannelsViewModel}" />
+                </TabItem>
+                <TabItem Header="Videos">
+                    <ContentControl 
+                                VerticalContentAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                Content="{Binding VideosViewModel}" />
+                </TabItem>
+            </dragablz:TabablzControl>
+        </materialDesign:DialogHost>
 
-            <DockPanel Grid.Row="1" Margin="5">
-
-                <Button Content="Yupis"
-                        Style="{DynamicResource AccentedSquareButtonStyle}"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="yupis">
-                    <Button.LayoutTransform>
-                        <RotateTransform Angle="-90" />
-                    </Button.LayoutTransform>
-                </Button>
-
-            </DockPanel>
-
-            <DockPanel Grid.Row="0" Margin="5">
-
-                <Button Content="Members Info"
-                        Style="{DynamicResource AccentedSquareButtonStyle}"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Command="{Binding NavCommand}"
-                        CommandParameter="videos">
-                    <Button.LayoutTransform>
-                        <RotateTransform Angle="-90" />
-                    </Button.LayoutTransform>
-                </Button>
-
-            </DockPanel>
-        </Grid>
-               
-              
-        <Grid x:Name="GridDetails"
-              Grid.Column="1"
-              Grid.Row="0"
-              Width="340"
-              Height="600">
-            <ContentControl Content="{Binding CurrentDetailsViewModel}"></ContentControl>
-        </Grid>
-
-        <Grid x:Name="GridPlayer"
-              Grid.Column="0"
-              Grid.Row="0">
-            <ContentControl Content="{Binding CurrentPlayerViewModel}"></ContentControl>
-        </Grid>
+        <DockPanel Grid.Row="0" Name="titleBar"
+                                DockPanel.Dock="Top"
+                                Height="10"
+                                Background="{DynamicResource PrimaryHueMidBrush}">
+        </DockPanel>
 
     </Grid>
-</Controls:MetroWindow>
+</Window>

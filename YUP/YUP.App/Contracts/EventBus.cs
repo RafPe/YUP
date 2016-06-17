@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YUP.App.Services;
 
 namespace YUP.App.Contracts
@@ -11,7 +8,7 @@ namespace YUP.App.Contracts
 
     public class EventBusArgs : EventArgs
     {
-        public string Item { get; set; }
+        public object Item { get; set; }
     }
 
     public class EventBus : IEventBus

@@ -1,13 +1,23 @@
-﻿namespace YUP.App.Models
-{
-    public class YTChannel
-    {
-        public string   channelId               { get; set; }
-        public string   channelUser             { get; set; }
-        public string   channelFriendlyName     { get; set; }
+﻿using System;
+using YUP.App.Base;
 
-        public bool     isFavorite              { get; set; }
-        public bool     isHidden                { get; set; }
-        public bool     isSelected              { get; set; } //Used for multiple items editing 
+namespace YUP.App.Models
+{
+    public class YTChannel : YtBase
+    {
+
+        public string   user             { get; set; }
+        public string   friendlyName     { get; set; }
+        public string   videosCount      { get; set; }
+        public DateTime dtAdded          { get; set; }
+
+        public YTChannel()
+        {
+            user            = "";
+            friendlyName    = "";
+            description     = "";
+            category        = "";
+            tags            = new[] {""};
+        }
     }
 }

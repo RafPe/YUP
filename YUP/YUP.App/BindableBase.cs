@@ -22,4 +22,5 @@ namespace YUP.App
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
     }
+
 }

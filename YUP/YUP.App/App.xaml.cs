@@ -1,11 +1,14 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using Autofac;
+using CefSharp;
 using YUP.App.Contracts;
 using YUP.App.MediaPlayers;
-using YUP.App.Player;
 using YUP.App.Services;
-using YUP.App.Videos;
-using YUP.App.Yupis;
+using YUP.App.vChannels;
+using YUP.App.vPlayer;
+using YUP.App.vVideos;
+using YUP.App.vYupis;
 
 namespace YUP.App
 {
@@ -22,33 +25,70 @@ namespace YUP.App
         {
             base.OnStartup(e);
 
+
+            var cefSettings = new CefSharp.CefSettings
+            {
+                //PackLoadingDisabled = true
+            };
+            cefSettings.CefCommandLineArgs.Add("disable-gpu", "1");
+            cefSettings.CefCommandLineArgs.Add("disable-gpu-vsync", "1");
+
+
+            Cef.Initialize(cefSettings);
+
+
             // Create our DI container and build it 
             ContainerHelper.InitializeBuilder();
-
+            ContainerHelper.Builder.Register(c => new EventBus()).As<IEventBus>().SingleInstance();
+            ContainerHelper.Builder.Register(c => new YupSettings()).As<IYupSettings>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YupRepository>().As<IYupRepository>().SingleInstance();
-            ContainerHelper.Builder.Register(c=>new YupSettings()).As<IYupSettings>().SingleInstance();
             ContainerHelper.Builder.RegisterType<YtManager>().As<IYtManager>();
-            ContainerHelper.Builder.Register(c=>new EventBus()).As<IEventBus>().SingleInstance();
+            ContainerHelper.Builder.Register(c => new HoldingBay()).As<IHoldingBay>().SingleInstance();
+
 
             //TODO: Register players named ? 
             ContainerHelper.Builder.RegisterType<FlashAxControl>().Named<IMediaPlayer>("youtube").SingleInstance();
 
             //TODO: Think if we want to register ViewModel classes as singleton instances ?!
-            ContainerHelper.Builder.RegisterType<VideosViewModel>().SingleInstance();
-            ContainerHelper.Builder.RegisterType<YupisViewModel>().SingleInstance();
-            ContainerHelper.Builder.RegisterType<PlayerViewModel>().SingleInstance();
+            ContainerHelper.Builder.RegisterType<VideosViewModel>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            ContainerHelper.Builder.RegisterType<YupisViewModel>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            ContainerHelper.Builder.RegisterType<PlayerViewModel>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            ContainerHelper.Builder.RegisterType<ChannelsViewModel>()
+                .AsSelf()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+
             //TODO: Register all external services here .....
             ContainerHelper.SetAutofacContainer();
 
-            //TODO: We load settings before app starts!?
-            using (var scope = ContainerHelper.Container.BeginLifetimeScope())
+            var repository = ContainerHelper.GetService<IYupRepository>();
+            repository.LoadRepository();
+
+            var eventsReg = ContainerHelper.Container.Resolve<IEnumerable<IEventRegistrator>>();
+
+            foreach (IEventRegistrator eventRegistrator in eventsReg)
             {
-                
-                var service = scope.Resolve<IYupSettings>();
-
-                service.checkAppFolderPath();
-
+                eventRegistrator.PublishEvents();
             }
+
+            foreach (IEventRegistrator eventRegistrator in eventsReg)
+            {
+                eventRegistrator.SubscribeEvents();
+            }
+
+
+            var settings = ContainerHelper.GetService<IYupSettings>();
+            settings.checkAppFolderPath();
+            settings.loadAppSettings();
 
             // Create our main window - since we removed startup URI
             YUP.App.MainWindow wnd = new MainWindow();

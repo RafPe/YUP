@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Remoting;
+using System.Linq;
 using Newtonsoft.Json;
+using YUP.App.Base;
+using YUP.App.Events;
 using YUP.App.Models;
 using YUP.App.Services;
 
@@ -10,24 +12,44 @@ namespace YUP.App.Contracts
 {
     public class YupRepository : IYupRepository
     {
-        private IYupSettings _yupSettings;
+        #region IoC 
+        private IYupSettings             _yupSettings;
+        private IEventBus                _eventBus;
+        #endregion
 
-        public  IEnumerable<YTVideo>   ytVideos             { get; set; }
-        public  IEnumerable<YupItem>   yupItems             { get; set; }
-        public  IEnumerable<YTChannel> ytChannels           { get; set; }
+        #region Public properties
 
-        private string                  jsonChannelsPath    { get; set; }
+        public AppRepository     appRepo { get; set; }
 
-        public YupRepository(IYupSettings yupSettings)
+        #endregion
+
+        #region cTor
+        public YupRepository(IYupSettings yupSettings, IEventBus eventBus)
         {
             _yupSettings        = yupSettings;
+            _eventBus           = eventBus;
 
-            jsonChannelsPath    = String.Format(@"{0}\channels.yup", _yupSettings.appPath);
+            this.LoadRepository();
+
         }
+        #endregion  
 
+        #region Repository actions
+
+        /// <summary>
+        /// Loads repository from storage
+        /// </summary>
         public void LoadRepository()
         {
-           
+            // If our settings file does not exist let's create it
+            if (!File.Exists($@"{_yupSettings.appPath}\{AppBase.fileRepository}")) SaveRepository();
+
+            var loadedRepository = JsonConvert.DeserializeObject<AppRepository>(File.ReadAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}"));
+
+            if (!loadedRepository.categories.Contains("default")) loadedRepository.categories.Add("default");
+
+            // Assign values from loaded repository
+            appRepo = loadedRepository;
         }
 
         /// <summary>
@@ -35,49 +57,105 @@ namespace YUP.App.Contracts
         /// </summary>
         public void SaveRepository()
         {
+            if(ReferenceEquals(appRepo,null)) appRepo = new AppRepository();
 
-            // Save channels 
-            if (!ReferenceEquals(null, ytChannels))
-            {
-                var jsonChannels     = JsonConvert.SerializeObject(ytChannels);
-                
-                File.WriteAllText(jsonChannelsPath, jsonChannels);
-            }
+            File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", JsonConvert.SerializeObject(appRepo) );
         }
 
-        public void AddChannel()
+        #endregion
+
+        #region Channels
+
+        /// <summary>
+        /// Adds new youtube channel to our repository
+        /// </summary>
+        /// <param name="channel">Defined youtube channel</param>
+        public void AddChannel(YTChannel channel)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(channel, null)) return;
+
+            appRepo.ytChannels.Add(channel);
+
+            _eventBus.RaiseEvent(EventOnBus.channelAdded, this, new EventBusArgs() { Item = channel });
         }
 
-        public void Editchannel()
+        public void Editchannel(YTChannel channel)
         {
-            throw new NotImplementedException();
+            //TODO ? Do we need to edit channels ? 
         }
 
-        public void RemoveChannel()
+        /// <summary>
+        /// Removes youtube channel from our repository
+        /// </summary>
+        /// <param name="channel">Channel to be removed </param>
+        public void RemoveChannel(YTChannel channel)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(channel, null)) return;
+
+            appRepo.ytChannels.Remove(channel);
+
+            _eventBus.RaiseEvent(EventOnBus.channelRemoved, this, new EventBusArgs() { Item = channel });
         }
 
-        public void LoadYupis()
+        public List<YTChannel> GetAllYtChannels()
         {
-            throw new NotImplementedException();
+            return appRepo.ytChannels;
         }
 
-        public void AddYupi()
+        #endregion
+
+        #region Yupis
+
+        /// <summary>
+        /// Adds yupi to our repository
+        /// </summary>
+        /// <param name="yupi">Yupi to be added</param>
+        public void AddYupi(YupItem yupi)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(yupi, null)) return;
+
+            appRepo.yupItems.Add(yupi);
         }
 
-        public void EditYupi()
+        public void EditYupi(YupItem yupi)
         {
-            throw new NotImplementedException();
+            //TODO # We need to do edit of yupis
         }
 
-        public void RemoveYupi()
+        /// <summary>
+        /// Removes yupi from our repository
+        /// </summary>
+        /// <param name="yupi">Yupi to be removed</param>
+        public void RemoveYupi(YupItem yupi)
         {
-            throw new NotImplementedException();
+            if (ReferenceEquals(yupi, null)) return;
+
+            appRepo.yupItems.Remove(yupi);
         }
+        #endregion
+
+        #region Category
+
+        public void AddCategory(string cat)
+        {
+            appRepo.categories.Add(cat);
+        }
+
+        public List<string> GetAllCategories()
+        {
+            return appRepo.categories;
+        }
+
+        public void EditCategory(string cat, string newCat)
+        {
+            appRepo.categories[appRepo.categories.FindIndex(ind => ind.Equals(cat))] = newCat;
+        }
+
+        public void RemoveCategory(string cat)
+        {
+            appRepo.categories.Remove(cat);
+        }
+
+        #endregion
     }
 }

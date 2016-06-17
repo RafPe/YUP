@@ -5,21 +5,22 @@ namespace YUP.App.Services
 {
     public interface IYupRepository
     {
-        IEnumerable<YTVideo>   ytVideos         { get; set; }
-        IEnumerable<YupItem>   yupItems         { get; set; } 
-        IEnumerable<YTChannel> ytChannels       { get; set; } 
-
         void LoadRepository();
         void SaveRepository();
 
-        void AddChannel();
-        void Editchannel();
-        void RemoveChannel();
+        void AddChannel(YTChannel channel);
+        void Editchannel(YTChannel channel);
+        void RemoveChannel(YTChannel channel);
+        List<YTChannel> GetAllYtChannels(); 
 
-        void LoadYupis();
-        void AddYupi();
-        void EditYupi();
-        void RemoveYupi();
+        void AddYupi(YupItem yupi);
+        void EditYupi(YupItem yupi);
+        void RemoveYupi(YupItem yupi);
+
+        void AddCategory(string cat);
+        List<string> GetAllCategories();
+        void EditCategory(string cat, string newCat);
+        void RemoveCategory(string cat);
 
     }
 }
