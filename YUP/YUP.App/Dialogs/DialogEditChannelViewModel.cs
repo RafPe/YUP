@@ -27,14 +27,16 @@ namespace YUP.App.Dialogs
         }
 
         public RelayCommand cmdAddChannelTag { get; private set; }
-
-        public DialogHost dgDialogHost { get; set; }
+        
+        public ObservableCollection<string> ocChannelTags { get; set; } 
 
         public string txtTag { get; set; }
 
         public DialogEditChannelViewModel()
         {
             RegisterRelayCommand();
+
+            ocChannelTags = new ObservableCollection<string>();
 
             this.useHoldingBay = true;
 
@@ -47,6 +49,8 @@ namespace YUP.App.Dialogs
         public DialogEditChannelViewModel(YTChannel newYtChannel)
         {
             RegisterRelayCommand();
+
+            ocChannelTags = new ObservableCollection<string>();
 
             NewYtChannel = newYtChannel;
 
@@ -64,9 +68,9 @@ namespace YUP.App.Dialogs
         private async void onCmdAddChannelTag()
         {
             //let's set up a little MVVM, cos that's what the cool kids are doing:
-            var view = new DialogAddTag();
+            var view = new DialogAddTag()
             {
-
+                DataContext = this
             };
 
             //show the dialog
@@ -75,6 +79,8 @@ namespace YUP.App.Dialogs
             if (!ReferenceEquals(null, txtTag))
             {   
                 NewYtChannel.tags.Add(txtTag);
+
+                ocChannelTags.Add(txtTag);
 
                 txtTag = "";
             }

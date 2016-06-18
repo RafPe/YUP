@@ -198,8 +198,14 @@
                             </Grid.RowDefinitions>
                             <ListBox x:Name="channelTags" 
                                      Grid.RowSpan="2"
-                                     ItemsSource="{Binding NewYtChannel.tags}"
+                                     ItemsSource="{Binding ocChannelTags}"
                                      >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=.}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                
                             </ListBox>
                             <wpf:ColorZone Mode="PrimaryMid" Grid.Row="2" Effect="{DynamicResource MaterialDesignShadowDepth5}">
                                 <TextBlock Margin="16">tags</TextBlock>
