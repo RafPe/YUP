@@ -33,6 +33,8 @@ namespace YUP.App.vVideos
         public string SearchBoxTerm { get; set; } = "";
 
         public RelayCommand SearchBoxCmd                    { get; private set; }
+
+        //TODO: Remove this ....
         public RelayCommand                     test        { get; private set; }
 
         public ObservableCollection<string>     Categories  { get; set; } 

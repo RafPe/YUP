@@ -228,7 +228,7 @@ namespace YUP.App.vChannels
             };
 
             //show the dialog
-            bool result = (bool)await DialogHost.Show(view, "RootDialog");
+            bool result = (bool)await DialogHost.Show(view, DialogHostId.MAINWiNDOW_ROOT);
 
             // User cliked cancel - so we dont edit this channel
             if (!result)
@@ -264,7 +264,7 @@ namespace YUP.App.vChannels
             };
 
             //show the dialog
-            bool result = (bool) await DialogHost.Show(view, "RootDialog");
+            bool result = (bool) await DialogHost.Show(view, DialogHostId.MAINWiNDOW_ROOT);
 
             if (result)
             {

@@ -1,4 +1,5 @@
-﻿using YUP.App.Base;
+﻿using System;
+using YUP.App.Base;
 using YUP.App.Models;
 using YUP.App.Services;
 
@@ -22,6 +23,8 @@ namespace YUP.App.Dialogs
             }
         }
 
+        public RelayCommand cmdAddChannelTag { get; private set; }
+
         public DialogEditChannelViewModel()
         {
             this.useHoldingBay = true;
@@ -37,5 +40,15 @@ namespace YUP.App.Dialogs
             NewYtChannel = newYtChannel;
         }
 
+
+        private void RegisterRelayCommand()
+        {
+            cmdAddChannelTag = new RelayCommand(onCmdAddChannelTag);
+        }
+
+        private void onCmdAddChannelTag()
+        {
+
+        }
     }
 }
