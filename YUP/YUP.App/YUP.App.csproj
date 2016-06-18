@@ -183,6 +183,9 @@
     <Compile Include="Contracts\YupRepository.cs" />
     <Compile Include="Contracts\YupSettings.cs" />
     <Compile Include="CustomBehaviors.cs" />
+    <Compile Include="Dialogs\DialogAddTag.xaml.cs">
+      <DependentUpon>DialogAddTag.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\DialogEditChannel.xaml.cs">
       <DependentUpon>DialogEditChannel.xaml</DependentUpon>
     </Compile>
@@ -238,6 +241,10 @@
       <DependentUpon>YupisView.xaml</DependentUpon>
     </Compile>
     <Compile Include="vYupis\YupisViewModel.cs" />
+    <Page Include="Dialogs\DialogAddTag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\DialogEditChannel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

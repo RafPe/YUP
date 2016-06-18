@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows.Forms;
+using MaterialDesignThemes.Wpf;
 using YUP.App.Base;
 using YUP.App.Models;
 using YUP.App.Services;
@@ -25,8 +28,14 @@ namespace YUP.App.Dialogs
 
         public RelayCommand cmdAddChannelTag { get; private set; }
 
+        public DialogHost dgDialogHost { get; set; }
+
+        public string txtTag { get; set; }
+
         public DialogEditChannelViewModel()
         {
+            RegisterRelayCommand();
+
             this.useHoldingBay = true;
 
             _holdingBay = ContainerHelper.GetService<IHoldingBay>();
@@ -37,17 +46,38 @@ namespace YUP.App.Dialogs
 
         public DialogEditChannelViewModel(YTChannel newYtChannel)
         {
+            RegisterRelayCommand();
+
             NewYtChannel = newYtChannel;
+
         }
 
-
+        /// <summary>
+        /// With this method we register all our RelayCommands 
+        /// Useful when having more than 1 constructor
+        /// </summary>
         private void RegisterRelayCommand()
         {
             cmdAddChannelTag = new RelayCommand(onCmdAddChannelTag);
         }
 
-        private void onCmdAddChannelTag()
+        private async void onCmdAddChannelTag()
         {
+            //let's set up a little MVVM, cos that's what the cool kids are doing:
+            var view = new DialogAddTag();
+            {
+
+            };
+
+            //show the dialog
+            bool result = (bool)await DialogHost.Show(view, DialogHostId.CHANNEL_EDIT_TAGS);
+
+            if (!ReferenceEquals(null, txtTag))
+            {   
+                NewYtChannel.tags.Add(txtTag);
+
+                txtTag = "";
+            }
 
         }
     }

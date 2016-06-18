@@ -1,4 +1,6 @@
-﻿namespace YUP.App.Base
+﻿using System.Collections.Generic;
+
+namespace YUP.App.Base
 {
     public class YtBase
     {
@@ -16,6 +18,6 @@
         public float                            rating              { get; set; }
 
         public string                           category            { get; set; }  
-        public string[]                         tags                { get; set; }
+        public List<string>                     tags                { get; set; }
     }
 }

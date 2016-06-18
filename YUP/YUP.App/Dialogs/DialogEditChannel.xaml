@@ -154,16 +154,20 @@
                                 Margin="0,10,0,0"
                                 Grid.RowSpan="4"
                                 Grid.Column="1" HorizontalAlignment="Center" 
-                                VerticalAlignment="Center">
-                    <wpf:DialogHost.DialogContent>
+                                VerticalAlignment="Center"
+                                Identifier="CHANNEL_EDIT_TAGS">
+                    <!--<wpf:DialogHost.DialogContent>
                         <StackPanel Margin="16">
                             <TextBlock>Add a new tag.</TextBlock>
-                            <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" x:Name="TagTextBox" />
+                            <TextBox Margin="0 8 0 0" 
+                                     HorizontalAlignment="Stretch" 
+                                     x:Name="TagTextBox"
+                                     Text="{Binding txtTag}"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                                 <Button Style="{StaticResource MaterialDesignFlatButton}"
                                        IsDefault="True"
                                        Margin="0 8 8 0"
-                                       Command="wpf:DialogHost.CloseDialogCommand">
+                                       Command="{Binding cmdAddChannelTag}">
                                     <Button.CommandParameter>
                                         <system:Boolean>True</system:Boolean>
                                     </Button.CommandParameter>
@@ -180,7 +184,7 @@
                                 </Button>
                             </StackPanel>
                         </StackPanel>
-                    </wpf:DialogHost.DialogContent>
+                    </wpf:DialogHost.DialogContent>-->
 
                     <Border BorderThickness="1" 
                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
@@ -201,7 +205,7 @@
                                 <TextBlock Margin="16">tags</TextBlock>
                             </wpf:ColorZone>
                             <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"                                
-                                   Command="{x:Static wpf:DialogHost.OpenDialogCommand}"
+                                   Command="{Binding cmdAddChannelTag}"
                                    VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                                    Grid.Row="1" Margin="0,0,28,28" Grid.RowSpan="2">
                                 <Viewbox Width="22" Height="22">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using YUP.App.Base;
 
 namespace YUP.App.Models
@@ -17,7 +18,6 @@ namespace YUP.App.Models
             friendlyName    = "";
             description     = "";
             category        = "";
-            tags            = new[] {""};
-        }
+            tags            = new List<string>();        }
     }
 }
