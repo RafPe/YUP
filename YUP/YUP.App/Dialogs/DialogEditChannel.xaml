@@ -154,11 +154,11 @@
                                 Margin="0,10,0,0"
                                 Grid.RowSpan="4"
                                 Grid.Column="1" HorizontalAlignment="Center" 
-                               VerticalAlignment="Center">
+                                VerticalAlignment="Center">
                     <wpf:DialogHost.DialogContent>
                         <StackPanel Margin="16">
-                            <TextBlock>Add a new fruit.</TextBlock>
-                            <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" x:Name="FruitTextBox" />
+                            <TextBlock>Add a new tag.</TextBlock>
+                            <TextBox Margin="0 8 0 0" HorizontalAlignment="Stretch" x:Name="TagTextBox" />
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                                 <Button Style="{StaticResource MaterialDesignFlatButton}"
                                        IsDefault="True"
@@ -192,13 +192,13 @@
                                 <RowDefinition Height="151*"/>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <ListBox x:Name="FruitListBox" Grid.RowSpan="2">
-                                <ListBoxItem>Apple</ListBoxItem>
-                                <ListBoxItem>Banana</ListBoxItem>
-                                <ListBoxItem>Pear</ListBoxItem>
+                            <ListBox x:Name="channelTags" 
+                                     Grid.RowSpan="2"
+                                     ItemsSource="{Binding NewYtChannel.tags}"
+                                     >
                             </ListBox>
                             <wpf:ColorZone Mode="PrimaryMid" Grid.Row="2" Effect="{DynamicResource MaterialDesignShadowDepth5}">
-                                <TextBlock Margin="16">Fruit Bowl</TextBlock>
+                                <TextBlock Margin="16">tags</TextBlock>
                             </wpf:ColorZone>
                             <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"                                
                                    Command="{x:Static wpf:DialogHost.OpenDialogCommand}"

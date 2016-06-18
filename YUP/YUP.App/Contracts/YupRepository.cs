@@ -57,6 +57,8 @@ namespace YUP.App.Contracts
         {
             if(ReferenceEquals(appRepo,null)) appRepo = new AppMediaRepository();
 
+            _yupSettings.checkAppFolderPath();
+
             File.WriteAllText($@"{_yupSettings.appPath}\{AppBase.fileRepository}", JsonConvert.SerializeObject(appRepo) );
         }
 
