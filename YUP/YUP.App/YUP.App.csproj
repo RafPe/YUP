@@ -172,7 +172,8 @@
     </ApplicationDefinition>
     <Compile Include="Base\AppBase.cs" />
     <Compile Include="Base\AppSettingItem.cs" />
-    <Compile Include="Base\DialogHostIds.cs" />
+    <Compile Include="Base\DialogHostId.cs" />
+    <Compile Include="Base\HoldingBayItem.cs" />
     <Compile Include="Base\YtBase.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="ContainerHelper.cs" />

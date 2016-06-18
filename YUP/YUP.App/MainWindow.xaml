@@ -57,7 +57,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <materialDesign:DialogHost Identifier="RootDialog" Grid.Row="1">
+        <materialDesign:DialogHost Identifier="MAINWiNDOW_ROOT" Grid.Row="1">
             <dragablz:TabablzControl AdjacentHeaderItemOffset="10" 
                                      HorizontalContentAlignment="Stretch"
                                      ShowDefaultAddButton="False"

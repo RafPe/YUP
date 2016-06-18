@@ -1,4 +1,5 @@
-﻿using YUP.App.Models;
+﻿using YUP.App.Base;
+using YUP.App.Models;
 using YUP.App.Services;
 
 namespace YUP.App.Dialogs
@@ -17,7 +18,7 @@ namespace YUP.App.Dialogs
             {
                 _NewYtChannel = value;
 
-                if(useHoldingBay) _holdingBay.AddEntry("CHANNEL_NEW",value); // We update our existing object
+                if(useHoldingBay) _holdingBay.AddEntry(HoldingBayItem.CHANNEL_NEW, value); // We update our existing object
             }
         }
 
@@ -27,7 +28,7 @@ namespace YUP.App.Dialogs
 
             _holdingBay = ContainerHelper.GetService<IHoldingBay>();
 
-            NewYtChannel = (YTChannel) _holdingBay.GetEntry("CHANNEL_NEW",false); // do not remove object from our repo
+            NewYtChannel = (YTChannel) _holdingBay.GetEntry(HoldingBayItem.CHANNEL_NEW, false); // do not remove object from our repo
 
         }
 

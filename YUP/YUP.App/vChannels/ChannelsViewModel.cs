@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Data;
 using Google.Apis.YouTube.v3.Data;
 using MaterialDesignThemes.Wpf;
+using YUP.App.Base;
 using YUP.App.Contracts;
 using YUP.App.Dialogs;
 using YUP.App.Events;
@@ -160,7 +161,7 @@ namespace YUP.App.vChannels
                 At this stage we have channel so we can push it into our holding bay.
                 Probably there is a better way to do it - just havent discovered it yet :) 
             */
-            _holdingbay.AddEntry("CHANNEL_NEW",chann);
+            _holdingbay.AddEntry(HoldingBayItem.CHANNEL_NEW, chann);
 
             //let's set up a little MVVM, cos that's what the cool kids are doing:
             var view = new DialogEditChannel()
@@ -169,11 +170,11 @@ namespace YUP.App.vChannels
             };
 
             //show the dialog
-            bool result = (bool)await DialogHost.Show(view, "RootDialog");
+            bool result = (bool)await DialogHost.Show(view, DialogHostId.MAINWiNDOW_ROOT);
 
             if (!result) return;    // User cliked cancel - so we dont add this channel
 
-            chann = (YTChannel) _holdingbay.GetEntry("CHANNEL_NEW");
+            chann = (YTChannel) _holdingbay.GetEntry(HoldingBayItem.CHANNEL_NEW);
 
             _yupRepository.AddChannel(chann);
             _yupRepository.SaveRepository();
