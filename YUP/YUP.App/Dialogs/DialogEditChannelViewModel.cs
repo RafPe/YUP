@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Forms;
 using MaterialDesignThemes.Wpf;
 using YUP.App.Base;
+using YUP.App.Helpers;
 using YUP.App.Models;
 using YUP.App.Services;
 
@@ -28,7 +30,10 @@ namespace YUP.App.Dialogs
 
         public RelayCommand cmdAddChannelTag { get; private set; }
         
-        public ObservableCollection<string> ocChannelTags { get; set; } 
+        public ObservableCollection<string> ocChannelTags { get; set; }
+
+        public ObservableCollection<string> ocCategories { get; set; }
+
 
         public string txtTag { get; set; }
 
@@ -37,6 +42,10 @@ namespace YUP.App.Dialogs
             RegisterRelayCommand();
 
             ocChannelTags = new ObservableCollection<string>();
+
+            // TODO try catch ?
+            ocCategories = new ObservableCollection<string>();
+            ocCategories.AddRange(ContainerHelper.GetService<IYupRepository>().GetAllCategories().ToList() );
 
             this.useHoldingBay = true;
 
@@ -51,6 +60,10 @@ namespace YUP.App.Dialogs
             RegisterRelayCommand();
 
             ocChannelTags = new ObservableCollection<string>();
+
+            // TODO try catch ?
+            ocCategories = new ObservableCollection<string>();
+            ocCategories.AddRange(ContainerHelper.GetService<IYupRepository>().GetAllCategories().ToList());
 
             NewYtChannel = newYtChannel;
 
