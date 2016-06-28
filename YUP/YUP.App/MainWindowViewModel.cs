@@ -11,17 +11,10 @@ namespace YUP.App
 
         private IYupSettings _yupSettings;
 
-        /*
-            //TODO: UI-002
-            This is a bit of against good practice since we 
-            should not have seperated properties for each of the view 
-            --- however since I switched to tabs this approach needs to be 
-            revisited carefully 
-
-        */
+        #region Tab views
 
         private BindableBase _DashboardViewModel;
-        public  BindableBase DashboardViewModel
+        public BindableBase DashboardViewModel
         {
             get
             {
@@ -31,7 +24,7 @@ namespace YUP.App
         }
 
         private BindableBase _PlayerViewModel;
-        public  BindableBase PlayerViewModel
+        public BindableBase PlayerViewModel
         {
             get
             {
@@ -42,7 +35,7 @@ namespace YUP.App
 
 
         private BindableBase _VideosViewModel;
-        public  BindableBase VideosViewModel
+        public BindableBase VideosViewModel
         {
             get
             {
@@ -52,7 +45,7 @@ namespace YUP.App
         }
 
         private BindableBase _ChannelsViewModel;
-        public  BindableBase ChannelsViewModel
+        public BindableBase ChannelsViewModel
         {
             get
             {
@@ -62,7 +55,7 @@ namespace YUP.App
         }
 
         private BindableBase _YuipsViewModel;
-        public  BindableBase YuipsViewModel
+        public BindableBase YuipsViewModel
         {
             get
             {
@@ -71,7 +64,49 @@ namespace YUP.App
             set { SetProperty(ref _YuipsViewModel, value); }
         }
 
+        #endregion
 
+        #region Single View
+
+        private BindableBase _MainAppViewModel;
+        public BindableBase MainAppViewModel
+        {
+            get
+            {
+                return _MainAppViewModel;
+            }
+            set { SetProperty(ref _MainAppViewModel, value); }
+        }
+
+        #endregion
+
+        public RelayCommand<string> NavCommand
+        {
+            get;
+            private set;
+        }
+
+        private void OnNav(string destination)
+        {
+            switch (destination)
+            {
+                case "yupis":
+                    MainAppViewModel = ContainerHelper.GetService<YupisViewModel>();
+                    break;
+                case "videos":
+                    MainAppViewModel = ContainerHelper.GetService<VideosViewModel>();
+                    break;
+                case "channels":
+                    MainAppViewModel = ContainerHelper.GetService<ChannelsViewModel>();
+                    break;
+                case "player":
+                    MainAppViewModel = ContainerHelper.GetService<PlayerViewModel>();
+                    break;
+                default:
+                    break;
+            }
+
+        }
 
 
 
@@ -85,7 +120,9 @@ namespace YUP.App
             _ChannelsViewModel = ContainerHelper.GetService<ChannelsViewModel>();
             _PlayerViewModel   = ContainerHelper.GetService<PlayerViewModel>();
 
-            //_DashboardViewModel = ContainerHelper.GetService<DashboardViewModel>();
+
+            NavCommand = new RelayCommand<string>(OnNav);
+            _MainAppViewModel = ContainerHelper.GetService<PlayerViewModel>();
         }
     }
 }

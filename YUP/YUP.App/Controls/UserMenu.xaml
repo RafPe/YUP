@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="YUP.App.Controls.UserMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:YUP.App.Controls"
+             xmlns:controls="clr-namespace:RadialMenu.Controls;assembly=RadialMenu"
+             mc:Ignorable="d" 
+             d:DesignHeight="1130" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <DockPanel Dock="Left" Grid.Row="0">
+            <Image Source="https://familyguyaddicts.files.wordpress.com/2015/01/steriod-stewie.png"></Image>
+            <StackPanel>
+                <TextBlock Text="TwojUsernam" FontSize="33"></TextBlock>
+                <TextBlock Text="TwojUsernam" FontSize="33"></TextBlock>
+            </StackPanel>
+        </DockPanel>
+
+        <controls:RadialMenu IsOpen="True" Grid.Row="1" Margin="-1,0,1,0">
+
+            <controls:RadialMenu.CentralItem>
+                <controls:RadialMenuCentralItem Command="{Binding CloseRadialMenu1}">
+                </controls:RadialMenuCentralItem>
+            </controls:RadialMenu.CentralItem>
+
+            <controls:RadialMenuItem Command="{Binding Test1}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25">
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Exit
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding NavCommand}" CommandParameter="channels">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25">
+
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Channels
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding NavCommand}" CommandParameter="videos">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="23" Height="25">
+
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Videos
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding NavCommand}" CommandParameter="yupis">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="20" Height="25">
+
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Favorites
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding Test5}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="20" Height="25">
+
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Settings
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding Test6}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="19" Height="26">
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Search
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+        </controls:RadialMenu>
+
+
+    </Grid>
+</UserControl>

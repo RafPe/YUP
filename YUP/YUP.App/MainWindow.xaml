@@ -11,10 +11,12 @@
         Height="770"
         xmlns:videos="clr-namespace:YUP.App.vVideos"
         xmlns:yupis="clr-namespace:YUP.App.vYupis"
+        xmlns:yupcontrols="clr-namespace:YUP.App.Controls"
         xmlns:player="clr-namespace:YUP.App.vPlayer"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         xmlns:helpers="clr-namespace:YUP.App.Helpers"
+        xmlns:controls="clr-namespace:RadialMenu.Controls;assembly=RadialMenu"
         WindowStyle="None" ResizeMode="NoResize"
         AllowsTransparency="False" 
         Background="{DynamicResource MaterialDesignPaper}"
@@ -52,13 +54,168 @@
         </ResourceDictionary>
 
     </Window.Resources>
-    <Grid>
+    
+    
+    <materialDesign:DialogHost Identifier="MAINWiNDOW_ROOT" Grid.Row="1">
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+
+                <ContentControl x:Name="ctrlion">
+                    <yupcontrols:UserMenu></yupcontrols:UserMenu>
+                </ContentControl>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <DockPanel>
+                <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          Mode="PrimaryMid" DockPanel.Dock="Top">
+                    <DockPanel>
+                        <ToggleButton  IsChecked="False"
+                                      x:Name="MenuToggleButton"/>
+                        <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                            <StackPanel>
+                                <Button Content="Hello World" />
+                                <Button Content="Nice Popup" />
+                                <Button Content="Goodbye" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">YUP</TextBlock>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+                <ContentControl Margin="16" Content="{Binding ElementName=DemoItemsListBox, Path=SelectedItem.Content}" />
+            </DockPanel>
+        </materialDesign:DrawerHost>
+
+
+    </materialDesign:DialogHost>
+</Window>
+
+
+
+
+<!--<Grid x:Name="grd_MainWindows_Root">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="3*"/>
+        <ColumnDefinition Width="350"/>
+    </Grid.ColumnDefinitions>
+
+    <ContentControl     Grid.Column="0" Grid.Row="1"
+                                VerticalContentAlignment="Stretch" 
+                                HorizontalContentAlignment="Stretch" 
+                                Content="{Binding MainAppViewModel}" />
+
+    <Grid x:Name="grd_MainWindow_Controls" Grid.Column="1" Grid.Row="1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <materialDesign:DialogHost Identifier="MAINWiNDOW_ROOT" Grid.Row="1">
-            <dragablz:TabablzControl AdjacentHeaderItemOffset="10" 
+        <StackPanel>
+            <materialDesign:PackIcon Grid.Row="3" Grid.Column="0"
+                                             Kind="Comment" Foreground="{Binding ElementName=CommentTextBox, Path=BorderBrush}" />
+            <TextBox Grid.Row="3" Grid.Column="1" 		
+				 x:Name="CommentTextBox"
+				 materialDesign:TextFieldAssist.Hint="Comment"
+				    />
+        </StackPanel>
+        <controls:RadialMenu IsOpen="True" Grid.Column="1" Grid.Row="1">
+
+            <controls:RadialMenu.CentralItem>
+                <controls:RadialMenuCentralItem Command="{Binding CloseRadialMenu1}">
+                    <Rectangle Width="25" Height="25">
+                        --><!--<Rectangle.Fill>
+                                        -->
+                        <!--<VisualBrush Visual="{StaticResource appbar_close}"/>-->
+                        <!--
+                                    </Rectangle.Fill>--><!--
+                    </Rectangle>
+                </controls:RadialMenuCentralItem>
+            </controls:RadialMenu.CentralItem>
+
+            <controls:RadialMenuItem Command="{Binding Test1}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25">
+                        --><!--<Rectangle.Fill>
+                                        <VisualBrush Visual="{StaticResource appbar_add}"/>
+                                    </Rectangle.Fill>--><!--
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Exit
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding NavCommand}" CommandParameter="channels">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="25" Height="25">
+                        --><!--<Rectangle.Fill>
+                                        <VisualBrush Visual="{StaticResource appbar_edit}"/>
+                                    </Rectangle.Fill>--><!--
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Channels
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding NavCommand}" CommandParameter="videos">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="23" Height="25">
+                        --><!--<Rectangle.Fill>
+                                        <VisualBrush Visual="{StaticResource appbar_save}"/>
+                                    </Rectangle.Fill>--><!--
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Videos
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding NavCommand}" CommandParameter="yupis">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="20" Height="25">
+                        --><!--<Rectangle.Fill>
+                                        <VisualBrush Visual="{StaticResource appbar_delete}"/>
+                                    </Rectangle.Fill>--><!--
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Favorites
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding Test5}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="20" Height="25">
+                        --><!--<Rectangle.Fill>
+                                        <VisualBrush Visual="{StaticResource appbar_page}"/>
+                                    </Rectangle.Fill>--><!--
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Settings
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+            <controls:RadialMenuItem Command="{Binding Test6}">
+                <WrapPanel Orientation="Vertical">
+                    <Rectangle Width="19" Height="26">
+                        --><!--<Rectangle.Fill>
+                                        <VisualBrush Visual="{StaticResource appbar_upload}"/>
+                                    </Rectangle.Fill>--><!--
+                    </Rectangle>
+                    <TextBlock FontSize="14" TextAlignment="Center">
+                            Search
+                    </TextBlock>
+                </WrapPanel>
+            </controls:RadialMenuItem>
+
+        </controls:RadialMenu>
+    </Grid>
+
+
+    --><!--<dragablz:TabablzControl AdjacentHeaderItemOffset="10" 
                                      HorizontalContentAlignment="Stretch"
                                      ShowDefaultAddButton="False"
                                      ShowDefaultCloseButton="False"
@@ -68,14 +225,18 @@
                 </dragablz:TabablzControl.InterTabController>
                 <TabItem Header="Dashboard" IsSelected="True" >
 
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                    -->
+    <!--<StackPanel Orientation="Vertical" HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
                         <TextBlock HorizontalAlignment="Center" Margin="15"
                                VerticalAlignment="Center" FontSize="38">Here Comes Dashboard - What would u like to see here ?</TextBlock>
                         <Button Height="50" Width="150" Content="Exit" Click="ButtonBase_OnClick"></Button>
-                    </StackPanel>
+                    </StackPanel>-->
+    <!--
 
-                        
+
+
+
                 </TabItem>
                 <TabItem Header="Player">
                     <ContentControl 
@@ -103,14 +264,15 @@
                                 HorizontalContentAlignment="Stretch" 
                                 Content="{Binding YuipsViewModel}" />
                 </TabItem>
-            </dragablz:TabablzControl>
-        </materialDesign:DialogHost>
+            </dragablz:TabablzControl>--><!--
 
-        <DockPanel Grid.Row="0" Name="titleBar"
+
+
+
+    <DockPanel Grid.Row="0" Name="titleBar"
                                 DockPanel.Dock="Top"
                                 Height="10"
                                 Background="{DynamicResource PrimaryHueMidBrush}">
-        </DockPanel>
+    </DockPanel>
 
-    </Grid>
-</Window>
+</Grid>-->
