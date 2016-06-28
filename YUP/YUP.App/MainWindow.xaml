@@ -9,6 +9,7 @@
         Title="YUP - Youtube Universal Player"
         Width="1135"
         Height="770"
+        WindowStartupLocation="CenterScreen"
         xmlns:videos="clr-namespace:YUP.App.vVideos"
         xmlns:yupis="clr-namespace:YUP.App.vYupis"
         xmlns:yupcontrols="clr-namespace:YUP.App.Controls"
